@@ -1,0 +1,13 @@
+<c3p0-config>
+	<default-config>
+		<property name="user">lin</property>
+		<property name="password">051346</property>
+		<property name="driverClass">com.mysql.jdbc.Driver</property>
+		<property name="jdbcUrl">jdbc:mysql://localhost:3306/mychat</property>
+		<property name="initialPoolSize">10</property>
+		<property name="maxIdleTime">60</property>
+		<property name="maxPoolSize">100</property>
+		<property name="minPoolSize">10</property>
+	</default-config>
+
+</c3p0-config> 
