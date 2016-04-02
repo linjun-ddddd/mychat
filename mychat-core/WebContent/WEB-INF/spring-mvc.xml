@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd">
+	
+	<!-- <context:annotation-config/> -->
+	<!-- Maps '/' requests to the 'home' view -->
+	<mvc:view-controller path="/" view-name="home"/>
+	
+	<!-- 添加注解驱动 -->  
+	<mvc:annotation-driven />
+	 <!-- ①：对web包中的所有类进行扫描，以完成Bean创建和自动依赖注入的功能 -->
+	<context:component-scan base-package="springBase" />
+	
+	<!-- 整合velocity  -->
+  	<bean id="velocityConfigurer"  class="org.springframework.web.servlet.view.velocity.VelocityConfigurer">  
+       <property name="resourceLoaderPath"  value="/WEB-INF/view" />
+        <property name="configLocation" value="classpath:velocity.properties" /> 
+       <property name="velocityProperties">  
+           <props>  
+               <prop key="directive.foreach.counter.name">loopCounter</prop>  
+               <prop key="directive.foreach.counter.initial.value">0</prop>  
+               <prop key="input.encoding">UTF-8</prop>
+               <prop key="output.encoding">UTF-8</prop>
+           </props>  
+       </property> 
+   </bean>
+   <!-- 设置视图解析工具 -->  
+   <bean id="viewResolver"  
+       class="org.springframework.web.servlet.view.velocity.VelocityViewResolver">  
+        <!-- <property name="prefix" value="/WEB-INF/view/" /> -->
+       <!-- 避免乱码 -->  
+       <property name="contentType" value="text/html;charset=UTF-8" />  
+       <property name="exposeRequestAttributes" value="true" />  
+       <property name="exposeSessionAttributes" value="true" />  
+   </bean>  
+   
+   
+	
+	 
+</beans>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+	id="WebApp_ID" version="3.0">
+	<display-name>mychat0.3</display-name>
+	
+	<!-- spring mvc 配置 -->
+	<servlet>
+		<!-- {servlet-name} ==> /WEB-INF/{servlet-name}-servlet.xml -->
+		<servlet-name>spring-mvc</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>/WEB-INF/spring-mvc.xml</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>spring-mvc</servlet-name>
+		<!--  只能拦截有后缀的。。*.*匹配会陷入死循环 -->
+		<url-pattern>*.html</url-pattern>
+	</servlet-mapping>
+
+	<!-- spring 配置 -->
+   <context-param>
+       <param-name>contextConfigLocation</param-name>
+       <param-value>/WEB-INF/spring-context.xml</param-value>
+   </context-param>
+   <listener>
+       <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+   </listener>
+   
+   <error-page>
+   		<error-code>404</error-code>
+   		<location>/errorPage.jsp</location>
+   </error-page>
+</web-app>
