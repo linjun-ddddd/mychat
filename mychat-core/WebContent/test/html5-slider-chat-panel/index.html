@@ -13,7 +13,6 @@
 	<script src="http://libs.useso.com/js/html5shiv/3.7/html5shiv.min.js"></script>
 <![endif]-->
 <style type="text/css">
-<<<<<<< HEAD
 ul {
 	list-style-type: none;
 }
@@ -303,99 +302,6 @@ messageBox_content
 
  .pagination_container{
 	text-align: center;
-=======
-
-.top_bar{
-	background: #373a47;
-	width: 100%;
-	height: 4rem;
-}
-.top_bar .profile{
-	height: inherit;
-	line-height: 4rem;
-	padding-left: 1.2rem;
-	padding-right: 1.2rem;
-	cursor: pointer;
-	width: 16.2rem;
-	float: left;
-}
-.top_bar .profile:hover{
-	background: rgb(137, 127, 127);
-}
-.top_bar .profile span{
-	color: #b8b7ad;
-}
-.top_bar .tool_list{
-	list-style: none;
-	margin: 0px 0px 0px 18rem;
-}
-.top_bar .tool_list li{
-	cursor: pointer;
-	height: 4rem;
-	float: left;
-	line-height: 3.8rem;
-	margin-right: 1.2rem;
-}
-
-.top_bar .tool_list li img{
-	width: 3.1rem;
-	height: 3.1rem;
-	padding: 0.5rem;
-}
-.top_bar .tool_list li img:hover{
-	margin-bottom: 1rem;
-}
-.left_sider{
-	background: #373a47;
-	height: 100%;
-	width: 22rem;
-	position: absolute;
-	z-index: 999;
-	left: -22rem;
-}
-.left_sider .user_icon{
-	width: 8rem;
-	height: 14rem;
-	display: block;
-	margin: 0 auto;
-	padding: 2rem 0 4rem 0;
-} 
-.left_sider .list-group{
-	height: 100%;
-	background: gray;
-}
-.left_sider  .list-group-item{
-	margin-bottom:0.25rem;
-}
-.left_sider .loginOut{
-	width: 20rem;
-	height: 3.3rem;
-	margin: 0 auto;
-	display: block;
-	margin-top: 1.1rem;
-}
-.option_content{
-	width: 30rem;
-	height: 100%;
-	background: white;
-	float: right;
-	margin-top: -50rem;
-	z-index: 999;
-	position: relative;
-	left: 35rem;
-}
-.friendList_content{
-	background: white;
-}
-.messageBox_content{
-	background: orange;
-}
-.searchUser_content{
-	background: blue;
-}
-.otherItem_content{
-	background: yellow;
->>>>>>> branch 'version-0.3' of https://github.com/lj654548718/mychat.git
 }
 </style>
 </head>
@@ -551,13 +457,8 @@ messageBox_content
 		  	<li class='option_panel_item friendList' onclick="friendListClick()"><img src="img/panel1.png" width="46px" height="46px"></li>
 		  	<li class='option_panel_item messageBox' onclick="messageBoxClick()"><img src="img/panel2.png" width="46px" height="46px"></li>
 		  	<li class='option_panel_item searchUser' onclick="searchUserClick()"><img src="img/panel3.png" width="46px" height="46px"></li>
-<<<<<<< HEAD
 		  	<!-- <li class='option_panel_item otherItem' onclick="otherItemClick()"><img src="img/panel4.png" width="46px" height="46px"></li> -->
-=======
-		  	<li class='option_panel_item otherItem' onclick="otherItemClick()"><img src="img/panel4.png" width="46px" height="46px"></li>
->>>>>>> branch 'version-0.3' of https://github.com/lj654548718/mychat.git
 		  </ul>
-<<<<<<< HEAD
 		  <!--friendList_content-->
 		  <div class="option_content friendList_content ">
 		 	<!--标题栏-->
@@ -884,18 +785,13 @@ messageBox_content
 			<!--翻页-->
 		  </div>
 		  <!--otherItem_content-->
-=======
-		  <div class="option_content friendList_content "><h2>aaaa</h2></div>
-		  <div class="option_content messageBox_content "><h2>bbbb</h2></div>
-		  <div class="option_content searchUser_content "><h2>ccc</h2></div>
->>>>>>> branch 'version-0.3' of https://github.com/lj654548718/mychat.git
+
 		  <div class="option_content otherItem_content "><h2>dddddd</h2></div>
 		</div>
 	
 <script type="text/javascript" src='../common/js/jquery1.9.1.min.js'></script>
 <script type="text/javascript" src="js/main.js"></script>
 <script type="text/javascript">
-<<<<<<< HEAD
 function initAccordian(){
 	 var Accordion = function (el, multiple) {
         this.el = el || {};
@@ -917,9 +813,6 @@ function initAccordian(){
         ;
     };
     var accordion = new Accordion($('#accordion'), false);
-=======
-function init(){
->>>>>>> branch 'version-0.3' of https://github.com/lj654548718/mychat.git
 }
 
 
@@ -937,7 +830,6 @@ function otherItemClick(){
 	changeOptionContent($(".otherItem_content"));
 }
 function changeOptionContent(obj){
-<<<<<<< HEAD
 	closePanel();
 	$(obj).animate({left:"0rem"},300,function(){
 
@@ -978,42 +870,6 @@ function addFriend(){
 }
 //////
 initAccordian();
-=======
-	$(".option_content").each(function(index,element){
-		if ($(element).css("left")!="0rem"){
-			$(element).animate({left:"35rem"},200,function(){
-				
-			});
-		}
-	});
-	$(obj).animate({left:"0rem"},300,function(){
-
-	});
-}
-
-var isSiderOpen =false;
-var isSiderAnimating=false;
-function profileClick(){
-	if( isSiderAnimating ) return false;
-	isSiderAnimating = true;
-	if (isSiderOpen){
-		$(".left_sider").animate({left:"-22rem"},360,function(){
-			isSiderOpen = false;
-			isSiderAnimating=false;
-		});
-	}else{
-		$(".left_sider").animate({left:"0rem"},360,function(){
-			isSiderOpen = true;
-			isSiderAnimating=false;
-		});
-	}
-	
-	
-}
-
-
-init();
->>>>>>> branch 'version-0.3' of https://github.com/lj654548718/mychat.git
 </script>
 </body>
 </html>
