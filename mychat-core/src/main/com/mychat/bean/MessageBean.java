@@ -1,4 +1,4 @@
-package bean;
+package com.mychat.bean;
 
 import java.sql.SQLException;
 

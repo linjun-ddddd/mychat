@@ -1,4 +1,4 @@
- package bean;
+ package com.mychat.bean;
 
 public class UserBean {
 	String id;

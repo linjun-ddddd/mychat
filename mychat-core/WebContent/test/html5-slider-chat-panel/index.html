@@ -7,14 +7,141 @@
 <title>mychat</title><!-- 
 <link rel="stylesheet" type="text/css" href="css/normalize.css" /> -->
 <link rel="stylesheet" type="text/css" href="css/default.css">
-<!-- <link rel='stylesheet prefetch' href='http://fonts.useso.com/css?family=Open+Sans'> -->
 <link rel="stylesheet" type="text/css" href="css/styles.css">
+<link rel="stylesheet" type="text/css" href="../common/css/bootstrap3.3.6.min.css">
 <!--[if IE]>
 	<script src="http://libs.useso.com/js/html5shiv/3.7/html5shiv.min.js"></script>
 <![endif]-->
+<style type="text/css">
+
+.top_bar{
+	background: #373a47;
+	width: 100%;
+	height: 4rem;
+}
+.top_bar .profile{
+	height: inherit;
+	line-height: 4rem;
+	padding-left: 1.2rem;
+	padding-right: 1.2rem;
+	cursor: pointer;
+	width: 16.2rem;
+	float: left;
+}
+.top_bar .profile:hover{
+	background: rgb(137, 127, 127);
+}
+.top_bar .profile span{
+	color: #b8b7ad;
+}
+.top_bar .tool_list{
+	list-style: none;
+	margin: 0px 0px 0px 18rem;
+}
+.top_bar .tool_list li{
+	cursor: pointer;
+	height: 4rem;
+	float: left;
+	line-height: 3.8rem;
+	margin-right: 1.2rem;
+}
+
+.top_bar .tool_list li img{
+	width: 3.1rem;
+	height: 3.1rem;
+	padding: 0.5rem;
+}
+.top_bar .tool_list li img:hover{
+	margin-bottom: 1rem;
+}
+.left_sider{
+	background: #373a47;
+	height: 100%;
+	width: 22rem;
+	position: absolute;
+	z-index: 999;
+	left: -22rem;
+}
+.left_sider .user_icon{
+	width: 8rem;
+	height: 14rem;
+	display: block;
+	margin: 0 auto;
+	padding: 2rem 0 4rem 0;
+} 
+.left_sider .list-group{
+	height: 100%;
+	background: gray;
+}
+.left_sider  .list-group-item{
+	margin-bottom:0.25rem;
+}
+.left_sider .loginOut{
+	width: 20rem;
+	height: 3.3rem;
+	margin: 0 auto;
+	display: block;
+	margin-top: 1.1rem;
+}
+.option_content{
+	width: 30rem;
+	height: 100%;
+	background: white;
+	float: right;
+	margin-top: -50rem;
+	z-index: 999;
+	position: relative;
+	left: 35rem;
+}
+.friendList_content{
+	background: white;
+}
+.messageBox_content{
+	background: orange;
+}
+.searchUser_content{
+	background: blue;
+}
+.otherItem_content{
+	background: yellow;
+}
+</style>
 </head>
 <body>
-
+<div class='top_bar'>
+	
+	<div class="profile" onclick="profileClick()">
+		<img src="img/1.png" alt="Matthew Greenberg">
+		<span>Matthew Greenberg</span>
+	</div>
+	<ul class='tool_list'>
+		<li>
+			<img src="img/icon/1.png">
+		</li>
+		<li>
+			<img src="img/icon/2.png">
+		</li>
+		<li>
+			<img src="img/icon/3.png">
+		</li>
+	</ul>
+</div>
+<div class='left_sider'>
+	<div>
+		<img src="img/panel6.png" width="8rem" height="8rem" class="user_icon">
+	</div>
+	<div class="list-group">
+		<a href="#" class="list-group-item active">
+		    个人信息
+		</a>
+		<a  href="#" class="list-group-item">账号 &nbsp;|&nbsp; Dapibus ac facilisis in</a>
+		<a  href="#" class="list-group-item">昵称 &nbsp;|&nbsp; Dapibus ac facilisis in</a>
+		<a  href="#" class="list-group-item">性别 &nbsp;|&nbsp; Dapibus ac facilisis in</a>
+		<a  href="#" class="list-group-item">签名 &nbsp;|&nbsp; Dapibus ac facilisis in</a>
+		<button type="button" class="btn btn-danger loginOut">退出登录</button>
+	</div>
+	
+</div>
 <div class="demo">
 		  <svg class="sidebar" viewBox="0 0 330 500">
 			<path class="s-path" fill="#f0f0f0" d="M0,0 50,0 a0,250 0 1,1 0,500 L0,500" />
@@ -128,18 +255,73 @@
 			<input type="text" class="chat__input" placeholder="Your message" />
 		  </div>
 
-		  <ul class='panel'>
-		  	<li class='panel_item'><img src="img/panel1.png" width="46px" height="46px"></li>
-		  	<li class='panel_item'><img src="img/panel2.png" width="46px" height="46px"></li>
-		  	<li class='panel_item'><img src="img/panel3.png" width="46px" height="46px"></li>
-		  	<li class='panel_item'><img src="img/panel4.png" width="46px" height="46px"></li>
+		  <ul class='option_panel'>
+		  	<li class='option_panel_item friendList' onclick="friendListClick()"><img src="img/panel1.png" width="46px" height="46px"></li>
+		  	<li class='option_panel_item messageBox' onclick="messageBoxClick()"><img src="img/panel2.png" width="46px" height="46px"></li>
+		  	<li class='option_panel_item searchUser' onclick="searchUserClick()"><img src="img/panel3.png" width="46px" height="46px"></li>
+		  	<li class='option_panel_item otherItem' onclick="otherItemClick()"><img src="img/panel4.png" width="46px" height="46px"></li>
 		  </ul>
+		  <div class="option_content friendList_content "><h2>aaaa</h2></div>
+		  <div class="option_content messageBox_content "><h2>bbbb</h2></div>
+		  <div class="option_content searchUser_content "><h2>ccc</h2></div>
+		  <div class="option_content otherItem_content "><h2>dddddd</h2></div>
 		</div>
 	
-<!-- 
-<script type="text/javascript" src='js/stopExecutionOnTimeout.js?t=1'></script> -->
-<script type="text/javascript" src='js/jquery.min.js'></script>
+<script type="text/javascript" src='../common/js/jquery1.9.1.min.js'></script>
 <script type="text/javascript" src="js/main.js"></script>
+<script type="text/javascript">
+function init(){
+}
 
+
+function friendListClick(){
+	
+	changeOptionContent($(".friendList_content"));
+}
+function messageBoxClick(){
+	changeOptionContent($(".messageBox_content"));
+}
+function searchUserClick(){
+	changeOptionContent($(".searchUser_content"));
+}
+function otherItemClick(){
+	changeOptionContent($(".otherItem_content"));
+}
+function changeOptionContent(obj){
+	$(".option_content").each(function(index,element){
+		if ($(element).css("left")!="0rem"){
+			$(element).animate({left:"35rem"},200,function(){
+				
+			});
+		}
+	});
+	$(obj).animate({left:"0rem"},300,function(){
+
+	});
+}
+
+var isSiderOpen =false;
+var isSiderAnimating=false;
+function profileClick(){
+	if( isSiderAnimating ) return false;
+	isSiderAnimating = true;
+	if (isSiderOpen){
+		$(".left_sider").animate({left:"-22rem"},360,function(){
+			isSiderOpen = false;
+			isSiderAnimating=false;
+		});
+	}else{
+		$(".left_sider").animate({left:"0rem"},360,function(){
+			isSiderOpen = true;
+			isSiderAnimating=false;
+		});
+	}
+	
+	
+}
+
+
+init();
+</script>
 </body>
 </html>

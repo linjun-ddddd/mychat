@@ -1,4 +1,4 @@
-package springBase;
+package com.mychat.springTest;
 
 import java.util.ArrayList;
 import java.util.List;
