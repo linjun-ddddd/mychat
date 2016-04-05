@@ -7,14 +7,339 @@
 <title>mychat</title><!-- 
 <link rel="stylesheet" type="text/css" href="css/normalize.css" /> -->
 <link rel="stylesheet" type="text/css" href="css/default.css">
-<!-- <link rel='stylesheet prefetch' href='http://fonts.useso.com/css?family=Open+Sans'> -->
 <link rel="stylesheet" type="text/css" href="css/styles.css">
+<link rel="stylesheet" type="text/css" href="../common/css/bootstrap3.3.6.min.css">
 <!--[if IE]>
 	<script src="http://libs.useso.com/js/html5shiv/3.7/html5shiv.min.js"></script>
 <![endif]-->
+<style type="text/css">
+ul {
+	list-style-type: none;
+}
+.panel-default>.panel-heading{
+	height: 3rem;
+	line-height: 3rem;
+}
+.top_bar{
+	background: #373a47;
+	width: 100%;
+	height: 4rem;
+}
+.top_bar .profile{
+	height: inherit;
+	line-height: 4rem;
+	padding-left: 1.2rem;
+	padding-right: 1.2rem;
+	cursor: pointer;
+	width: 16.2rem;
+	float: left;
+}
+.top_bar .profile:hover{
+	background: rgb(137, 127, 127);
+}
+.top_bar .profile span{
+	color: #b8b7ad;
+}
+.top_bar .tool_list{
+	list-style: none;
+	margin: 0px 0px 0px 18rem;
+}
+.top_bar .tool_list li{
+	cursor: pointer;
+	height: 4rem;
+	float: left;
+	line-height: 3.8rem;
+	margin-right: 1.2rem;
+}
+
+.top_bar .tool_list li img{
+	width: 3.1rem;
+	height: 3.1rem;
+	padding: 0.5rem;
+}
+.top_bar .tool_list li img:hover{
+	margin-bottom: 1rem;
+}
+.left_sider{
+	background: #373a47;
+	height: 100%;
+	width: 22rem;
+	position: absolute;
+	z-index: 999;
+	left: -22rem;
+}
+.left_sider .user_icon{
+	width: 8rem;
+	height: 14rem;
+	display: block;
+	margin: 0 auto;
+	padding: 2rem 0 4rem 0;
+} 
+.left_sider .list-group{
+	height: 100%;
+	background: gray;
+}
+.left_sider  .list-group-item{
+	margin-bottom:0.25rem;
+}
+.left_sider .loginOut{
+	width: 20rem;
+	height: 3.3rem;
+	margin: 0 auto;
+	display: block;
+	margin-top: 1.1rem;
+}
+
+.option_content{
+	width: 30rem;
+	height: 100%;
+	background: white;
+	float: right;
+	margin-top: -50rem;
+	z-index: 999;
+	position: relative;
+	left: 35rem;
+}
+/*
+friendList_content
+*/
+.friendList_content{
+	background: rgb(236, 230, 170);
+}
+.friendList_content .panel-body{
+	padding: 0;
+	height: 47rem;
+	overflow-y: scroll;
+}
+.friendList_content .accordion .submenu  li .usericon{
+	width: 3.8rem;
+	height: 3.8rem;
+	float: left;
+	margin-right: 1.3rem;
+}
+.friendList_content .accordion .submenu  li .username{
+	font-size: 2rem;
+}
+.friendList_content .accordion .submenu  li .mysign{
+	text-overflow: ellipsis;
+	width: 16rem;
+	display: inline-block;
+	line-height: 1.5rem;
+	height: 1.5rem;
+	white-space: nowrap;
+	overflow: hidden;
+}
+.friendList_content .accordion .submenu  li .icon{
+	width: 1.5rem;
+	float: right;
+	margin-left: 0.3rem;
+	cursor: pointer;
+}
+/*
+messageBox_content
+*/
+.messageBox_content{
+	background: orange;
+}
+.messageBox_content .panel-body{
+	height: 47rem;
+	padding: 0.8rem;
+}
+.messageBox_content .alert{
+	height: 8rem;
+	padding: 0.8rem;
+	margin-bottom: 0.5rem;
+}
+ .messageBox_content .alert .button_wrap{
+ 	float: right;
+ }
+ .messageBox_content .alert .message{
+ 	line-height: 1.6rem;
+ }
+.messageBox_content .time_msg{
+	line-height: 2rem;
+}
+.messageBox_content .pagination{
+	margin-top: 0.3rem;
+}
+/**searchuser_content*/
+.searchUser_content{
+}
+.searchUser_content .search_panel{
+	margin: 0;
+}
+.searchUser_content .panel-body{
+	background: rgb(189, 185, 185);
+}
+.searchUser_content .list-group{
+	margin: 0;
+}
+
+.searchUser_content .list-group .list-group-item{
+	background: rgb(250, 250, 250);
+	cursor: default;
+}
+.searchUser_content .list-group .list-group-item:hover{
+	background: rgb(181, 181, 181);
+}
+
+.searchUser_content .list-group .list-group-item .usericon{
+	width: 3.8rem;
+	height: 3.8rem;
+	float: left;
+	margin-right: 1.3rem;
+}
+.searchUser_content .list-group .list-group-item .username{
+	font-size: 2rem;
+}
+
+.searchUser_content .list-group .list-group-item .mysign{
+	text-overflow: ellipsis;
+	width: 16rem;
+	display: inline-block;
+	line-height: 1.5rem;
+	height: 1.5rem;
+	white-space: nowrap;
+	overflow: hidden;
+}
+.searchUser_content .list-group .list-group-item .icon{
+	width: 1.5rem;
+	float: right;
+	margin-left: 0.3rem;
+	cursor: pointer;
+}
+
+/*otherItem_content**/
+.otherItem_content{
+	background: yellow;
+}
+/**accordian*/
+ .accordion {
+ 	width: 100%;
+ 	background: #FFF;
+ 	-webkit-border-radius: 4px;
+ 	-moz-border-radius: 4px;
+ 	border-radius: 4px;
+ 	margin: 0;
+ }
+
+.accordion .link {
+	cursor: pointer;
+	display: block;
+	padding: 15px 15px 15px 42px;
+	color: white;
+	font-size: 14px;
+	font-weight: 700;
+	border-bottom: 1px solid #CCC;
+	position: relative;
+	-webkit-transition: all 0.4s ease;
+	-o-transition: all 0.4s ease;
+	transition: all 0.4s ease;
+	background: #818181;
+}
+.accordion .link :hover{
+	background: orange;
+}
+.accordion li:last-child .link {
+	border-bottom: 0;
+}
+
+.accordion li i {
+	position: absolute;
+	top: 16px;
+	left: 12px;
+	font-size: 18px;
+	color: #595959;
+	-webkit-transition: all 0.4s ease;
+	-o-transition: all 0.4s ease;
+	transition: all 0.4s ease;
+}
+
+.accordion li i.fa-chevron-down {
+	right: 12px;
+	left: auto;
+	font-size: 16px;
+}
+
+.accordion li.open .link {
+	color: #FFF6B3;
+}
+
+.accordion li.open i {
+	color: #b63b4d;
+}
+.accordion li.open i.fa-chevron-down {
+	-webkit-transform: rotate(180deg);
+	-ms-transform: rotate(180deg);
+	-o-transform: rotate(180deg);
+	transform: rotate(180deg);
+}
+
+.accordion li.default .submenu {display: block;}
+/**
+ * Submenu
+ -----------------------------*/
+ .submenu {
+ 	display: none;
+ 	background: white;
+ 	font-size: 14px;
+ }
+
+ .submenu li {
+ 	border-bottom: 1px solid #CFCEE2;
+ 	height: 5rem;
+ 	padding: 0.5rem 1.5rem 0.5rem 1.5rem;
+ 	cursor: default;
+ }
+
+
+
+ .submenu li:hover {
+ 	background: #444359;
+ 	color: #FFF;
+ }
+
+
+ .pagination_container{
+	text-align: center;
+}
+</style>
 </head>
 <body>
-
+<div class='top_bar'>
+	
+	<div class="profile" onclick="profileClick()">
+		<img src="img/1.png" alt="Matthew Greenberg">
+		<span>Matthew Greenberg</span>
+	</div>
+	<ul class='tool_list'>
+		<li>
+			<img src="img/icon/1.png">
+		</li>
+		<li>
+			<img src="img/icon/2.png">
+		</li>
+		<li>
+			<img src="img/icon/3.png">
+		</li>
+	</ul>
+</div>
+<div class='left_sider'>
+	<div>
+		<img src="img/panel6.png" width="8rem" height="8rem" class="user_icon">
+	</div>
+	<div class="list-group">
+		<a href="#" class="list-group-item active">
+		    个人信息
+		</a>
+		<a  href="#" class="list-group-item">账号 &nbsp;|&nbsp; Dapibus ac facilisis in</a>
+		<a  href="#" class="list-group-item">昵称 &nbsp;|&nbsp; Dapibus ac facilisis in</a>
+		<a  href="#" class="list-group-item">性别 &nbsp;|&nbsp; Dapibus ac facilisis in</a>
+		<a  href="#" class="list-group-item">签名 &nbsp;|&nbsp; Dapibus ac facilisis in</a>
+		<button type="button" class="btn btn-danger loginOut">退出登录</button>
+	</div>
+	
+</div>
 <div class="demo">
 		  <svg class="sidebar" viewBox="0 0 330 500">
 			<path class="s-path" fill="#f0f0f0" d="M0,0 50,0 a0,250 0 1,1 0,500 L0,500" />
@@ -128,18 +453,422 @@
 			<input type="text" class="chat__input" placeholder="Your message" />
 		  </div>
 
-		  <ul class='panel'>
-		  	<li class='panel_item'><img src="img/panel1.png" width="46px" height="46px"></li>
-		  	<li class='panel_item'><img src="img/panel2.png" width="46px" height="46px"></li>
-		  	<li class='panel_item'><img src="img/panel3.png" width="46px" height="46px"></li>
-		  	<li class='panel_item'><img src="img/panel4.png" width="46px" height="46px"></li>
+		  <ul class='option_panel'>
+		  	<li class='option_panel_item friendList' onclick="friendListClick()"><img src="img/panel1.png" width="46px" height="46px"></li>
+		  	<li class='option_panel_item messageBox' onclick="messageBoxClick()"><img src="img/panel2.png" width="46px" height="46px"></li>
+		  	<li class='option_panel_item searchUser' onclick="searchUserClick()"><img src="img/panel3.png" width="46px" height="46px"></li>
+		  	<!-- <li class='option_panel_item otherItem' onclick="otherItemClick()"><img src="img/panel4.png" width="46px" height="46px"></li> -->
 		  </ul>
+		  <!--friendList_content-->
+		  <div class="option_content friendList_content ">
+		 	<!--标题栏-->
+		  	<div class="panel panel-default">
+			  <div class="panel-heading">
+			    <h3 class="panel-title"><button type="button" class="close" aria-hidden="true" onclick="closePanel()">&times;</button>&nbsp;Panel title</h3>
+			  </div>
+			  <div class="panel-body">
+			    	<!-- Contenedor -->
+				<ul id="accordion" class="accordion">
+					<li class="default open">
+						<div class="link"><i class="fa fa-paint-brush"></i>Design web<i class="fa fa-chevron-down"></i></div>
+						<ul class="submenu">
+							<li>
+								<img src="img/panel1.png" class="usericon">
+						  		<div class="username">name</div>
+						  		<div>
+						  			<span class="mysign">I like aaa</span>
+						  			<img class='icon' src="img/icon/male.png">
+						  			<img class='icon' src="img/icon/female.png">
+						  		</div>
+							</li>
+							<li>
+								<img src="img/panel1.png" class="usericon">
+						  		<div class="username">name</div>
+						  		<div>
+						  			<span class="mysign">I like aaa</span>
+						  			<img class='icon' src="img/icon/male.png">
+						  			<img class='icon' src="img/icon/female.png">
+						  		</div>
+							</li>
+							<li>
+									<img src="img/panel1.png" class="usericon">
+							  		<div class="username">name</div>
+							  		<div>
+							  			<span class="mysign">I like aaa</span>
+							  			<img class='icon' src="img/icon/male.png">
+							  			<img class='icon' src="img/icon/female.png">
+							  		</div>
+								</li>
+								<li>
+									<img src="img/panel1.png" class="usericon">
+							  		<div class="username">name</div>
+							  		<div>
+							  			<span class="mysign">I like aaa</span>
+							  			<img class='icon' src="img/icon/male.png">
+							  			<img class='icon' src="img/icon/female.png">
+							  		</div>
+								</li>
+							</ul>
+						</li>
+					<li >
+						<div class="link"><i class="fa fa-code"></i>Desarrollo front-end<i class="fa fa-chevron-down"></i></div>
+						<ul class="submenu">
+							
+						</ul>
+					</li>
+					<li>
+						<div class="link"><i class="fa fa-mobile"></i>Design responsive<i class="fa fa-chevron-down"></i></div>
+						<ul class="submenu">
+							
+						</ul>
+					</li>
+					<li><div class="link"><i class="fa fa-globe"></i>Posicionamiento web<i class="fa fa-chevron-down"></i></div>
+						<ul class="submenu">
+							<li>
+								<img src="img/panel1.png" class="usericon">
+						  		<div class="username">name</div>
+						  		<div>
+						  			<span class="mysign">I like aaa</span>
+						  			<img class='icon' src="img/icon/male.png">
+						  			<img class='icon' src="img/icon/female.png">
+						  		</div>
+							</li>
+							<li>
+								<img src="img/panel1.png" class="usericon">
+						  		<div class="username">name</div>
+						  		<div>
+						  			<span class="mysign">I like aaa</span>
+						  			<img class='icon' src="img/icon/male.png">
+						  			<img class='icon' src="img/icon/female.png">
+						  		</div>
+							</li>
+							<li>
+								<img src="img/panel1.png" class="usericon">
+						  		<div class="username">name</div>
+						  		<div>
+						  			<span class="mysign">I like aaa</span>
+						  			<img class='icon' src="img/icon/male.png">
+						  			<img class='icon' src="img/icon/female.png">
+						  		</div>
+							</li>
+							<li>
+								<img src="img/panel1.png" class="usericon">
+						  		<div class="username">name</div>
+						  		<div>
+						  			<span class="mysign">I like aaa</span>
+						  			<img class='icon' src="img/icon/male.png">
+						  			<img class='icon' src="img/icon/female.png">
+						  		</div>
+							</li>
+							<li>
+								<img src="img/panel1.png" class="usericon">
+						  		<div class="username">name</div>
+						  		<div>
+						  			<span class="mysign">I like aaa</span>
+						  			<img class='icon' src="img/icon/male.png">
+						  			<img class='icon' src="img/icon/female.png">
+						  		</div>
+							</li>
+							<li>
+								<img src="img/panel1.png" class="usericon">
+						  		<div class="username">name</div>
+						  		<div>
+						  			<span class="mysign">I like aaa</span>
+						  			<img class='icon' src="img/icon/male.png">
+						  			<img class='icon' src="img/icon/female.png">
+						  		</div>
+							</li>
+							<li>
+								<img src="img/panel1.png" class="usericon">
+						  		<div class="username">name</div>
+						  		<div>
+						  			<span class="mysign">I like aaa</span>
+						  			<img class='icon' src="img/icon/male.png">
+						  			<img class='icon' src="img/icon/female.png">
+						  		</div>
+							</li>
+							<li>
+								<img src="img/panel1.png" class="usericon">
+						  		<div class="username">name</div>
+						  		<div>
+						  			<span class="mysign">I like aaa</span>
+						  			<img class='icon' src="img/icon/male.png">
+						  			<img class='icon' src="img/icon/female.png">
+						  		</div>
+							</li>
+						</ul>
+					</li>
+				</ul>
+			  </div>
+			</div>
+		  
+
+
+		  </div>
+		  <!--messageBox_content-->
+		  <div class="option_content messageBox_content ">
+		  	<div class="panel panel-default ">
+			  <div class="panel-heading">
+			    <h3 class="panel-title"><button type="button" class="close" aria-hidden="true" onclick="closePanel()">&times;</button>&nbsp;消息盒子</h3>
+			  </div>
+			  <div class="panel-body">
+			   	<div class="alert alert-success" role="alert">
+			   		<div class='message'>hello world!</div>
+			   		<div class='time_msg'>2016-04-05 15:10:11</div>
+			   		<div class="button_wrap">
+			   			
+			   			<button type="button" class="btn btn-success">同意</button>
+			   			<button type="button" class="btn btn-danger">拒绝</button>
+			   		</div>
+			   		
+			   	</div>
+				<div class="alert alert-info" role="alert">
+					<div class='message'>hello world!</div>
+					<div class='time_msg'>2016-04-05 15:10:11</div>
+			   		<div class="button_wrap">
+			   			
+			   			<button type="button" class="btn btn-info">已处理</button>
+			   		</div>
+				</div>
+				<div class="alert alert-warning" role="alert">
+					<div class='message'>hello world!</div>
+					<div class='time_msg'>2016-04-05 15:10:11</div>
+			   		<div class="button_wrap">
+			   			
+			   			<button type="button" class="btn btn-success">同意</button>
+			   			<button type="button" class="btn btn-danger">拒绝</button>
+			   		</div>
+				</div>
+				<div class="alert alert-danger" role="alert">
+					<div class='message'>hello world!</div>
+					<div class='time_msg'>2016-04-05 15:10:11</div>
+			   		<div class="button_wrap">
+			   			
+			   			<button type="button" class="btn btn-success">同意</button>
+			   			<button type="button" class="btn btn-danger">拒绝</button>
+			   		</div>
+				</div>
+
+				<div class="alert alert-info" role="alert">
+					<div class='message'>hello world!</div>
+					<div class='time_msg'>2016-04-05 15:10:11</div>
+			   		<div class="button_wrap">
+			   			
+			   			<button type="button" class="btn btn-info">已处理</button>
+			   		</div>
+				</div>
+				<!--翻页-->
+				<div class="pagination_container">
+				  <ul class="pagination">
+				    <li>
+				      <a href="#" aria-label="Previous">
+				        <span aria-hidden="true">&laquo;</span>
+				      </a>
+				    </li>
+				    <li  class="active"><a href="#">1</a></li>
+				    <li><a href="#">2</a></li>
+				    <li><a href="#">3</a></li>
+				    <li><a href="#">4</a></li>
+				    <li><a href="#">5</a></li>
+				    <li>
+				      <a href="#" aria-label="Next">
+				        <span aria-hidden="true">&raquo;</span>
+				      </a>
+				    </li>
+				  </ul>
+				</div>
+				<!--翻页-->
+			  </div>
+
+
+			</div>
+		  </div>
+		  <!--searchUser_content-->
+		  <div class="option_content searchUser_content ">
+		  	<!--标题栏-->
+		  	<div class="panel panel-default search_panel">
+			  <div class="panel-heading">
+			    <h3 class="panel-title"><button type="button" class="close" aria-hidden="true" onclick="closePanel()">&times;</button>&nbsp;查找好友</h3>
+			  </div>
+			  <div class="panel-body">
+			    <div class="input-group">
+	               <input type="text" class="form-control">
+	               <span class="input-group-btn">
+	                  <button class="btn btn-default" type="button"> 搜索 </button>
+	               </span>
+	            </div><!-- /input-group -->
+			  </div>
+			</div>
+		  	
+		  	<ul class="list-group">
+			  <li class="list-group-item">
+			  		<img src="img/icon/1.png" class="usericon">
+			  		<div class="username">name</div>
+			  		<div>
+			  			<span class="mysign">I like aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</span>
+			  			<img class='icon' src="img/icon/male.png">
+			  			<img class='icon' src="img/icon/6.png" onclick="addFriend()">
+			  		</div>
+			  		
+			  </li>
+			   <li class="list-group-item">
+			  		<img src="img/icon/1.png" class="usericon">
+			  		<div class="username">name</div>
+			  		<div>
+			  			<span class="mysign">I like aaa</span>
+			  			<img class='icon' src="img/icon/male.png">
+			  			<img class='icon' src="img/icon/6.png" onclick="addFriend()">
+			  		</div>
+			  		
+			  </li>
+			   <li class="list-group-item">
+			  		<img src="img/icon/1.png" class="usericon">
+			  		<div class="username">name</div>
+			  		<div>
+			  			<span class="mysign">I like aaa</span>
+			  			<img class='icon' src="img/icon/male.png">
+			  			<img class='icon' src="img/icon/6.png" onclick="addFriend()">
+			  		</div>
+			  		
+			  </li>
+			   <li class="list-group-item">
+			  		<img src="img/icon/1.png" class="usericon">
+			  		<div class="username">name</div>
+			  		<div>
+			  			<span class="mysign">I like aaa</span>
+			  			<img class='icon' src="img/icon/male.png">
+			  			<img class='icon' src="img/icon/6.png" onclick="addFriend()">
+			  		</div>
+			  		
+			  </li>
+			   <li class="list-group-item">
+			  		<img src="img/icon/1.png" class="usericon">
+			  		<div class="username">name</div>
+			  		<div>
+			  			<span class="mysign">I like aaa</span>
+			  			<img class='icon' src="img/icon/male.png">
+			  			<img class='icon' src="img/icon/6.png" onclick="addFriend()">
+			  		</div>
+			  		
+			  </li>
+			   <li class="list-group-item">
+			  		<img src="img/icon/1.png" class="usericon">
+			  		<div class="username">name</div>
+			  		<div>
+			  			<span class="mysign">I like aaa</span>
+			  			<img class='icon' src="img/icon/male.png">
+			  			<img class='icon' src="img/icon/6.png" onclick="addFriend()">
+			  		</div>
+			  		
+			  </li>
+			</ul>
+			<!--翻页-->
+			<div class="pagination_container">
+			  <ul class="pagination">
+			    <li>
+			      <a href="#" aria-label="Previous">
+			        <span aria-hidden="true">&laquo;</span>
+			      </a>
+			    </li>
+			    <li  class="active"><a href="#">1</a></li>
+			    <li><a href="#">2</a></li>
+			    <li><a href="#">3</a></li>
+			    <li><a href="#">4</a></li>
+			    <li><a href="#">5</a></li>
+			    <li>
+			      <a href="#" aria-label="Next">
+			        <span aria-hidden="true">&raquo;</span>
+			      </a>
+			    </li>
+			  </ul>
+			</div>
+			<!--翻页-->
+		  </div>
+		  <!--otherItem_content-->
+		  <div class="option_content otherItem_content "><h2>dddddd</h2></div>
 		</div>
 	
-<!-- 
-<script type="text/javascript" src='js/stopExecutionOnTimeout.js?t=1'></script> -->
-<script type="text/javascript" src='js/jquery.min.js'></script>
+<script type="text/javascript" src='../common/js/jquery1.9.1.min.js'></script>
 <script type="text/javascript" src="js/main.js"></script>
+<script type="text/javascript">
+function initAccordian(){
+	 var Accordion = function (el, multiple) {
+        this.el = el || {};
+        this.multiple = multiple || false;
+        var links = this.el.find('.link');
+        links.on('click', {
+            el: this.el,
+            multiple: this.multiple
+        }, this.dropdown);
+    };
+    Accordion.prototype.dropdown = function (e) {
+        var $el = e.data.el;
+        $this = $(this), $next = $this.next();
+        $next.slideToggle();
+        $this.parent().toggleClass('open');
+        if (!e.data.multiple) {
+            $el.find('.submenu').not($next).slideUp().parent().removeClass('open');
+        }
+        ;
+    };
+    var accordion = new Accordion($('#accordion'), false);
+}
 
+
+function friendListClick(){
+	
+	changeOptionContent($(".friendList_content"));
+}
+function messageBoxClick(){
+	changeOptionContent($(".messageBox_content"));
+}
+function searchUserClick(){
+	changeOptionContent($(".searchUser_content"));
+}
+function otherItemClick(){
+	changeOptionContent($(".otherItem_content"));
+}
+function changeOptionContent(obj){
+	closePanel();
+	$(obj).animate({left:"0rem"},300,function(){
+
+	});
+}
+
+var isSiderOpen =false;
+var isSiderAnimating=false;
+function profileClick(){
+	if( isSiderAnimating ) return false;
+	isSiderAnimating = true;
+	if (isSiderOpen){
+		$(".left_sider").animate({left:"-22rem"},360,function(){
+			isSiderOpen = false;
+			isSiderAnimating=false;
+		});
+	}else{
+		$(".left_sider").animate({left:"0rem"},360,function(){
+			isSiderOpen = true;
+			isSiderAnimating=false;
+		});
+	}
+	
+	
+}
+
+function closePanel(){
+	$(".option_content").each(function(index,element){
+		if ($(element).css("left")!="0rem"){
+			$(element).animate({left:"35rem"},200,function(){
+				
+			});
+		}
+	});
+}
+function addFriend(){
+	alert('aaa..');
+}
+//////
+initAccordian();
+</script>
 </body>
 </html>
