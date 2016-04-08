@@ -61,7 +61,7 @@ $(document).ready(function() {
     function animate() {
       curStep++;
       nextTop = easingTop(curStep, oldTop, topDiff, steps);
-        console.log(curStep+" "+oldTop+ " "+topDiff+" "+steps);
+       // console.log(curStep+" "+oldTop+ " "+topDiff+" "+steps);
       nextX = easingX(curStep, curX, finalX-curX, steps);
       oldArr[1] = nextTop + ",0";
       oldArr[2] = "a" + Math.abs(nextX) + ",250";

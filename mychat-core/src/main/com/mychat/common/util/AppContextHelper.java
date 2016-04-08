@@ -7,15 +7,15 @@ import org.springframework.context.ApplicationContextAware;
 import com.mychat.common.manager.UserManager;
 import com.mychat.common.mapper.UserMapper;
 
-public class SpringHelper implements ApplicationContextAware {
+public class AppContextHelper implements ApplicationContextAware {
 
 	ApplicationContext applicationContext;
 	
-	static SpringHelper springHelper ;
+	static AppContextHelper springHelper ;
 	
-	private SpringHelper () {}
+	private AppContextHelper () {}
 	
-	public static SpringHelper getInstance() {
+	public static AppContextHelper getInstance() {
 		return springHelper;
 	}
 	

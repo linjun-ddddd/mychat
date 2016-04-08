@@ -13,12 +13,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.mychat.bean.UserBean;
 import com.mychat.common.manager.UserManager;
 import com.mychat.common.util.Constants;
-import com.mychat.common.util.SpringHelper;
+import com.mychat.common.util.AppContextHelper;
 
 @Controller
-public class RegisterController{
+public class RegisterController extends BaseController{
 	
-	private UserManager userManager = (UserManager) SpringHelper.getInstance().getBean(UserManager.class);
+	private UserManager userManager = (UserManager) AppContextHelper.getInstance().getBean(UserManager.class);
 	
 	@RequestMapping("/register.html")
 	public String execute(Model model) {

@@ -5,6 +5,7 @@ import java.io.PrintWriter;
 import java.util.List;
 
 import javax.jms.JMSException;
+import javax.jms.MapMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -23,42 +24,30 @@ import com.mychat.common.util.MsgQueueHelper;
 import com.mychat.common.util.AppContextHelper;
 
 @Controller
-public class ChatController extends BaseController{
+public class LongPollController extends BaseController{
 
 	private UserManager userManager = (UserManager) AppContextHelper.getInstance().getBean(UserManager.class);
 	private MessageManager msgManager = (MessageManager) AppContextHelper.getInstance().getBean(MessageManager.class);
 	
 	
-	@RequestMapping("chat/index.html")
-	public String execute(HttpServletRequest request, HttpServletResponse response) {
+	@RequestMapping(value="longPoll.do",method=RequestMethod.POST)
+	public void execute(HttpServletRequest request, HttpServletResponse response) throws JMSException {
 		String userid=HttpHelper.getSessionUserid(request);
-		UserBean user=userManager.getUserById(userid);
-		List<UserBean> lastChatUser = userManager.getLastChatUser(userid);
-		request.setAttribute("user", user);
-		request.setAttribute("lastChatUser", lastChatUser);
-		return "/fore/chat/index.html";
-	}
-	
-	@RequestMapping(value="chat/send.do",method=RequestMethod.POST)
-	public void send(HttpServletRequest request, HttpServletResponse response) throws JMSException {
-		String userid=HttpHelper.getSessionUserid(request);
-		String toUserId=request.getParameter("toUserId");
-		String msgData=request.getParameter("msgData");
-		String sendDate = request.getParameter("sendDate");
-		
-		//打包消息
-		MessageBean message = new MessageBean();
-		message.setFromUserId(userid);
-		message.setToUserId(toUserId);
-		message.setData(msgData);
-		message.setSendDate(sendDate);
-		MsgQueueHelper.sendMessage(message);
-		msgManager.saveMessage(message);
-		
-		//返回ajax结果
+		MapMessage message=MsgQueueHelper.receiveMsg(userid);
 		JSONObject returnJson = new JSONObject();
-		returnJson.put("status", Constants.STATUS_SUCCESS);
+		if (message!=null){
+			returnJson.put("status", Constants.STATUS_SUCCESS);
+			returnJson.put("data", JSONObject.toJSONString(message));
+		}else{
+			returnJson.put("status", Constants.STATUS_FAIL);
+		}
 		packetAjaxResult(response, returnJson);
-	
+	}
+	public static void main(String[] args) {
+		MessageBean message=new MessageBean();
+		message.setData("123");
+		message.setFromUserId("123444");
+		//{"data":"123","fromUserId":"123444"}
+		System.out.println( JSONObject.toJSONString(message));
 	}
 }

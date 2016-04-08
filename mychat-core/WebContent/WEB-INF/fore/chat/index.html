@@ -394,9 +394,9 @@
 			  </div>
 			  <div class="panel-body">
 			    <div class="input-group">
-	               <input type="text" class="form-control">
+	               <input type="text" class="form-control" name="searchName">
 	               <span class="input-group-btn">
-	                  <button class="btn btn-default" type="button"> 搜索 </button>
+	                  <button class="btn btn-default" type="button" onclick="searchUser(1)"> 搜索 </button>
 	               </span>
 	            </div><!-- /input-group -->
 			  </div>
@@ -408,58 +408,8 @@
 			  		<div class="username">name</div>
 			  		<div>
 			  			<span class="mysign">I like aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</span>
+			  			<img class='icon' src="$contextPath/resource/images/chat/icon/6.png" onclick="addFriend(this)" userid='12345'>
 			  			<img class='icon' src="$contextPath/resource/images/chat/icon/male.png">
-			  			<img class='icon' src="$contextPath/resource/images/chat/icon/6.png" onclick="addFriend()">
-			  		</div>
-			  		
-			  </li>
-			   <li class="list-group-item">
-			  		<img src="$contextPath/resource/images/chat/icon/1.png" class="usericon">
-			  		<div class="username">name</div>
-			  		<div>
-			  			<span class="mysign">I like aaa</span>
-			  			<img class='icon' src="$contextPath/resource/images/chat/icon/male.png">
-			  			<img class='icon' src="$contextPath/resource/images/chat/icon/6.png" onclick="addFriend()">
-			  		</div>
-			  		
-			  </li>
-			   <li class="list-group-item">
-			  		<img src="$contextPath/resource/images/chat/icon/1.png" class="usericon">
-			  		<div class="username">name</div>
-			  		<div>
-			  			<span class="mysign">I like aaa</span>
-			  			<img class='icon' src="$contextPath/resource/images/chat/icon/male.png">
-			  			<img class='icon' src="$contextPath/resource/images/chat/icon/6.png" onclick="addFriend()">
-			  		</div>
-			  		
-			  </li>
-			   <li class="list-group-item">
-			  		<img src="$contextPath/resource/images/chat/icon/1.png" class="usericon">
-			  		<div class="username">name</div>
-			  		<div>
-			  			<span class="mysign">I like aaa</span>
-			  			<img class='icon' src="$contextPath/resource/images/chat/icon/male.png">
-			  			<img class='icon' src="$contextPath/resource/images/chat/icon/6.png" onclick="addFriend()">
-			  		</div>
-			  		
-			  </li>
-			   <li class="list-group-item">
-			  		<img src="$contextPath/resource/images/chat/icon/1.png" class="usericon">
-			  		<div class="username">name</div>
-			  		<div>
-			  			<span class="mysign">I like aaa</span>
-			  			<img class='icon' src="$contextPath/resource/images/chat/icon/male.png">
-			  			<img class='icon' src="$contextPath/resource/images/chat/icon/6.png" onclick="addFriend()">
-			  		</div>
-			  		
-			  </li>
-			   <li class="list-group-item">
-			  		<img src="$contextPath/resource/images/chat/icon/1.png" class="usericon">
-			  		<div class="username">name</div>
-			  		<div>
-			  			<span class="mysign">I like aaa</span>
-			  			<img class='icon' src="$contextPath/resource/images/chat/icon/male.png">
-			  			<img class='icon' src="$contextPath/resource/images/chat/icon/6.png" onclick="addFriend()">
 			  		</div>
 			  		
 			  </li>
@@ -570,9 +520,59 @@ function closePanel(isFadeOut){
 		$(".background").fadeOut();
 	}
 }
-function addFriend(){
-	alert('aaa..');
+function addFriend(obj){
+	var userid = $(obj).attr("userid");
+	$.ajax({  
+        type : "POST",  //提交方式  
+        url : "$contextPath/search/addFriend.do",//路径  
+        data : {
+            "userid" : userid
+        },//数据，这里使用的是Json格式进行传输  
+        dataType : "json",
+        success : function(result) {//返回数据根据结果进行相应的处理 
+        	var json = eval(result);
+      		console.log("json:"+json);
+        	console.log("json.data:"+json.data);
+            if ( json.status=='1' ) {
+            	
+            } else {  
+                //alert("查询失败。。");
+            	errorAlert("fail!!");
+            }  
+        },
+        error : function(XMLHttpRequest, textStatus, errorThrown){ 
+        	errorAlert('error:'+textStatus+" | "+errorThrown);
+        }
+    }); 
 }
+///// click ///////
+function searchUser(page){
+	var searchName=$("input[name='searchName']");
+	$.ajax({  
+        type : "POST",  //提交方式  
+        url : "$contextPath/search/search.do",//路径  
+        data : {
+            "username" : searchName.val(),
+            "page" : page
+        },//数据，这里使用的是Json格式进行传输  
+        dataType : "json",
+        success : function(result) {//返回数据根据结果进行相应的处理 
+        	var json = eval(result);
+      		console.log("json:"+json);
+        	console.log("json.data:"+json.data);
+            if ( json.status=='1' ) {
+            	
+            } else {  
+                //alert("查询失败。。");
+            	errorAlert("error","fail!!");
+            }  
+        },
+        error : function(XMLHttpRequest, textStatus, errorThrown){ 
+			alert('error:'+textStatus+" | "+errorThrown);
+        }
+    }); 
+}
+
 //////
 initAccordian();
 </script>

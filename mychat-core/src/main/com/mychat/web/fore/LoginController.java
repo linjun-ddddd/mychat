@@ -13,12 +13,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.mychat.bean.UserBean;
 import com.mychat.common.manager.UserManager;
 import com.mychat.common.util.Constants;
-import com.mychat.common.util.SpringHelper;
+import com.mychat.common.util.HttpHelper;
+import com.mychat.common.util.AppContextHelper;
 
 @Controller
-public class LoginController{
+public class LoginController extends BaseController{
 	
-	private UserManager userManager = (UserManager) SpringHelper.getInstance().getBean(UserManager.class);
+	private UserManager userManager = (UserManager) AppContextHelper.getInstance().getBean(UserManager.class);
 	
 	@RequestMapping("/login.html")
 	public String execute(HttpServletRequest request, HttpServletResponse response) {
@@ -31,7 +32,7 @@ public class LoginController{
 		String password = request.getParameter("password");
 		UserBean user=userManager.getUser(username,password);
 		if (user!=null){
-			request.getSession().setAttribute(Constants.SESSION_USER_ID_NAME, user.getId());
+			HttpHelper.setSessionUserid(request,user.getId());
 			return "redirect:chat/index.html";
 		}else{
 			request.setAttribute("errorMsg", "登录失败。。");

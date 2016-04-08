@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.mychat.common.util.Constants;
+import com.mychat.common.util.HttpHelper;
 import com.mychat.common.util.StringHelper;
 
 public class AuthFilter implements Filter{
@@ -36,7 +37,7 @@ public class AuthFilter implements Filter{
 			filterChain.doFilter(request, response);
 		}
 		//判断是否登录
-		String userid=(String) httpServletRequest.getSession().getAttribute(Constants.SESSION_USER_ID_NAME);
+		String userid=HttpHelper.getSessionUserid(httpServletRequest);
 		if (StringHelper.isEmpty(userid)){
 			httpServletRequest.getRequestDispatcher("login.html").forward(request, response);
 		}else{

@@ -2,7 +2,7 @@ package com.mychat.common.util;
 
 import java.security.MessageDigest;
 
-public class Utils {
+public class CommonHelper {
 
 	public static String md5(String password) {
 		// TODO Auto-generated method stub

@@ -1,16 +1,17 @@
 package com.mychat.bean;
 
 import java.sql.SQLException;
+import java.sql.Timestamp;
 
 public class MessageBean {
 	String id;
 	String data;
-	String sendDate;
 	String type;
 	String toUserId;
-	String fromuserid;
+	String fromUserId;
 	String title;
 	String status;
+	String sendDate;
 	
 	public String getId() {
 		return id;
@@ -42,11 +43,11 @@ public class MessageBean {
 	public void setToUserId(String toUserId) {
 		this.toUserId = toUserId;
 	}
-	public String getFromuserid() {
-		return fromuserid;
+	public String getFromUserId() {
+		return fromUserId;
 	}
-	public void setFromuserid(String fromuserid) {
-		this.fromuserid = fromuserid;
+	public void setFromUserId(String fromUserId) {
+		this.fromUserId = fromUserId;
 	}
 	public String getTitle() {
 		return title;
