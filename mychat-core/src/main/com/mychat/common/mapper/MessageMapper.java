@@ -15,7 +15,7 @@ import com.mychat.bean.UserBean;
 public interface MessageMapper {
 
 	@Insert(value="insert into t1_message(data,type,toUserId,fromUserId,title,status,sendDate) "
-			+ "values #{data},#{type},#{toUserId},#{fromUserId},#{title},#{status},#{sendDate}")
+			+ "values (#{data},#{type},#{toUserId},#{fromUserId},#{title},#{status},#{sendDate})")
 	void insertMessage(MessageBean message);
 	
 	@Update("update t1_message set status = #{status} where id = #{messageId}")

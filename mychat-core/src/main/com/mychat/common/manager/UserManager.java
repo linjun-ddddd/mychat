@@ -1,5 +1,6 @@
 package com.mychat.common.manager;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import org.springframework.context.annotation.Scope;
@@ -19,13 +20,14 @@ public class UserManager {
 	public UserBean getUser(String username, String password) {
 		// TODO Auto-generated method stub
 		String md5Password = CommonHelper.md5(password);
-		UserBean user=userMapper.getUserById(username,md5Password);
+		UserBean user=userMapper.getUserByNameAndPass(username,md5Password);
 		return user;
 	}
 
 	public UserBean getUserById(String userid) {
 		// TODO Auto-generated method stub
-		return null;
+		UserBean user=userMapper.getUserById(userid);
+		return user;
 	}
 
 	public List<UserBean> getLastChatUser(String userid) {
@@ -42,5 +44,22 @@ public class UserManager {
 		final int beginIndex = pageSize*Integer.valueOf(page)-pageSize;
 		List<UserBean> userList=userMapper.searchFriendByName("%"+_username+"%",beginIndex,pageSize);
 		return userList;
+	}
+
+	public double getMaxPageByName(String _username) {
+		// TODO Auto-generated method stub
+		int pageSize=6;
+		return userMapper.getMaxPageByName("%"+_username+"%",pageSize);
+	}
+
+	public void saveUser(UserBean user) {
+		// TODO Auto-generated method stub
+		user.setRegisterTime(new Timestamp(System.currentTimeMillis()).toString());
+		userMapper.save(user);
+	}
+
+	public void updateUserLastLogin(String id) {
+		// TODO Auto-generated method stub
+		userMapper.updateUserLastLogin(id,new Timestamp(System.currentTimeMillis()).toString());
 	}
 }

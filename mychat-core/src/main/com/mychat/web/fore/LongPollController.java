@@ -18,9 +18,9 @@ import com.mychat.bean.MessageBean;
 import com.mychat.bean.UserBean;
 import com.mychat.common.manager.MessageManager;
 import com.mychat.common.manager.UserManager;
+import com.mychat.common.mq.MsgQueueHelper;
 import com.mychat.common.util.Constants;
 import com.mychat.common.util.HttpHelper;
-import com.mychat.common.util.MsgQueueHelper;
 import com.mychat.common.util.AppContextHelper;
 
 @Controller
@@ -43,6 +43,17 @@ public class LongPollController extends BaseController{
 		}
 		packetAjaxResult(response, returnJson);
 	}
+	
+	@RequestMapping(value="longPoll/destory.do",method=RequestMethod.POST)
+	public void destory(HttpServletRequest request, HttpServletResponse response) throws JMSException {
+		String userid=(String) request.getSession().getAttribute("userid");
+		MsgQueueHelper.destory(userid);
+		JSONObject returnJson = new JSONObject();
+		returnJson.put("status", "1");
+		packetAjaxResult(response, returnJson);
+	}
+	
+	
 	public static void main(String[] args) {
 		MessageBean message=new MessageBean();
 		message.setData("123");

@@ -8,14 +8,14 @@
 	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd">
 
 	<!-- 让spring注入context -->
-	<bean id="springHelper" class="com.mychat.common.util.SpringHelper" ></bean>
+	<bean id="appContextHelper" class="com.mychat.common.util.AppContextHelper" ></bean>
 	
 	<!-- 配置数据源 -->
 	<bean id="c3p0DataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
 		<property name="user" value='lin' />
 		<property name="password" value='051346' />
 		<property name="driverClass" value='com.mysql.jdbc.Driver' />
-		<property name="jdbcUrl" value='jdbc:mysql://localhost:3306/mychat' />
+		<property name="jdbcUrl" value='jdbc:mysql://localhost:3306/mychatdb' />
 		<property name="initialPoolSize" value='10' />
 		<property name="maxIdleTime" value='60' />
 		<property name="maxPoolSize" value='100' />

@@ -1,5 +1,7 @@
 package com.mychat.web.fore;
 
+import java.sql.Timestamp;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -33,6 +35,7 @@ public class LoginController extends BaseController{
 		UserBean user=userManager.getUser(username,password);
 		if (user!=null){
 			HttpHelper.setSessionUserid(request,user.getId());
+			userManager.updateUserLastLogin(user.getId());
 			return "redirect:chat/index.html";
 		}else{
 			request.setAttribute("errorMsg", "登录失败。。");

@@ -1,4 +1,4 @@
-package com.mychat.common.util;
+package com.mychat.common.mq;
 
 import java.util.HashMap;
 import java.util.Map;

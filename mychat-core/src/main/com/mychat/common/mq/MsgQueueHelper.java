@@ -1,4 +1,7 @@
-package com.mychat.common.util;
+package com.mychat.common.mq;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.jms.DeliveryMode;
 import javax.jms.JMSException;
@@ -12,10 +15,13 @@ import org.apache.activemq.ActiveMQMessageConsumer;
 import com.mychat.bean.MessageBean;
 import com.mychat.common.manager.MessageManager;
 import com.mychat.common.manager.UserManager;
+import com.mychat.common.util.Constants;
 
 public class MsgQueueHelper {
 
 	private final static MessageQueue messageQueue = MessageQueue.getInstance();
+	private final static Map<String,String> sessionMap = new HashMap<>();//保存当前用户的session
+	
 	
 	public static void sendMessage(MessageBean message) throws JMSException {
 		// TODO Auto-generated method stub
@@ -76,6 +82,7 @@ public class MsgQueueHelper {
 			// 创建消息接收者
 			receiver = (ActiveMQMessageConsumer) session.createReceiver(queue);
 			
+			sessionMap.put(userid, "flag");
 			message = (MapMessage) receiver.receive(receiveTimeOut);
 			
 			// 提交会话
@@ -91,8 +98,22 @@ public class MsgQueueHelper {
 			if (session!=null){
 				session.close();
 			}
+			sessionMap.remove(userid);
 		}
         return message;
+	}
+
+	public static void destory(String userid) throws JMSException {
+		// TODO Auto-generated method stub
+		String session =sessionMap.get(userid);
+		if (session!=null){
+			//发送结束消息,以让用户receiver结束
+			MessageBean messageBean = new MessageBean();
+			messageBean.setToUserId(userid);
+			messageBean.setType(Constants.END_MESSAGE_TYPE);
+			sendMessage(messageBean);
+			sessionMap.remove(userid);
+		}
 	}
 
 }

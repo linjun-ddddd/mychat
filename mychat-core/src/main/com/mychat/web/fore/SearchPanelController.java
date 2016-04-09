@@ -19,9 +19,9 @@ import com.mychat.bean.MessageBean;
 import com.mychat.bean.UserBean;
 import com.mychat.common.manager.MessageManager;
 import com.mychat.common.manager.UserManager;
+import com.mychat.common.mq.MsgQueueHelper;
 import com.mychat.common.util.Constants;
 import com.mychat.common.util.HttpHelper;
-import com.mychat.common.util.MsgQueueHelper;
 import com.mychat.common.util.AppContextHelper;
 
 @Controller
@@ -38,10 +38,13 @@ public class SearchPanelController extends BaseController{
 		//System.out.println("search param:"+_username+" | "+page);
 		
 		List<UserBean> userList = userManager.searchFriendByName(_username,page);
-		
+		double maxPage = userManager.getMaxPageByName(_username);
+		maxPage=Math.ceil(maxPage);
 		//返回ajax结果
 		returnJson.put("status", "1");
 		returnJson.put("data", JSONArray.toJSON(userList));
+		returnJson.put("curPage", page);
+		returnJson.put("maxPage", maxPage+"");
 		packetAjaxResult(response,returnJson);
 		
 	}
@@ -60,6 +63,7 @@ public class SearchPanelController extends BaseController{
 		message.setFromUserId(fromUserId);
 		message.setToUserId(toUserId);
 		message.setType(Constants.ADD_FRIEND_MESSAGE_TYPE);
+		message.setStatus(Constants.MESSAGE_UNDEAL_STATUS);
 		
 		MsgQueueHelper.sendMessage(message);
 		msgManager.saveMessage(message);

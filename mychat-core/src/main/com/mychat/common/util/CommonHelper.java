@@ -2,6 +2,9 @@ package com.mychat.common.util;
 
 import java.security.MessageDigest;
 
+import org.apache.commons.lang.RandomStringUtils;
+import org.apache.commons.lang.math.RandomUtils;
+
 public class CommonHelper {
 
 	public static String md5(String password) {
@@ -23,7 +26,18 @@ public class CommonHelper {
         }  
         return hexValue.toString();  
 	}
+	
+//	public static String randomStr(int length) {
+//		StringBuilder str = new StringBuilder();
+//		
+//		for (int i=0;i<length;i++){
+//			str.append(str)
+//		}
+//	}
+	
 	public static void main(String[] args) {
-		System.out.println(md5("123"));
+		System.out.println(RandomStringUtils.randomAlphanumeric((13)));
+		System.out.println(RandomStringUtils.randomAlphabetic((13)));
+		//System.out.println(RandomUtils.nextInt(30)+10);
 	}
 }

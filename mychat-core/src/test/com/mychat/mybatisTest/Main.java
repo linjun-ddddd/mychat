@@ -1,73 +1,53 @@
 package com.mychat.mybatisTest;
 
+import java.io.IOException;
+import java.io.Reader;
+import java.sql.Timestamp;
+
+import javax.sql.DataSource;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPasswordField;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
+
+import org.apache.commons.lang.RandomStringUtils;
+import org.apache.commons.lang.math.RandomUtils;
+import org.apache.ibatis.io.Resources;
+import org.apache.ibatis.mapping.Environment;
+import org.apache.ibatis.session.Configuration;
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.apache.ibatis.session.SqlSessionFactoryBuilder;
+import org.apache.ibatis.transaction.TransactionFactory;
+
+import com.mychat.bean.UserBean;
+import com.mychat.common.util.CommonHelper;
 public class Main extends javax.swing.JFrame {
-    public static void main(String[] args) {
-    	Main f = new Main();
-    }
-
-    JLabel label1;
-    JLabel label2;
-    JLabel label3;
-    JTextField tf;
-    JPasswordField psf;
-    JRadioButton rb1;
-    JRadioButton rb2;
-
-    JButton bt1;
-    JButton bt2;
-
-    public Main() {
-        this.setVisible(true);
-        this.setSize(250, 220);
-        this.setVisible(true);
-        this.setLocation(400, 200);
-
-        label1 = new JLabel("华软BBS快捷登陆");
-        label2 = new JLabel("账号：");
-        label3 = new JLabel("密码：");
-        tf = new JTextField();
-        psf = new JPasswordField();
-        rb1 = new JRadioButton("记住密码");
-        rb2 = new JRadioButton("自动登陆");
-        bt1 = new JButton("登陆");
-        // 为指定的 Container 创建 GroupLayout
-        GroupLayout layout = new GroupLayout(this.getContentPane());
-        this.getContentPane().setLayout(layout);
-        //创建GroupLayout的水平连续组，，越先加入的ParallelGroup，优先级级别越高。
-        GroupLayout.SequentialGroup hGroup = layout.createSequentialGroup();
-        hGroup.addGap(5);//添加间隔
-        hGroup.addGroup(layout.createParallelGroup().addComponent(label2)
-                .addComponent(label3));
-        hGroup.addGap(5);
-        hGroup.addGroup(layout.createParallelGroup().addComponent(label1)
-                .addComponent(psf).addComponent(rb1).addComponent(rb2)
-                .addComponent(tf).addComponent(bt1));
-        hGroup.addGap(5);
-        layout.setHorizontalGroup(hGroup);
-        //创建GroupLayout的垂直连续组，，越先加入的ParallelGroup，优先级级别越高。
-        GroupLayout.SequentialGroup vGroup = layout.createSequentialGroup();
-        vGroup.addGap(10);
-        vGroup.addGroup(layout.createParallelGroup().addComponent(label1));
-        vGroup.addGap(10);
-        vGroup.addGroup(layout.createParallelGroup().addComponent(label2)
-                .addComponent(tf));
-        vGroup.addGap(5);
-        vGroup.addGroup(layout.createParallelGroup().addComponent(label3)
-                .addComponent(psf));
-        vGroup.addGroup(layout.createParallelGroup().addComponent(rb1));
-
-        vGroup.addGroup(layout.createParallelGroup().addComponent(rb2));
-        vGroup.addGroup(layout.createParallelGroup(Alignment.TRAILING)
-                .addComponent(bt1));
-        vGroup.addGap(10);
-        //设置垂直组
-        layout.setVerticalGroup(vGroup);
-    }
+    public static void main(String[] args) throws IOException {
+    	Reader  reader = Resources.getResourceAsReader("com/mychat/mybatisTest/test-mybatis.xml");
+    	SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(reader);
+    	
+    	SqlSession session = sqlSessionFactory.openSession();
+    	UserMapper userMapper=session.getMapper(UserMapper.class);
+    	
+    	for (int i=0;i<1000;i++){
+    		UserBean user = new UserBean();
+    		user.setAge(String.valueOf(RandomUtils.nextInt(45)+15));
+    		user.setCity(RandomStringUtils.randomAlphabetic(RandomUtils.nextInt(5)+5));
+    		user.setIcon(String.valueOf(RandomUtils.nextInt(9)+1)+".png");
+    		user.setMysign(RandomStringUtils.randomAlphanumeric(RandomUtils.nextInt(200)+46));
+    		user.setName(RandomStringUtils.randomAlphanumeric(RandomUtils.nextInt(30)+10));
+    		user.setNickname(RandomStringUtils.randomAlphanumeric(RandomUtils.nextInt(30)+10));
+    		user.setPassword(CommonHelper.md5("123"));
+    		user.setRegisterTime(new Timestamp(System.currentTimeMillis()-RandomUtils.nextInt(3600*24*30)).toString());
+    		userMapper.save(user);
+    	}
+    	session.commit();
+    	session.close();
+	}
+    
 }

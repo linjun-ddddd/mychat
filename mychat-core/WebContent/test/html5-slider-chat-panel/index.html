@@ -157,6 +157,7 @@
 			  </div>
 			</div>
 			<input type="text" class="chat__input" placeholder="Your message" />
+			<button type="button" class="btn btn-info send_btn">发送</button>
 		  </div>
 
 		  <ul class='option_panel'>
@@ -520,17 +521,34 @@ function initAccordian(){
     };
     var accordion = new Accordion($('#accordion'), false);
 }
-
-
+//panel click
+var prePanel='';
 function friendListClick(){
-	
-	changeOptionContent($(".friendList_content"));
+	if (prePanel=='1'){
+		closePanel(true);
+		prePanel='';
+	}else{
+		changeOptionContent($(".friendList_content"));
+		prePanel='1';
+	}
 }
 function messageBoxClick(){
-	changeOptionContent($(".messageBox_content"));
+	if (prePanel=='2'){
+		closePanel(true);
+		prePanel='';
+	}else{
+		changeOptionContent($(".messageBox_content"));
+		prePanel='2';
+	}
 }
 function searchUserClick(){
-	changeOptionContent($(".searchUser_content"));
+	if (prePanel=='3'){
+		closePanel(true);
+		prePanel='';
+	}else{
+		changeOptionContent($(".searchUser_content"));
+		prePanel='3';
+	}
 }
 function otherItemClick(){
 	changeOptionContent($(".otherItem_content"));
@@ -542,7 +560,19 @@ function changeOptionContent(obj){
 
 	});
 }
-
+function closePanel(isFadeOut){
+	$(".option_content").each(function(index,element){
+		if ($(element).css("left")!="0rem"){
+			$(element).animate({left:"35rem"},200,function(){
+				
+			});
+		}
+	});
+	if (isFadeOut){
+		$(".background").fadeOut();
+	}
+}
+//profile click
 var isSiderOpen =false;
 var isSiderAnimating=false;
 function profileClick(){
@@ -563,18 +593,7 @@ function profileClick(){
 	
 }
 
-function closePanel(isFadeOut){
-	$(".option_content").each(function(index,element){
-		if ($(element).css("left")!="0rem"){
-			$(element).animate({left:"35rem"},200,function(){
-				
-			});
-		}
-	});
-	if (isFadeOut){
-		$(".background").fadeOut();
-	}
-}
+
 function addFriend(){
 	alert('aaa..');
 }

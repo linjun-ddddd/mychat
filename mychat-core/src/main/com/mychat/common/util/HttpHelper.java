@@ -11,7 +11,12 @@ public class HttpHelper {
 
 	public static void setSessionUserid(HttpServletRequest request, String userid) {
 		// TODO Auto-generated method stub
-		request.getSession().setAttribute("userid", userid);
+		request.getSession(true).setAttribute("userid", userid);
+	}
+
+	public static void cleanUserSession(HttpServletRequest request) {
+		// TODO Auto-generated method stub
+		request.getSession(true).removeAttribute("userid");
 	}
 
 }
