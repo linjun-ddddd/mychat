@@ -1,17 +1,17 @@
  package com.mychat.bean;
 
 public class UserBean {
-	String id;
-	String name;
-	String password;
-	String lastLogin;
-	String city;
-	String age;
-	String sex;
-	String icon;
-	String registerTime;
-	String nickname;
-	String mysign;
+	String id = "";
+	String name = "";
+	String password = "";
+	String lastLogin = "";
+	String city = "";
+	String age = "";
+	String sex = "";
+	String icon = "";
+	String registerTime = "";
+	String nickname = "";
+	String mysign = "";
 	
 	public String getId() {
 		return id;

@@ -34,11 +34,23 @@ public class ChatController extends BaseController{
 		String userid=HttpHelper.getSessionUserid(request);
 		UserBean user=userManager.getUserById(userid);
 		List<UserBean> lastChatUser = userManager.getLastChatUser(userid);
+		//性别
+		if (user.getSex()==null){
+			user.setSex("未知");
+		}else{
+			if ("1".equals(user.getSex())){
+				user.setSex("男");
+			}else if ("2".equals(user.getSex())){
+				user.setSex("女");
+			}
+		}
 		request.setAttribute("user", user);
 		request.setAttribute("lastChatUser", lastChatUser);
 		return "/fore/chat/index.html";
 	}
 	
+	
+
 	@RequestMapping(value="chat/send.do",method=RequestMethod.POST)
 	public void send(HttpServletRequest request, HttpServletResponse response) throws JMSException {
 		String userid=HttpHelper.getSessionUserid(request);
@@ -61,4 +73,6 @@ public class ChatController extends BaseController{
 		packetAjaxResult(response, returnJson);
 	
 	}
+	
+	
 }

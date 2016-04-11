@@ -21,8 +21,11 @@ public interface MessageMapper {
 	@Update("update t1_message set status = #{status} where id = #{messageId}")
 	void updateMessageStatus(@Param("messageId") String messageId,@Param("status") String status);
 
-	@Select("select * from message where toUserId = #{toUserId} limit #{beginInde},#{pageSize}")
-	List<MessageBean> getMsgByUserId(@Param("toUserId") String toUserId, @Param("beginInde") int beginInde, @Param("pageSize") int pageSize);
+	@Select("select * from t1_message where toUserId = #{toUserId} and type='1' order by sendDate desc limit #{beginInde},#{pageSize}")
+	List<MessageBean> getAddFriendMsgByUserId(@Param("toUserId") String toUserId, @Param("beginInde") int beginInde, @Param("pageSize") int pageSize);
+
+	@Select("select count(*)/#{pageSize} from t1_message where toUserId=#{userid} and type='1' ")
+	double getAddFriendMsgMaxPageById(@Param("userid") String userid,@Param("pageSize") int pageSize);
 
 	
 }

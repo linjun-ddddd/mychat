@@ -84,7 +84,7 @@ public class MsgQueueHelper {
 			
 			sessionMap.put(userid, "flag");
 			message = (MapMessage) receiver.receive(receiveTimeOut);
-			
+			System.out.println("receive message:"+message);
 			// 提交会话
 			session.commit();
 			

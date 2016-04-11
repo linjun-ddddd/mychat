@@ -2,6 +2,7 @@ package com.mychat.web.fore;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Enumeration;
 import java.util.List;
 
 import javax.jms.JMSException;
@@ -37,7 +38,14 @@ public class LongPollController extends BaseController{
 		JSONObject returnJson = new JSONObject();
 		if (message!=null){
 			returnJson.put("status", Constants.STATUS_SUCCESS);
-			returnJson.put("data", JSONObject.toJSONString(message));
+			JSONObject data = new JSONObject();
+			Enumeration<String> eu=message.getMapNames();
+			while (eu.hasMoreElements()) {
+				String key=eu.nextElement();
+				String value=message.getString(key);
+				data.put(key, value);
+			}
+			returnJson.put("data", data);
 		}else{
 			returnJson.put("status", Constants.STATUS_FAIL);
 		}

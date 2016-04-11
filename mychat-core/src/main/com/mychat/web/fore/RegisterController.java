@@ -21,7 +21,7 @@ public class RegisterController extends BaseController{
 	
 	private UserManager userManager = (UserManager) AppContextHelper.getInstance().getBean(UserManager.class);
 	
-	@RequestMapping("/register.html")
+	@RequestMapping("/register.action")
 	public String execute(Model model) {
 		return "/fore/register/index.html";
 	}
@@ -35,6 +35,7 @@ public class RegisterController extends BaseController{
 		user.setPassword(CommonHelper.md5(password));
 		user.setIcon("default.png");
 		userManager.saveUser(user);
-		return "redirect:login.html";
+		request.setAttribute("errorMsg", "注册成功！");
+		return "/fore/register/index.html";
 	}
 }

@@ -38,8 +38,7 @@ public class SearchPanelController extends BaseController{
 		//System.out.println("search param:"+_username+" | "+page);
 		
 		List<UserBean> userList = userManager.searchFriendByName(_username,page);
-		double maxPage = userManager.getMaxPageByName(_username);
-		maxPage=Math.ceil(maxPage);
+		int maxPage = userManager.getMaxPageByName(_username);
 		//返回ajax结果
 		returnJson.put("status", "1");
 		returnJson.put("data", JSONArray.toJSON(userList));
@@ -65,8 +64,8 @@ public class SearchPanelController extends BaseController{
 		message.setType(Constants.ADD_FRIEND_MESSAGE_TYPE);
 		message.setStatus(Constants.MESSAGE_UNDEAL_STATUS);
 		
-		MsgQueueHelper.sendMessage(message);
 		msgManager.saveMessage(message);
+		MsgQueueHelper.sendMessage(message);
 		
 		//返回ajax结果
 		returnJson.put("status", "1");

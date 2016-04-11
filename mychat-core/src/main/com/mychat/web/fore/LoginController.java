@@ -16,6 +16,7 @@ import com.mychat.bean.UserBean;
 import com.mychat.common.manager.UserManager;
 import com.mychat.common.util.Constants;
 import com.mychat.common.util.HttpHelper;
+import com.mychat.common.util.StringHelper;
 import com.mychat.common.util.AppContextHelper;
 
 @Controller
@@ -23,8 +24,12 @@ public class LoginController extends BaseController{
 	
 	private UserManager userManager = (UserManager) AppContextHelper.getInstance().getBean(UserManager.class);
 	
-	@RequestMapping("/login.html")
+	@RequestMapping("/login.action")
 	public String execute(HttpServletRequest request, HttpServletResponse response) {
+		String userid=HttpHelper.getSessionUserid(request);
+		if (!StringHelper.isEmpty(userid)){
+			return "redirect:chat/index.html";
+		}
 		return "/fore/login/index.html";
 	}
 	
@@ -39,7 +44,6 @@ public class LoginController extends BaseController{
 			return "redirect:chat/index.html";
 		}else{
 			request.setAttribute("errorMsg", "登录失败。。");
-			request.setAttribute("request", request);
 			return "/fore/login/index.html";
 		}
 	}

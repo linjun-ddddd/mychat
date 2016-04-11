@@ -8,7 +8,7 @@ public class Constants {
 	
 	public static final String MESSAGE_DEAL_AGREE_STATUS = "1";
 	
-	public static final String MESSAGE_DEAL_REJECT_STATUS = "1";
+	public static final String MESSAGE_DEAL_REJECT_STATUS = "2";
 
 
 	/*消息类型*/
@@ -20,10 +20,6 @@ public class Constants {
 	public static final String ADD_FRIEND_MESSAGE_TYPE = "1";
 	
 	public static final String UPDATE_FRIEND_LIST_MESSAGE_TYPE = "2";
-	
-	public static final String ADD_FRIEND_SUCCESS_MESSAGE_TYPE = "3";
-	
-	public static final String ADD_FRIEND_ERROR_MESSAGE_TYPE = "4";
 	
 	/*返回报文标示*/
 	

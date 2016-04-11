@@ -46,10 +46,11 @@ public class UserManager {
 		return userList;
 	}
 
-	public double getMaxPageByName(String _username) {
+	public int getMaxPageByName(String _username) {
 		// TODO Auto-generated method stub
 		int pageSize=6;
-		return userMapper.getMaxPageByName("%"+_username+"%",pageSize);
+		int maxPage = (int) Math.ceil( userMapper.getMaxPageByName("%"+_username+"%",pageSize));
+		return maxPage;
 	}
 
 	public void saveUser(UserBean user) {

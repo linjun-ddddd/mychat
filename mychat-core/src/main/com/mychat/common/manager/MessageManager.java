@@ -10,6 +10,7 @@ import com.mychat.bean.MessageBean;
 import com.mychat.common.mapper.MessageMapper;
 import com.mychat.common.mapper.UserMapper;
 import com.mychat.common.util.AppContextHelper;
+import com.mychat.common.util.StringHelper;
 
 @Scope("singleton")
 @Component
@@ -19,7 +20,7 @@ public class MessageManager {
 	
 	public void saveMessage(MessageBean message) {
 		// TODO Auto-generated method stub
-		if (message.getSendDate()==null){
+		if (StringHelper.isEmpty(message.getSendDate())){
 			message.setSendDate(new Timestamp(System.currentTimeMillis()).toString());
 		}
 		messageMapper.insertMessage(message);
@@ -33,11 +34,18 @@ public class MessageManager {
 	/*
 	 * page从1开始
 	 * */
-	public List<MessageBean> getMsgByUserId(String toUserId, String page) {
+	public List<MessageBean> getAddFriendMsgByUserId(String toUserId, String page) {
 		// TODO Auto-generated method stub
 		int pageSize = 5;
-		int beginInde = pageSize*Integer.valueOf(page)-pageSize;
-		return messageMapper.getMsgByUserId(toUserId,beginInde,pageSize);
+		int beginIndex = pageSize*Integer.valueOf(page)-pageSize;
+		return messageMapper.getAddFriendMsgByUserId(toUserId,beginIndex,pageSize);
+	}
+
+	public int getMaxPageById(String toUserId) {
+		// TODO Auto-generated method stub
+		int pageSize = 5;
+		double maxPage =messageMapper.getAddFriendMsgMaxPageById(toUserId,pageSize);
+		return (int)  Math.ceil( maxPage);
 	}
 
 }

@@ -33,13 +33,13 @@ public class AuthFilter implements Filter{
 		//不拦截css，js，图片文件
 		String newUri=uri.substring(uri.indexOf("/", 1));
 		System.out.println(newUri);
-		if (newUri.startsWith("resource")||newUri.startsWith("action")){
+		if (newUri.startsWith("/resource")||newUri.endsWith(".action")){
 			filterChain.doFilter(request, response);
 		}
 		//判断是否登录
 		String userid=HttpHelper.getSessionUserid(httpServletRequest);
 		if (StringHelper.isEmpty(userid)){
-			httpServletRequest.getRequestDispatcher("login.html").forward(request, response);
+			httpServletResponse.sendRedirect(request.getServletContext().getContextPath()+"/login.action");
 		}else{
 			filterChain.doFilter(request, response);
 		}

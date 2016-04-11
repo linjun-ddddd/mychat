@@ -37,11 +37,13 @@ public class MsgBoxPanelController extends BaseController{
 		String page= request.getParameter("page");
 		//System.out.println("search param:"+_username+" | "+page);
 		
-		List<MessageBean> messageList = msgManager.getMsgByUserId(toUserId,page);
-		
+		List<MessageBean> messageList = msgManager.getAddFriendMsgByUserId(toUserId,page);
+		int maxPage= msgManager.getMaxPageById(toUserId);
 		//返回ajax结果
 		returnJson.put("status", Constants.STATUS_SUCCESS);
 		returnJson.put("data", JSONArray.toJSON(messageList));
+		returnJson.put("curPage", page);
+		returnJson.put("maxPage", maxPage+"");
 		packetAjaxResult(response,returnJson);
 		
 	}
@@ -62,25 +64,26 @@ public class MsgBoxPanelController extends BaseController{
 		agreeMessage.setData(user.getName()+" 同意了您的添加好友请求");
 		agreeMessage.setFromUserId(userId);
 		agreeMessage.setToUserId(fromUserId);
-		agreeMessage.setType(Constants.ADD_FRIEND_SUCCESS_MESSAGE_TYPE);
-		MsgQueueHelper.sendMessage(agreeMessage);
+		agreeMessage.setStatus(Constants.MESSAGE_DEAL_AGREE_STATUS);
+		agreeMessage.setType(Constants.ADD_FRIEND_MESSAGE_TYPE);
 		msgManager.saveMessage(agreeMessage);
+		MsgQueueHelper.sendMessage(agreeMessage);
 		
 		//打包两个更新好友列表message
 		MessageBean message1 = new MessageBean();
 		message1.setFromUserId(userId);
 		message1.setToUserId(fromUserId);
 		message1.setType(Constants.UPDATE_FRIEND_LIST_MESSAGE_TYPE);
-		MsgQueueHelper.sendMessage(message1);
 		msgManager.saveMessage(message1);
+		MsgQueueHelper.sendMessage(message1);
 		
 		
 		MessageBean message2 = new MessageBean();
 		message2.setFromUserId(fromUserId);
 		message2.setToUserId(userId);
 		message2.setType(Constants.UPDATE_FRIEND_LIST_MESSAGE_TYPE);
-		MsgQueueHelper.sendMessage(message2);
 		msgManager.saveMessage(message2);
+		MsgQueueHelper.sendMessage(message2);
 		
 		//返回ajax结果
 		returnJson.put("status", Constants.STATUS_SUCCESS);
@@ -96,15 +99,16 @@ public class MsgBoxPanelController extends BaseController{
 		//更新消息状态
 		msgManager.updateMessageStatus(messageId,Constants.MESSAGE_DEAL_REJECT_STATUS);
 		
-		//打包同意message
+		//打包拒绝message
 		UserBean user=userManager.getUserById(userId);
 		MessageBean agreeMessage = new MessageBean();
 		agreeMessage.setData(user.getName()+" 拒绝了您的添加好友请求");
 		agreeMessage.setFromUserId(userId);
 		agreeMessage.setToUserId(fromUserId);
-		agreeMessage.setType(Constants.ADD_FRIEND_SUCCESS_MESSAGE_TYPE);
-		MsgQueueHelper.sendMessage(agreeMessage);
+		agreeMessage.setStatus(Constants.MESSAGE_DEAL_REJECT_STATUS);
+		agreeMessage.setType(Constants.ADD_FRIEND_MESSAGE_TYPE);
 		msgManager.saveMessage(agreeMessage);
+		MsgQueueHelper.sendMessage(agreeMessage);
 		
 		//返回ajax结果
 		returnJson.put("status", Constants.STATUS_SUCCESS);

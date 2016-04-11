@@ -4,14 +4,14 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 
 public class MessageBean {
-	String id;
-	String data;
-	String type;
-	String toUserId;
-	String fromUserId;
-	String title;
-	String status;
-	String sendDate;
+	String id = "";
+	String data = "";
+	String type = "";
+	String toUserId = "";
+	String fromUserId = "";
+	String title = "";
+	String status = "";
+	String sendDate = "";
 	
 	public String getId() {
 		return id;

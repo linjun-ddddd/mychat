@@ -11,7 +11,7 @@
 	
 	<div class="profile" onclick="profileClick()">
 		<img src="$contextPath/resource/images/chat/1.png" alt="Matthew Greenberg">
-		<span>Matthew Greenberg</span>
+		<span>&nbsp;&nbsp;&nbsp;$user.name</span>
 	</div>
 	<ul class='tool_list'>
 		<li>
@@ -33,10 +33,10 @@
 		<a href="#" class="list-group-item active">
 		    个人信息
 		</a>
-		<a  href="#" class="list-group-item">账号 &nbsp;|&nbsp; Dapibus ac facilisis in</a>
-		<a  href="#" class="list-group-item">昵称 &nbsp;|&nbsp; Dapibus ac facilisis in</a>
-		<a  href="#" class="list-group-item">性别 &nbsp;|&nbsp; Dapibus ac facilisis in</a>
-		<a  href="#" class="list-group-item">签名 &nbsp;|&nbsp; Dapibus ac facilisis in</a>
+		<a  href="#" class="list-group-item">账号 &nbsp;|&nbsp; $user.name </a>
+		<a  href="#" class="list-group-item"> 昵称 &nbsp;|&nbsp;  $user.nickname </a>
+		<a  href="#" class="list-group-item">性别 &nbsp;|&nbsp;$user.sex</a>
+		<a  href="#" class="list-group-item">签名 &nbsp;|&nbsp; $user.mysign</a>
 		<button type="button" class="btn btn-danger loginOut" onclick='loginOut(this)'>退出登录</button>
 	</div>
 	
@@ -316,7 +316,8 @@
 			    <h3 class="panel-title"><button type="button" class="close" aria-hidden="true" onclick="closePanel(true)">&times;</button>&nbsp;消息盒子</h3>
 			  </div>
 			  <div class="panel-body">
-			   	<div class="alert alert-success" role="alert">
+			  	<div class="msgContainer">
+			   	<!--<div class="alert alert-success" role="alert">
 			   		<div class='message'>hello world!</div>
 			   		<div class='time_msg'>2016-04-05 15:10:11</div>
 			   		<div class="button_wrap">
@@ -334,7 +335,7 @@
 			   			<button type="button" class="btn btn-info">已处理</button>
 			   		</div>
 				</div>
-				<div class="alert alert-warning" role="alert">
+				 <div class="alert alert-warning" role="alert">
 					<div class='message'>hello world!</div>
 					<div class='time_msg'>2016-04-05 15:10:11</div>
 			   		<div class="button_wrap">
@@ -351,20 +352,11 @@
 			   			<button type="button" class="btn btn-success">同意</button>
 			   			<button type="button" class="btn btn-danger">拒绝</button>
 			   		</div>
+				</div>-->
 				</div>
-
-				<div class="alert alert-info" role="alert">
-					<div class='message'>hello world!</div>
-					<div class='time_msg'>2016-04-05 15:10:11</div>
-			   		<div class="button_wrap">
-			   			
-			   			<button type="button" class="btn btn-info">已处理</button>
-			   		</div>
-				</div>
-				<!--翻页-->
 				<div class="pagination_container">
 				  <ul class="pagination">
-				    <li>
+				   <!--翻页 <li>
 				      <a href="#" aria-label="Previous">
 				        <span aria-hidden="true">&laquo;</span>
 				      </a>
@@ -378,10 +370,9 @@
 				      <a href="#" aria-label="Next">
 				        <span aria-hidden="true">&raquo;</span>
 				      </a>
-				    </li>
+				    </li> -->
 				  </ul>
 				</div>
-				<!--翻页-->
 			  </div>
 
 
