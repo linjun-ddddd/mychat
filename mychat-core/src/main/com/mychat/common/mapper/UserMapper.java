@@ -17,8 +17,8 @@ public interface UserMapper {
 	@Select("SELECT * FROM t1_user WHERE name = #{username} and password = #{password}") 
     UserBean getUserByNameAndPass(@Param("username") String username,@Param("password") String password);
 
-	@Select("SELECT * FROM t1_user WHERE name like #{_username} limit #{beginIndex},#{pageSize}") 
-	List<UserBean> searchFriendByName(@Param("_username") String _username, @Param("beginIndex")int beginIndex, @Param("pageSize")int pageSize); 
+	@Select("SELECT * FROM t1_user WHERE id!=#{curUserId} and name like #{_username} limit #{beginIndex},#{pageSize}") 
+	List<UserBean> searchFriendByName(@Param("_username") String _username,@Param("curUserId")String curUserId, @Param("beginIndex")int beginIndex, @Param("pageSize")int pageSize); 
 	
 	@Insert("insert into t1_user(name, password, lastLogin, city, age, sex, icon, registerTime, nickname, mysign) values( "
 			+ "#{name}, #{password}, #{lastLogin}, #{city}, #{age}, #{sex}, #{icon}, #{registerTime}, #{nickname}, #{mysign})")

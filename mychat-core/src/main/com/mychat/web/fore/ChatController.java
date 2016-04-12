@@ -56,6 +56,7 @@ public class ChatController extends BaseController{
 				user.setSex("女");
 			}
 		}
+
 		request.setAttribute("user", user);
 		request.setAttribute("lastChatUser", lastChatUser);
 		return "/fore/chat/index.html";
@@ -68,6 +69,8 @@ public class ChatController extends BaseController{
 		String userid=HttpHelper.getSessionUserid(request);
 		String toUserId=request.getParameter("toUserId");
 		String msgData=request.getParameter("msgData");
+		//更新聊天时间
+		relationManager.updateLastChatDate(toUserId,userid);
 		
 		//打包消息
 		MessageBean message = new MessageBean();
@@ -88,5 +91,19 @@ public class ChatController extends BaseController{
 	
 	}
 	
+	@RequestMapping(value="chat/getHistory.do",method=RequestMethod.POST)
+	public void getHistory(HttpServletRequest request, HttpServletResponse response) throws JMSException {
+		String userid=HttpHelper.getSessionUserid(request);
+		String friendId=request.getParameter("friendId");
+		
+		final int hisAmount = 16;
+		List<MessageBean> messageList=msgManager.getHistoryChatMsg(hisAmount,userid,friendId);
+		//返回ajax结果
+		JSONObject returnJson = new JSONObject();
+		returnJson.put("status", Constants.STATUS_SUCCESS);
+		returnJson.put("messageList", JSONObject.toJSON(messageList));
+		packetAjaxResult(response, returnJson);
+	
+	}
 	
 }

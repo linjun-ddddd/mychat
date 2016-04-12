@@ -35,9 +35,10 @@ public class SearchPanelController extends BaseController{
 		JSONObject returnJson = new JSONObject();
 		String _username= request.getParameter("username");
 		String page= request.getParameter("page");
+		String curUserId = HttpHelper.getSessionUserid(request);
 		//System.out.println("search param:"+_username+" | "+page);
 		
-		List<UserBean> userList = userManager.searchFriendByName(_username,page);
+		List<UserBean> userList = userManager.searchFriendByName(_username,curUserId,page);
 		int maxPage = userManager.getMaxPageByName(_username);
 		//返回ajax结果
 		returnJson.put("status", "1");

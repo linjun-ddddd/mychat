@@ -33,11 +33,12 @@ public class UserManager {
 	/*
 	 * page从1开始
 	 * */
-	public List<UserBean> searchFriendByName(String _username, String page) {
+	public List<UserBean> searchFriendByName(String _username, String curUserId, String page) {
 		// TODO Auto-generated method stub
 		final int pageSize = 6;
 		final int beginIndex = pageSize*Integer.valueOf(page)-pageSize;
-		List<UserBean> userList=userMapper.searchFriendByName("%"+_username+"%",beginIndex,pageSize);
+		
+		List<UserBean> userList=userMapper.searchFriendByName("%"+_username+"%",curUserId,beginIndex,pageSize);
 		return userList;
 	}
 

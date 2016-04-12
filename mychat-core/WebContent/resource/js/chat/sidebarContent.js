@@ -26,3 +26,23 @@ function flashFriendList(user){
 	//在头部插入新节点
 	insertHeadLastChatList(user);
 }
+//把用户移到最顶
+function moveUserHead(userid){
+	var contactList =$(".sidebar-content .contact_list");
+	contactList.children(".contact").each(function(index,element){
+		var _userid=$(element).attr("userid");
+		if (userid==_userid){
+			targetItem=$(element);
+		}
+	});
+	//删除当前节点,并上移
+	if (targetItem!=null){
+		var cloneItem=targetItem.clone();
+		targetItem.remove();
+		var friendList = $(".sidebar-content .contact_list");
+		var html = '<div class="contact contactActive" onclick="friendClick('+userid+')" userid="'+userid+'">';
+		html+=cloneItem.html();
+		html+='</div>';
+		friendList.html(html+friendList.html());
+	}
+}

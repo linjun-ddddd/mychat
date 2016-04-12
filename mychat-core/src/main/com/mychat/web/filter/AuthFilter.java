@@ -29,7 +29,7 @@ public class AuthFilter implements Filter{
 		HttpServletRequest httpServletRequest=(HttpServletRequest) request;
 		HttpServletResponse httpServletResponse=(HttpServletResponse) response;
 		String uri=httpServletRequest.getRequestURI();	
-		//System.out.println(uri);
+		System.out.println(uri);
 		//不拦截css，js，图片文件
 		String newUri=uri.substring(uri.indexOf("/", 1));
 		System.out.println(newUri);

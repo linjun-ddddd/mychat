@@ -146,7 +146,9 @@ $(document).ready(function() {
         top = $img.offset().top - demoTop,
         left = $img.offset().left - demoLeft,
         $clone = $img.clone().addClass("cloned");
-
+    
+    $(".demo .cloned").remove();
+    
     $clone.css({top: top, left: left});
     $demo.append($clone);
     $clone.css("top");

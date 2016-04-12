@@ -48,4 +48,9 @@ public class MessageManager {
 		return (int)  Math.ceil( maxPage);
 	}
 
+	public List<MessageBean> getHistoryChatMsg(int hisAmount, String userid, String friendId) {
+		// TODO Auto-generated method stub
+		return messageMapper.getHistoryChatMsg(hisAmount,userid,friendId);
+	}
+
 }

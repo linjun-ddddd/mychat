@@ -57,10 +57,7 @@ function longPoll(){
         			if (msg.fromuserid!=curChatUserId){
         				flashFriendList(json.fromuser);
         			}else{
-        				//滚动到底部
-        				var messageContent = $(".chat .chat__messages");
-        				var scrollHeight = messageContent[0].scrollHeight;
-        				messageContent.scrollTop(scrollHeight);
+        				messagesScrollBottom();
         			}
         			break;
         		
@@ -161,6 +158,8 @@ function sendMessage(sendBtn){
       		console.log("json status:"+json.status);
             if ( json.status=='1' ) {
             	updateChat(json.message);
+            	//把当前用户移到最顶
+            	moveUserHead(friendId);
             } else {  
                 //alert("查询失败。。");
             	errorAlert("fail!!");
@@ -176,10 +175,9 @@ function updateChat(json){
 	var chatMsg = $(".chat .chat__input").val();
 	 $(".chat .chat__input").val('');
 	 packetRightChat(json);
-	//滚动到底部
-	var messageContent = $(".chat .chat__messages");
-	var scrollHeight = messageContent[0].scrollHeight;
-	messageContent.scrollTop(scrollHeight);
+	 messagesScrollBottom();
+	 
+	 
 }
 function packetRightChat(chatMsg){
 	var html = '<div class="chat__msgRow">';
@@ -194,15 +192,17 @@ function packetRightChat(chatMsg){
 function packetLeftChat(chatMsg){
 	var html = '<div class="chat__msgRow">';
 	html+='<div class="chat__message mine">'+chatMsg.data+'</div></div>';
+	//activemq传过来的fromUserId变成小写...
+	var fromUserId = chatMsg.fromuserid||chatMsg.fromUserId;
 	//如果当前选中该用户，更新聊天信息
-	if (curChatUserId==chatMsg.fromuserid){
+	if (curChatUserId==fromUserId){
 		$(".chat .chat__messages").append(html);
 	}
-	//console.log(chatMsg.fromuserid);
-	if (chatMap[chatMsg.fromuserid]==null){
-		chatMap[chatMsg.fromuserid]='';
+	//console.log(fromUserId);
+	if (chatMap[fromUserId]==null){
+		chatMap[fromUserId]='';
 	}
-	chatMap[chatMsg.fromuserid]+=html;
+	chatMap[fromUserId]+=html;
 }
 
 //退出登录
@@ -235,6 +235,73 @@ function sendMessageKeyDown(event){
 	  if (event.keyCode==13) {  //回车键的键值为13
 		  sendMessage($(".chat .send_btn"));
 	  }
+}
+//friend item click[包括常用联系人和好友列表]
+function friendClick(friendId){
+	curChatUserId=friendId;
+	$(".chat .send_btn").attr('friendId',friendId);
+	$(".sidebar-content .contact_list").children(".contact").each(function(index,element){
+		$(element).removeClass("contactActive");
+		var userid=$(element).attr("userid");
+		if (userid==friendId){
+			$(element).removeClass("contactNewMessage").addClass("contactActive");
+		}
+	});
+	closePanel(true);
+	//切换聊天信息
+	//console.log(chatMap[friendId]);
+	if (chatMap[friendId]==null){
+		$(".chat .chat__messages").html('');
+		$.ajax({  
+	        type : "POST",  //提交方式  
+	        url : contextPath+"/chat/getHistory.do",//路径  
+	        data : {
+	        	"friendId":friendId
+	        },//数据，这里使用的是Json格式进行传输  
+	        dataType : "json",
+	        success : function(result) {//返回数据根据结果进行相应的处理 
+	        	var json = eval(result);
+	            if ( json.status=='1' ) {
+	            	var messageList = json.messageList;
+	            	for (var i=messageList.length-1;i>=0;i--){
+	            		var curMsg = messageList[i];
+	            		//console.log(curMsg.fromUserId+' '+friendId+' '+(curMsg.fromUserId!=friendId));
+	            		if (curMsg.fromUserId==friendId){
+	            			packetLeftChat(curMsg);
+	            		}else{
+	            			packetRightChat(curMsg);
+	            		}
+	            	}
+	            	if (messageList.length>0){
+	            		var lastTime = messageList[messageList.length-1].sendDate;
+	            		var hisTipHtml = '';
+	            		hisTipHtml+="<div class='divider'></div>";
+	            		hisTipHtml+="<div class='dividerMsg'>历史消息: "+lastTime+"</div>";
+	            		$(".chat .chat__messages").append(hisTipHtml);
+	            		chatMap[friendId]+=hisTipHtml;
+	            	}
+	            	messagesScrollBottom();
+	            } else {  
+	                //alert("查询失败。。");
+	            	errorAlert("fail!!");
+	            }  
+	        },
+	        error : function(XMLHttpRequest, textStatus, errorThrown){ 
+	        	errorAlert('error:'+textStatus+" | "+errorThrown);
+	        }
+	    }); 
+	}else{
+		$(".chat .chat__messages").html(chatMap[friendId]);
+		messagesScrollBottom();
+	}
+	
+	
+}
+//滚动到底部
+function messagesScrollBottom(){
+	var messageContent = $(".chat .chat__messages");
+	var scrollHeight = messageContent[0].scrollHeight;
+	messageContent.scrollTop(scrollHeight);
 }
 
 //引入其他js

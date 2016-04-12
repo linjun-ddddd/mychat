@@ -27,5 +27,9 @@ public interface MessageMapper {
 	@Select("select count(*)/#{pageSize} from t1_message where toUserId=#{userid} and type='1' ")
 	double getAddFriendMsgMaxPageById(@Param("userid") String userid,@Param("pageSize") int pageSize);
 
+	/*建索引优化性能：CREATE INDEX idx_t1_message_toUserId_fromUserId  ON t1_message(toUserId,fromUserId);*/
+	@Select("select * from t1_message where ((toUserId=${userid} and fromUserId=#{friendId}) or (toUserId=#{friendId} and fromUserId=#{userid})) and type='0' order by sendDate desc limit #{hisAmount}")
+	List<MessageBean> getHistoryChatMsg(@Param("hisAmount")int hisAmount, @Param("userid")String userid, @Param("friendId")String friendId);
+
 	
 }

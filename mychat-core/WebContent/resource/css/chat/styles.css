@@ -767,3 +767,19 @@ messageBox_content
 .chat__content{
 	
 }
+.chat__messages .divider{
+    width: 100%;
+    background: rgb(216, 142, 142);
+    height: 0.2rem;
+    margin: 1rem 0rem 3rem 0rem;
+    text-align: center;
+}
+.chat__messages .dividerMsg{
+    display: block;
+    width: 12rem;
+    text-align: center;
+    margin: 0 auto;
+    margin-top: -3.8rem;
+    background: white;
+	
+}

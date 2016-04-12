@@ -1,5 +1,6 @@
 package com.mychat.common.manager;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
@@ -23,9 +24,18 @@ public class RelationManager {
 
 	public void saveRelation(String userId, String fromUserId) {
 		// TODO Auto-generated method stub
-		if ("0".equals(relationMapper.checkIsFriend(userId,fromUserId))){//如果还不是好友
+		if (!hasRelation(userId,fromUserId)){//如果还不是好友
 			relationMapper.saveRelation(userId, fromUserId);
 			relationMapper.saveRelation(fromUserId,userId);
 		}
+	}
+	private boolean hasRelation(String userId, String fromUserId) {
+		return "1".equals(relationMapper.hasRelation(userId,fromUserId))
+				&& "1".equals(relationMapper.hasRelation(fromUserId,userId));
+	}
+
+	public void updateLastChatDate(String toUserId, String userid) {
+		// TODO Auto-generated method stub
+		relationMapper.updateLastChatDate( toUserId, userid, new Timestamp(System.currentTimeMillis()).toString()) ;
 	}
 }

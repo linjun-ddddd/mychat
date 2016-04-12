@@ -77,24 +77,5 @@ function updateFriendList(json){
 	//更新好友总数
 	$(".friendAmount").text("("+data.length+")");
 }
-//friend item click
-function friendClick(friendId){
-	curChatUserId=friendId;
-	$(".chat .send_btn").attr('friendId',friendId);
-	$(".sidebar-content .contact_list").children(".contact").each(function(index,element){
-		$(element).removeClass("contactActive");
-		var userid=$(element).attr("userid");
-		if (userid==friendId){
-			$(element).removeClass("contactNewMessage").addClass("contactActive");
-		}
-	});
-	closePanel(true);
-	//切换聊天信息
-	//console.log(chatMap[friendId]);
-	if (chatMap[friendId]==null){
-		chatMap[friendId]="";
-	}
-	$(".chat .chat__messages").html(chatMap[friendId]);
-}
 /////执行的代码//////
 initAccordian();

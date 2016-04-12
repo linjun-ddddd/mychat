@@ -37,7 +37,7 @@ public class RelationGenerator {
 				j+=RandomUtils.nextInt(50)+1;
 				if (j>maxUserId) break;
 				String friendId = j+"";
-				if ("0".equals(relationMapper.checkIsFriend(myid,friendId))){
+				if ("0".equals(relationMapper.hasRelation(myid,friendId))){
 					relationMapper.saveRelation(myid,friendId);
 					relationMapper.saveRelation(friendId,myid);
 				}else{
