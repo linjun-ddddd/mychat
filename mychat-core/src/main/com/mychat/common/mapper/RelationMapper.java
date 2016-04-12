@@ -17,4 +17,7 @@ public interface RelationMapper {
 
 	@Insert("insert into t1_relation(myid,friendId) values(#{myid},#{friendId})")
 	void saveRelation(@Param("myid")String userId, @Param("friendId")String fromUserId);
+
+	@Select("select count(*)!=0 from t1_relation where myid=#{myid} and friendId = #{friendId}")
+	String checkIsFriend(@Param("myid")String myid, @Param("friendId")String friendId);
 }

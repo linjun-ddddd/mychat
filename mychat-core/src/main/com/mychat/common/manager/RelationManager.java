@@ -23,7 +23,9 @@ public class RelationManager {
 
 	public void saveRelation(String userId, String fromUserId) {
 		// TODO Auto-generated method stub
-		relationMapper.saveRelation(userId, fromUserId);
-		relationMapper.saveRelation(fromUserId,userId);
+		if ("0".equals(relationMapper.checkIsFriend(userId,fromUserId))){//如果还不是好友
+			relationMapper.saveRelation(userId, fromUserId);
+			relationMapper.saveRelation(fromUserId,userId);
+		}
 	}
 }

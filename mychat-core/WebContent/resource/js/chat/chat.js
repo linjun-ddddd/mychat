@@ -1,8 +1,12 @@
+////全局变量/////
 //当前聊天用户id
 var curChatUserId = '';
 //保存当前聊天记录
 var chatMap = new Object();
-//长连接函数
+//右侧panel记录
+var prePanel='';
+
+//长连接相关
 var isRefresh = '0';
 function longPoll(){
 	
@@ -76,6 +80,7 @@ function longPoll(){
    		}
     });
 }
+//右侧边栏相关
 var timerMap = new Object();
 function flashOptionPanelItem(type){
 	switch (type){
@@ -99,218 +104,7 @@ function clearFlashOptionPanel(type){
 		break;
 	}
 }
-function insertHeadLastChatList(user){
-	var addHtml = '';
-	addHtml+='<div class="contact contactNewMessage" onclick="friendClick('+user.id+')" userid="'+user.id+'">';
-	addHtml+='<img src="'+contextPath+'/resource/images/chat/upload/'+user.icon+'" alt="" class="contact__photo" />';
-	addHtml+='<span class="contact__name">'+user.name+'</span>';
-	addHtml+='<span class="contact__status online"></span></div>';
-	
-	var friendList = $(".sidebar-content .contact_list");
-	var preHtml = friendList.html();
-	friendList.html(addHtml+preHtml);
-}
-function flashFriendList(user){
-	var targetItem = null;
-	var contactList =$(".sidebar-content .contact_list");
-	contactList.children(".contact").each(function(index,element){
-		var userid=$(element).attr("userid");
-		if (userid==user.id){
-			targetItem=$(element);
-		}
-	});
-	//删除当前节点
-	if (targetItem!=null){
-		targetItem.remove();
-	}
-	//在头部插入新节点
-	insertHeadLastChatList(user);
-}
-//init function
-function initAccordian(){
-	 var Accordion = function (el, multiple) {
-        this.el = el || {};
-        this.multiple = multiple || false;
-        var links = this.el.find('.link');
-        links.on('click', {
-            el: this.el,
-            multiple: this.multiple
-        }, this.dropdown);
-    };
-    Accordion.prototype.dropdown = function (e) {
-        var $el = e.data.el;
-        $this = $(this), $next = $this.next();
-        $next.slideToggle();
-        $this.parent().toggleClass('open');
-        if (!e.data.multiple) {
-            $el.find('.submenu').not($next).slideUp().parent().removeClass('open');
-        }
-        ;
-    };
-    var accordion = new Accordion($('#accordion'), false);
-}
 
-//panel click
-var prePanel='';
-function friendListClick(){
-	if (prePanel=='1'){
-		closePanel(true);
-	}else{
-		changeOptionContent($(".friendList_content"));
-		//获取朋友列表
-		getFriendList();
-		
-		prePanel='1';
-	}
-}
-function getFriendList(){
-	$.ajax({  
-        type : "POST",  //提交方式  
-        url : contextPath+"/friend/list.do",//路径  
-        data : {
-        },//数据，这里使用的是Json格式进行传输  
-        dataType : "json",
-        success : function(result) {//返回数据根据结果进行相应的处理 
-        	var json = eval(result);
-      		console.log("json status:"+json.status);
-            if ( json.status=='1' ) {
-            	updateFriendList(json);
-            } else {  
-                //alert("查询失败。。");
-            	errorAlert("fail!!");
-            }  
-        },
-        error : function(XMLHttpRequest, textStatus, errorThrown){ 
-			console.log('error:'+textStatus+" | "+errorThrown);
-			errorAlert("fail!!");
-        }
-    });
-}
-function updateFriendList(json){
-	var friendList = $(".friendList_content .default .submenu");
-	var data =json.data;
-	var friendListHtml='';
-	for (var i=0;i<data.length;i++){
-		var curData = data[i];
-		friendListHtml+='<li onclick="friendClick('+curData.id+')" class="friendItem"><img src="'+
-			contextPath+'/resource/images/chat/upload/'+
-			curData.icon+'" class="usericon contact__photo">';
-		friendListHtml+='<div class="username">'+curData.name+'</div>';
-		friendListHtml+='<div><span class="mysign">'+curData.mysign+'</span>';
-		if (curData.sex=='1'){
-			friendListHtml+='<img class="icon" src="'+contextPath+'/resource/images/chat/icon/male.png">';
-		}else {
-			friendListHtml+='<img class="icon" src="'+contextPath+'/resource/images/chat/icon/female.png">';
-		}
-		friendListHtml+='</div></li>'; 
-	}
-	friendList.html(friendListHtml);
-}
-//friend item click
-function friendClick(friendId){
-	curChatUserId=friendId;
-	$(".chat .send_btn").attr('friendId',friendId);
-	$(".sidebar-content .contact_list").children(".contact").each(function(index,element){
-		$(element).removeClass("contactActive");
-		var userid=$(element).attr("userid");
-		if (userid==friendId){
-			$(element).removeClass("contactNewMessage").addClass("contactActive");
-		}
-	});
-	closePanel(true);
-	//切换聊天信息
-	//console.log(chatMap[friendId]);
-	if (chatMap[friendId]==null){
-		chatMap[friendId]="";
-	}
-	$(".chat .chat__messages").html(chatMap[friendId]);
-}
-//messageBox click
-function messageBoxClick(){
-	if (prePanel=='2'){
-		closePanel(true);
-	}else{
-		//取消闪烁
-		clearFlashOptionPanel(ADD_FRIEND_MESSAGE_TYPE);
-		//更新消息
-		getMsgByPage(1);
-		//打开消息盒子
-		changeOptionContent($(".messageBox_content"));
-		prePanel='2';
-	}
-}
-function getMsgByPage(page){
-	$.ajax({  
-        type : "POST",  //提交方式  
-        url : contextPath+"/msgBox/getMessage.do",//路径  
-        data : {
-            "page" : page
-        },//数据，这里使用的是Json格式进行传输  
-        dataType : "json",
-        success : function(result) {//返回数据根据结果进行相应的处理 
-        	var json = eval(result);
-      		console.log("json status:"+json.status);
-            if ( json.status=='1' ) {
-            	updateMsgBox(json);
-            } else {  
-                //alert("查询失败。。");
-            	errorAlert("fail!!");
-            }  
-        },
-        error : function(XMLHttpRequest, textStatus, errorThrown){ 
-			console.log('error:'+textStatus+" | "+errorThrown);
-			errorAlert("fail!!");
-        }
-    });
-}
-function updateMsgBox(json){
-	var data=json.data;
-	var messageBox = $(".messageBox_content .msgContainer");
-	var messageListHtml='';
-	for (var i=0;i<data.length;i++){
-		var curData=data[i];
-		var nodeHtml='';
-		//console.log("curData.type:"+curData.data);
-		//console.log("ADD_FRIEND_MESSAGE_TYPE:"+ADD_FRIEND_MESSAGE_TYPE);
-		switch (curData.type){
-		case ADD_FRIEND_MESSAGE_TYPE:
-			nodeHtml+='<div class="alert alert-info" role="alert">';
-			nodeHtml+='<div class="message">'+curData.data+'</div>';
-			nodeHtml+='<div class="time_msg">'+curData.sendDate+'</div>';
-			nodeHtml+='<div class="button_wrap">';
-			if (curData.status==MESSAGE_UNDEAL_STATUS){
-				nodeHtml+='<button type="button" class="btn btn-success" onclick="agreeRequest(this)" msgId="'+curData.id+'" fromUserId="'+curData.fromUserId+'">同意</button>&nbsp;';
-				nodeHtml+='<button type="button" class="btn btn-danger" onclick="rejectRequest(this)" msgId="'+curData.id+'" fromUserId="'+curData.fromUserId+'">拒绝</button>';
-			}else if (curData.status==MESSAGE_DEAL_AGREE_STATUS){
-				nodeHtml+='<button type="button" class="btn btn-success">已同意</button>';
-			}else if (curData.status==MESSAGE_DEAL_REJECT_STATUS){
-		   		nodeHtml+='<button type="button" class="btn btn-danger">已拒绝</button>';
-			}
-			nodeHtml+='</div></div>';
-			break;
-		}
-		messageListHtml+=nodeHtml;
-	}
-	messageBox.html(messageListHtml);
-	//翻页按钮
-	var curPage = parseInt(json.curPage);
-	var maxPage = parseInt(json.maxPage);
-	var pageNav = $(".messageBox_content .pagination");
-	var func = "getMsgByPage";
-	buildPageNav(curPage,maxPage,pageNav,func);
-}
-//
-function searchUserClick(){
-	if (prePanel=='3'){
-		closePanel(true);
-	}else{
-		changeOptionContent($(".searchUser_content"));
-		prePanel='3';
-	}
-}
-function otherItemClick(){
-	changeOptionContent($(".otherItem_content"));
-}
 function changeOptionContent(obj){
 	$(".background").fadeIn();
 	closePanel(false);
@@ -351,9 +145,6 @@ function profileClick(){
 	
 	
 }
-
-
-///// click ///////
 //发送聊天消息
 function sendMessage(sendBtn){
 	var friendId = $(sendBtn).attr("friendid");
@@ -413,144 +204,7 @@ function packetLeftChat(chatMsg){
 	}
 	chatMap[chatMsg.fromuserid]+=html;
 }
-//查找好友
-function searchUser(page){
-	var searchName=$("input[name='searchName']");
-	$.ajax({  
-        type : "POST",  //提交方式  
-        url : contextPath+"/search/search.do",//路径  
-        data : {
-            "username" : searchName.val(),
-            "page" : page
-        },//数据，这里使用的是Json格式进行传输  
-        dataType : "json",
-        success : function(result) {//返回数据根据结果进行相应的处理 
-        	var json = eval(result);
-      		console.log("json status:"+json.status);
-            if ( json.status=='1' ) {
-            	updateSearchList(json);
-            } else {  
-                //alert("查询失败。。");
-            	errorAlert("fail!!");
-            }  
-        },
-        error : function(XMLHttpRequest, textStatus, errorThrown){ 
-			console.log('error:'+textStatus+" | "+errorThrown);
-			errorAlert("fail!!");
-        }
-    }); 
-}
-function updateSearchList(json){
-	//更新列表
-	var friendList=$(".searchUser_content .list-group");
-	var friendHtml=''
-	var data=json.data;
-	for (var i=0;i<data.length;i++){
-		var curData = data[i];
-		friendHtml+='<li class="list-group-item">';
-		friendHtml+='<img src="'+contextPath+'/resource/images/chat/upload/'+curData.icon+'" class="usericon">';
-		friendHtml+='<div class="username">'+curData.name+'</div>';
-		friendHtml+='<div><span class="mysign">'+curData.mysign+'</span>';
-		friendHtml+='<img class=\'icon\' src="'+contextPath+'/resource/images/chat/icon/6.png" onclick="addFriend(this)" userid=\''+curData.id+'\'>';
-		if (curData.sex=='1'){//男生
-			friendHtml+='<img class=\'icon\' src="'+contextPath+'/resource/images/chat/icon/male.png"></div></li>';
-		}else{//0为女生
-			friendHtml+='<img class=\'icon\' src="'+contextPath+'/resource/images/chat/icon/female.png"></div></li>';
-		}
-	}
-	friendList.html(friendHtml);
-	//更新翻页按钮
-	var curPage = parseInt(json.curPage);
-	var maxPage = parseInt(json.maxPage);
-	var pageNav = $(".searchUser_content .pagination");
-	var func = "searchUser";
-	buildPageNav(curPage,maxPage,pageNav,func);
-  
-}
-//添加好友
-function addFriend(obj){
-	var userid = $(obj).attr("userid");
-	$.ajax({  
-        type : "POST",  //提交方式  
-        url : contextPath+"/search/addFriend.do",//路径  
-        data : {
-            "userid" : userid
-        },//数据，这里使用的是Json格式进行传输  
-        dataType : "json",
-        success : function(result) {//返回数据根据结果进行相应的处理 
-        	var json = eval(result);
-      		console.log("json:"+json);
-        	console.log("json.data:"+json.data);
-            if ( json.status=='1' ) {
-            	successAlert("请求发送成功!");
-            } else {  
-                //alert("查询失败。。");
-            	errorAlert("fail!!");
-            }  
-        },
-        error : function(XMLHttpRequest, textStatus, errorThrown){ 
-        	errorAlert('error:'+textStatus+" | "+errorThrown);
-        }
-    }); 
-}
-//同意申请
-function agreeRequest(obj){
-	$.ajax({  
-        type : "POST",  //提交方式  
-        url : contextPath+"/msgBox/agreeMessage.do",//路径  
-        data : {
-        	"messageId":$(obj).attr("msgid"),
-        	"fromUserId":$(obj).attr("fromUserId")
-        },//数据，这里使用的是Json格式进行传输  
-        dataType : "json",
-        success : function(result) {//返回数据根据结果进行相应的处理 
-        	var json = eval(result);
-        	console.log("json.status:"+json.status);
-            if ( json.status=='1' ) {
-            	updateMsg(obj,true);
-            } else {  
-                //alert("查询失败。。");
-            	errorAlert("fail!!");
-            }  
-        },
-        error : function(XMLHttpRequest, textStatus, errorThrown){ 
-        	errorAlert('error:'+textStatus+" | "+errorThrown);
-        }
-    }); 
-}
-//拒绝申请
-function rejectRequest(obj){
-	$.ajax({  
-        type : "POST",  //提交方式  
-        url : contextPath+"/msgBox/rejectMessage.do",//路径  
-        data : {
-        	"messageId":$(obj).attr("msgid"),
-        	"fromUserId":$(obj).attr("fromUserId")
-        },//数据，这里使用的是Json格式进行传输  
-        dataType : "json",
-        success : function(result) {//返回数据根据结果进行相应的处理 
-        	var json = eval(result);
-        	console.log("json.status:"+json.status);
-            if ( json.status=='1' ) {
-            	updateMsg(obj,false);
-            } else {  
-                //alert("查询失败。。");
-            	errorAlert("fail!!");
-            }  
-        },
-        error : function(XMLHttpRequest, textStatus, errorThrown){ 
-        	errorAlert('error:'+textStatus+" | "+errorThrown);
-        }
-    }); 
-}
-function updateMsg(obj,isAgree){
-	if (isAgree){
-		$(obj).parent().html('<button type="button" class="btn btn-success">已同意</button>');
-	}else{
-		$(obj).parent().html('<button type="button" class="btn btn-danger">已拒绝</button>');
-	}
-	
-}
+
 //退出登录
 function loginOut(obj){
 	$.ajax({  
@@ -582,6 +236,13 @@ function sendMessageKeyDown(event){
 		  sendMessage($(".chat .send_btn"));
 	  }
 }
-//////
-initAccordian();
+
+//引入其他js
+document.write("<script type='text/javascript' src='"+contextPath+"/resource/js/chat/sidebarContent.js'></script>");
+document.write("<script type='text/javascript' src='"+contextPath+"/resource/js/chat/friendListPanel.js'></script>");
+document.write("<script type='text/javascript' src='"+contextPath+"/resource/js/chat/messageBoxPanel.js'></script>");
+document.write("<script type='text/javascript' src='"+contextPath+"/resource/js/chat/searchUserPanel.js'></script>");
+document.write("<script type='text/javascript' src='"+contextPath+"/resource/js/chat/otherItemPanel.js'></script>");
+
+/////执行的代码//////
 longPoll();

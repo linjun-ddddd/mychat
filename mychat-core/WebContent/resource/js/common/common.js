@@ -17,7 +17,7 @@ var CHAT_MESSAGE_TYPE = "0";
 var ADD_FRIEND_MESSAGE_TYPE = "1";
 var UPDATE_FRIEND_LIST_MESSAGE_TYPE = "2";
 //sweet alert
-document.write("<script language=javascript src='/mychat-core/resource/js/common/sweet-alert.min.js'></script>");
+document.write("<script type='text/javascript' src='"+contextPath+"/resource/js/common/sweet-alert.min.js'></script>");
 function successAlert(title,content){
 	swal(title,content, "success");
 }

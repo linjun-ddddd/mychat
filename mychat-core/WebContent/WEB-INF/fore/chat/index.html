@@ -10,8 +10,8 @@
 <div class='top_bar'>
 	
 	<div class="profile" onclick="profileClick()">
-		<img src="$contextPath/resource/images/chat/1.png" alt="Matthew Greenberg">
-		<span>&nbsp;&nbsp;&nbsp;$user.name</span>
+		<img src="$contextPath/resource/images/chat/upload/$user.icon" alt="$user.name">
+		<span class='textEllipsis'>$user.name</span>
 	</div>
 	<ul class='tool_list'>
 		<li>
@@ -33,10 +33,10 @@
 		<a href="#" class="list-group-item active">
 		    个人信息
 		</a>
-		<a  href="#" class="list-group-item">账号 &nbsp;|&nbsp; $user.name </a>
-		<a  href="#" class="list-group-item"> 昵称 &nbsp;|&nbsp;  $user.nickname </a>
-		<a  href="#" class="list-group-item">性别 &nbsp;|&nbsp;$user.sex</a>
-		<a  href="#" class="list-group-item">签名 &nbsp;|&nbsp; $user.mysign</a>
+		<a  href="#" class="list-group-item textEllipsis">账号 &nbsp;|&nbsp; $user.name </a>
+		<a  href="#" class="list-group-item textEllipsis"> 昵称 &nbsp;|&nbsp;  $user.nickname </a>
+		<a  href="#" class="list-group-item textEllipsis">性别 &nbsp;|&nbsp;$user.sex</a>
+		<a  href="#" class="list-group-item textEllipsis">签名 &nbsp;|&nbsp; $user.mysign</a>
 		<button type="button" class="btn btn-danger loginOut" onclick='loginOut(this)'>退出登录</button>
 	</div>
 	
@@ -49,22 +49,7 @@
 			<div class="static__text">Hello!</div>
 		  </div>
 		  <div class="background">&nbsp;</div>
-		  <div class="sidebar-content">
-		  	<div class='contact_list'>
-		  		#foreach( $user in $lastChatUser)
-					<div class="contact" onclick="friendClick($user.id)" userid="$user.id">
-					  	<img src="$contextPath/resource/images/chat/upload/$user.icon" alt="" class="contact__photo" />
-					  	<span class="contact__name">$user.name</span>
-				  		<span class="contact__status online"></span>
-				  	</div>
-		  		#end
-
-			</div>
-			<div class="search">
-			  <img src="$contextPath/resource/images/chat/t8TeL1S.png" alt="" class="search__img" />
-			  <input type="text" class="search__input" placeholder="Search" />
-			</div>
-		  </div>
+		 #parse("/fore/chat/sidebarContent.html")
 		  <div class="chat">
 			<span class="chat__back"></span>
 			<span class="chat__status">status</span>
@@ -86,177 +71,13 @@
 		  	<!-- <li class='option_panel_item otherItem' onclick="otherItemClick()"><img src="$contextPath/resource/images/chat/panel4.png" width="46px" height="46px"></li> -->
 		  </ul>
 		  <!--friendList_content-->
-		  <div class="option_content friendList_content ">
-		 	<!--标题栏-->
-		  	<div class="panel panel-default">
-			  <div class="panel-heading">
-			    <h3 class="panel-title"><button type="button" class="close" aria-hidden="true" onclick="closePanel(true)">&times;</button>&nbsp;Panel title</h3>
-			  </div>
-			  <div class="panel-body">
-			    	<!-- Contenedor -->
-				<ul id="accordion" class="accordion">
-					<!-- <li class="default open"> -->
-					<li class="default open">
-						<div class="link"><i class="fa fa-friend"></i>我的好友<i class="fa fa-chevron-down"></i></div>
-						<ul class="submenu">
-							<!-- <li>
-								<img src="$contextPath/resource/images/chat/panel1.png" class="usericon">
-						  		<div class="username">name</div>
-						  		<div>
-						  			<span class="mysign">I like aaa</span>
-						  			<img class='icon' src="$contextPath/resource/images/chat/icon/male.png">
-						  			<img class='icon' src="$contextPath/resource/images/chat/icon/female.png">
-						  		</div>
-							</li> -->
-						</ul>
-					</li>
-					<li><div class="link"><i class="fa fa-black"></i>黑名单<i class="fa fa-chevron-down"></i></div>
-						<ul class="submenu">
-							<!-- <li>
-								<img src="$contextPath/resource/images/chat/panel1.png" class="usericon">
-						  		<div class="username">name</div>
-						  		<div>
-						  			<span class="mysign">I like aaa</span>
-						  			<img class='icon' src="$contextPath/resource/images/chat/icon/male.png">
-						  			<img class='icon' src="$contextPath/resource/images/chat/icon/female.png">
-						  		</div>
-							</li> -->
-						</ul>
-					</li>
-				</ul>
-			  </div>
-			</div>
-		  
-
-
-		  </div>
+		  #include("/fore/chat/friendListPanel.html")
 		  <!--messageBox_content-->
-		  <div class="option_content messageBox_content ">
-		  	<div class="panel panel-default ">
-			  <div class="panel-heading">
-			    <h3 class="panel-title"><button type="button" class="close" aria-hidden="true" onclick="closePanel(true)">&times;</button>&nbsp;消息盒子</h3>
-			  </div>
-			  <div class="panel-body">
-			  	<div class="msgContainer">
-			   	<!--<div class="alert alert-success" role="alert">
-			   		<div class='message'>hello world!</div>
-			   		<div class='time_msg'>2016-04-05 15:10:11</div>
-			   		<div class="button_wrap">
-			   			
-			   			<button type="button" class="btn btn-success" onclick="agreeRequest(this)">同意</button>
-			   			<button type="button" class="btn btn-danger" onclick="rejectRequest(this)">拒绝</button>
-			   		</div>
-			   		
-			   	</div>
-				<div class="alert alert-info" role="alert">
-					<div class='message'>hello world!</div>
-					<div class='time_msg'>2016-04-05 15:10:11</div>
-			   		<div class="button_wrap">
-			   			
-			   			<button type="button" class="btn btn-info">已处理</button>
-			   		</div>
-				</div>
-				 <div class="alert alert-warning" role="alert">
-					<div class='message'>hello world!</div>
-					<div class='time_msg'>2016-04-05 15:10:11</div>
-			   		<div class="button_wrap">
-			   			
-			   			<button type="button" class="btn btn-success">同意</button>
-			   			<button type="button" class="btn btn-danger">拒绝</button>
-			   		</div>
-				</div>
-				<div class="alert alert-danger" role="alert">
-					<div class='message'>hello world!</div>
-					<div class='time_msg'>2016-04-05 15:10:11</div>
-			   		<div class="button_wrap">
-			   			
-			   			<button type="button" class="btn btn-success">同意</button>
-			   			<button type="button" class="btn btn-danger">拒绝</button>
-			   		</div>
-				</div>-->
-				</div>
-				<div class="pagination_container">
-				  <ul class="pagination">
-				   <!--翻页 <li>
-				      <a href="#" aria-label="Previous">
-				        <span aria-hidden="true">&laquo;</span>
-				      </a>
-				    </li>
-				    <li  class="active"><a href="#">1</a></li>
-				    <li><a href="#">2</a></li>
-				    <li><a href="#">3</a></li>
-				    <li><a href="#">4</a></li>
-				    <li><a href="#">5</a></li>
-				    <li>
-				      <a href="#" aria-label="Next">
-				        <span aria-hidden="true">&raquo;</span>
-				      </a>
-				    </li> -->
-				  </ul>
-				</div>
-			  </div>
-
-
-			</div>
-		  </div>
+		  #include("/fore/chat/messageBoxPanel.html")
 		  <!--searchUser_content-->
-		  <div class="option_content searchUser_content ">
-		  	<!--标题栏-->
-		  	<div class="panel panel-default search_panel">
-			  <div class="panel-heading">
-			    <h3 class="panel-title"><button type="button" class="close" aria-hidden="true" onclick="closePanel(true)">&times;</button>&nbsp;查找好友</h3>
-			  </div>
-			  <div class="panel-body">
-			    <div class="input-group">
-	               <input type="text" class="form-control" name="searchName">
-	               <span class="input-group-btn">
-	                  <button class="btn btn-default" type="button" onclick="searchUser(1)"> 搜索 </button>
-	               </span>
-	            </div><!-- /input-group -->
-			  </div>
-			</div>
-		  	
-		  	<ul class="list-group">
-		  		<!--  
-				  <li class="list-group-item">
-				  		<img src="$contextPath/resource/images/chat/icon/1.png" class="usericon">
-				  		<div class="username">name</div>
-				  		<div>
-				  			<span class="mysign">I like aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</span>
-				  			<img class='icon' src="$contextPath/resource/images/chat/icon/6.png" onclick="addFriend(this)" userid='12345'>
-				  			<img class='icon' src="$contextPath/resource/images/chat/icon/male.png">
-				  		</div>
-				  		
-				  </li>
-				-->
-			</ul>
-			<!--翻页-->
-			<div class="pagination_container">
-			  <ul class="pagination">
-			  	<!--  
-			    <li>
-			      <a href="#" aria-label="Previous">
-			        <span aria-hidden="true">&laquo;</span>
-			      </a>
-			    </li>
-			    <li  class="active"><a href="#">1</a></li>
-			    <li><a href="#">2</a></li>
-			    <li><a href="#">3</a></li>
-			    <li><a href="#">4</a></li>
-			    <li><a href="#">5</a></li>
-			    <li>
-			      <a href="#" aria-label="Next">
-			        <span aria-hidden="true">&raquo;</span>
-			      </a>
-			    </li>
-			    -->
-			  </ul>
-			</div>
-			<!--翻页-->
-		  </div>
+		  #include("/fore/chat/searchUserPanel.html")
 		  <!--otherItem_content-->
-
-		  <div class="option_content otherItem_content "><h2>dddddd</h2></div>
+		  #include("/fore/chat/otherItemPanel.html")
 		
 	
 <script type="text/javascript" src="$contextPath/resource/js/chat/main.js"></script>
