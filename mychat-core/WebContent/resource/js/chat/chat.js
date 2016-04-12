@@ -1,4 +1,7 @@
-
+//当前聊天用户id
+var curChatUserId = '';
+//保存当前聊天记录
+var chatMap = new Object();
 //长连接函数
 var isRefresh = '0';
 function longPoll(){
@@ -34,25 +37,30 @@ function longPoll(){
 			console.log('textStatus-'+isRefresh);
           	//longPolling(); // 递归调用
           	if (isRefresh=='0'){//刷新为'1'
-          		setTimeout('longPoll()',2000);
+          		setTimeout('longPoll()',1000*20);
           	}
           	//send message of abort
         },
         success: function (result) {
         	var json = eval(result);
-        	console.log("success-"+json.status+":"+json.data);
+        	console.log("success-"+json.status);
         	if (json.status=='1'){
         		var msg=eval(json.data);
         		switch (msg.type){
         		case CHAT_MESSAGE_TYPE:
+        			packetLeftChat(msg);
+        			//如果当前选中该用户，更新聊天信息
+        			if (msg.fromuserid!=curChatUserId){
+        				flashFriendList(json.fromuser);
+        			}
         			break;
         		
         		case ADD_FRIEND_MESSAGE_TYPE :
-        			console.log("ADD_FRIEND_MESSAGE_TYPE:"+ADD_FRIEND_MESSAGE_TYPE);
         			flashOptionPanelItem(ADD_FRIEND_MESSAGE_TYPE);
         			break
         		
         		case UPDATE_FRIEND_LIST_MESSAGE_TYPE:
+        			insertHeadLastChatList(json.fromuser);
         			break;
         		}
         	}
@@ -86,6 +94,33 @@ function clearFlashOptionPanel(type){
 		break;
 	}
 }
+function insertHeadLastChatList(user){
+	var addHtml = '';
+	addHtml+='<div class="contact contactNewMessage" onclick="friendClick('+user.id+')" userid="'+user.id+'">';
+	addHtml+='<img src="'+contextPath+'/resource/images/chat/upload/'+user.icon+'" alt="" class="contact__photo" />';
+	addHtml+='<span class="contact__name">'+user.name+'</span>';
+	addHtml+='<span class="contact__status online"></span></div>';
+	
+	var friendList = $(".sidebar-content .contact_list");
+	var preHtml = friendList.html();
+	friendList.html(addHtml+preHtml);
+}
+function flashFriendList(user){
+	var targetItem = null;
+	var contactList =$(".sidebar-content .contact_list");
+	contactList.children(".contact").each(function(index,element){
+		var userid=$(element).attr("userid");
+		if (userid==user.id){
+			targetItem=$(element);
+		}
+	});
+	//删除当前节点
+	if (targetItem!=null){
+		targetItem.remove();
+	}
+	//在头部插入新节点
+	insertHeadLastChatList(user);
+}
 //init function
 function initAccordian(){
 	 var Accordion = function (el, multiple) {
@@ -117,9 +152,75 @@ function friendListClick(){
 		closePanel(true);
 	}else{
 		changeOptionContent($(".friendList_content"));
+		//获取朋友列表
+		getFriendList();
+		
 		prePanel='1';
 	}
 }
+function getFriendList(){
+	$.ajax({  
+        type : "POST",  //提交方式  
+        url : contextPath+"/friend/list.do",//路径  
+        data : {
+        },//数据，这里使用的是Json格式进行传输  
+        dataType : "json",
+        success : function(result) {//返回数据根据结果进行相应的处理 
+        	var json = eval(result);
+      		console.log("json status:"+json.status);
+            if ( json.status=='1' ) {
+            	updateFriendList(json);
+            } else {  
+                //alert("查询失败。。");
+            	errorAlert("fail!!");
+            }  
+        },
+        error : function(XMLHttpRequest, textStatus, errorThrown){ 
+			console.log('error:'+textStatus+" | "+errorThrown);
+			errorAlert("fail!!");
+        }
+    });
+}
+function updateFriendList(json){
+	var friendList = $(".friendList_content .default .submenu");
+	var data =json.data;
+	var friendListHtml='';
+	for (var i=0;i<data.length;i++){
+		var curData = data[i];
+		friendListHtml+='<li onclick="friendClick('+curData.id+')" class="friendItem"><img src="'+
+			contextPath+'/resource/images/chat/upload/'+
+			curData.icon+'" class="usericon contact__photo">';
+		friendListHtml+='<div class="username">'+curData.name+'</div>';
+		friendListHtml+='<div><span class="mysign">'+curData.mysign+'</span>';
+		if (curData.sex=='1'){
+			friendListHtml+='<img class="icon" src="'+contextPath+'/resource/images/chat/icon/male.png">';
+		}else {
+			friendListHtml+='<img class="icon" src="'+contextPath+'/resource/images/chat/icon/female.png">';
+		}
+		friendListHtml+='</div></li>'; 
+	}
+	friendList.html(friendListHtml);
+}
+//friend item click
+function friendClick(friendId){
+	curChatUserId=friendId;
+	$(".chat .send_btn").attr('friendId',friendId);
+	$(".sidebar-content .contact_list").children(".contact").each(function(index,element){
+		$(element).removeClass("contactActive");
+		var userid=$(element).attr("userid");
+		if (userid==friendId){
+			$(element).removeClass("contactNewMessage").addClass("contactActive");
+		}
+	});
+	closePanel(true);
+	//切换聊天信息
+	console.log(chatMap[friendId]);
+	if (chatMap[friendId]==null){
+		chatMap[friendId]="";
+	}
+	$(".chat .chat__messages").html(chatMap[friendId]);
+}
+//messageBox click
 function messageBoxClick(){
 	if (prePanel=='2'){
 		closePanel(true);
@@ -249,8 +350,59 @@ function profileClick(){
 
 ///// click ///////
 //发送聊天消息
-function sendMessage(){
-	
+function sendMessage(sendBtn){
+	var friendId = $(sendBtn).attr("friendid");
+	$.ajax({  
+        type : "POST",  //提交方式  
+        url : contextPath+"/chat/send.do",//路径  
+        data : {
+            "toUserId" : friendId,
+            "msgData" : $(".chat .chat__input").val()
+        },//数据，这里使用的是Json格式进行传输  
+        dataType : "json",
+        success : function(result) {//返回数据根据结果进行相应的处理 
+        	var json = eval(result);
+      		console.log("json status:"+json.status);
+            if ( json.status=='1' ) {
+            	updateChat(json.message);
+            } else {  
+                //alert("查询失败。。");
+            	errorAlert("fail!!");
+            }  
+        },
+        error : function(XMLHttpRequest, textStatus, errorThrown){ 
+			console.log('error:'+textStatus+" | "+errorThrown);
+			errorAlert("fail!!");
+        }
+    }); 
+}
+function updateChat(json){
+	var chatMsg = $(".chat .chat__input").val();
+	 $(".chat .chat__input").val('');
+	 packetRightChat(json);
+}
+function packetRightChat(chatMsg){
+	var html = '<div class="chat__msgRow">';
+	html+='<div class="chat__message notMine">'+chatMsg.data+'</div></div>';
+	$(".chat .chat__messages").append(html);
+	//console.log(chatMsg.toUserId);
+	if (chatMap[chatMsg.toUserId]==null){
+		chatMap[chatMsg.toUserId]='';
+	}
+	chatMap[chatMsg.toUserId]+=html;
+}
+function packetLeftChat(chatMsg){
+	var html = '<div class="chat__msgRow">';
+	html+='<div class="chat__message mine">'+chatMsg.data+'</div></div>';
+	//如果当前选中该用户，更新聊天信息
+	if (curChatUserId==chatMsg.fromuserid){
+		$(".chat .chat__messages").append(html);
+	}
+	//console.log(chatMsg.fromuserid);
+	if (chatMap[chatMsg.fromuserid]==null){
+		chatMap[chatMsg.fromuserid]='';
+	}
+	chatMap[chatMsg.fromuserid]+=html;
 }
 //查找好友
 function searchUser(page){

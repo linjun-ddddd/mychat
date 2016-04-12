@@ -2,6 +2,8 @@ package com.mychat.web.fore;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.jms.JMSException;
@@ -14,8 +16,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.alibaba.fastjson.JSONObject;
 import com.mychat.bean.MessageBean;
+import com.mychat.bean.RealationBean;
 import com.mychat.bean.UserBean;
 import com.mychat.common.manager.MessageManager;
+import com.mychat.common.manager.RelationManager;
 import com.mychat.common.manager.UserManager;
 import com.mychat.common.mq.MsgQueueHelper;
 import com.mychat.common.util.Constants;
@@ -27,14 +31,22 @@ public class ChatController extends BaseController{
 
 	private UserManager userManager = (UserManager) AppContextHelper.getInstance().getBean(UserManager.class);
 	private MessageManager msgManager = (MessageManager) AppContextHelper.getInstance().getBean(MessageManager.class);
+	private RelationManager relationManager = (RelationManager) AppContextHelper.getInstance().getBean(RelationManager.class);
 	
 	
 	@RequestMapping("chat/index.html")
 	public String execute(HttpServletRequest request, HttpServletResponse response) {
 		String userid=HttpHelper.getSessionUserid(request);
 		UserBean user=userManager.getUserById(userid);
-		List<UserBean> lastChatUser = userManager.getLastChatUser(userid);
-		//性别
+		//获取最近聊天列表
+		List<RealationBean> lastChatRelation = relationManager.getLastChatFriend(userid);
+		List<UserBean> lastChatUser = new ArrayList<>();
+		for (int i=0;i<lastChatRelation.size();i++){
+			String friendId = lastChatRelation.get(i).getFriendId();
+			UserBean userBean = userManager.getUserById(friendId);
+			lastChatUser.add(userBean);
+		}
+		//获取性别
 		if (user.getSex()==null){
 			user.setSex("未知");
 		}else{
@@ -56,20 +68,22 @@ public class ChatController extends BaseController{
 		String userid=HttpHelper.getSessionUserid(request);
 		String toUserId=request.getParameter("toUserId");
 		String msgData=request.getParameter("msgData");
-		String sendDate = request.getParameter("sendDate");
 		
 		//打包消息
 		MessageBean message = new MessageBean();
 		message.setFromUserId(userid);
 		message.setToUserId(toUserId);
 		message.setData(msgData);
-		message.setSendDate(sendDate);
+		message.setSendDate(new Timestamp(System.currentTimeMillis()).toString());
+		message.setType(Constants.CHAT_MESSAGE_TYPE);
 		MsgQueueHelper.sendMessage(message);
 		msgManager.saveMessage(message);
 		
 		//返回ajax结果
 		JSONObject returnJson = new JSONObject();
 		returnJson.put("status", Constants.STATUS_SUCCESS);
+		returnJson.put("sendDate", message.getSendDate());
+		returnJson.put("message", JSONObject.toJSON(message));
 		packetAjaxResult(response, returnJson);
 	
 	}

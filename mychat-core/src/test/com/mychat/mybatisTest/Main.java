@@ -27,7 +27,7 @@ import org.apache.ibatis.transaction.TransactionFactory;
 import com.mychat.bean.UserBean;
 import com.mychat.common.util.CommonHelper;
 public class Main extends javax.swing.JFrame {
-    public static void main(String[] args) throws IOException {
+    public static void main2(String[] args) throws IOException {
     	Reader  reader = Resources.getResourceAsReader("com/mychat/mybatisTest/test-mybatis.xml");
     	SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(reader);
     	
@@ -49,5 +49,7 @@ public class Main extends javax.swing.JFrame {
     	session.commit();
     	session.close();
 	}
-    
+    public static void main(String[] args) {
+		
+	}
 }

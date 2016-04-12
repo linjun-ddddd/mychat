@@ -197,6 +197,8 @@ $(document).ready(function() {
       }, sContTrans);
     }, sContTrans);
   });
+  
+  
 
   $(document).on("click", ".chat__back", function() {
     if (animating) return;
@@ -218,7 +220,39 @@ $(document).ready(function() {
       }, "inCubic");
     }, sContTrans);
   });
+  
+  $(document).on("click", ".friendList_content .friendItem", function(e) {
 
+	    if (animating) return;
+	    animating = true;
+	    //$(document).off("click", closeSidebar);
+	   
+	    var that = this,
+	        name = $(this).find(".username").text();
+	    $(".chat__name").text(name);
+	    setTimeout(function() {
+	      //$sCont.removeClass("active");
+	      moveImage(that);
+
+	      finalX = -80;
+	      setTimeout(function() {
+	        $(".ripple").remove();
+	        animatePathD($path, clickMidD, animTime/3, false, function() {
+	          curX = -80;
+	          finalX = 0;
+	          //对话框进度条
+	          animatePathD($path, clickD, animTime*2/3, true, function() {
+	            $chat.show();
+	            $chat.css("top");
+	            $chat.addClass("active");
+	            animating = false;
+	          });
+	        }, "inCubic");
+	    
+	      }, sContTrans);
+	    }, sContTrans);
+	  });
+  
   $(window).on("resize", function() {
     demoTop = $demo.offset().top;
     demoLeft = $demo.offset().left;

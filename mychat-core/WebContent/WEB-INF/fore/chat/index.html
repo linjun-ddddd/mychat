@@ -27,7 +27,7 @@
 </div>
 <div class='left_sider'>
 	<div>
-		<img src="$contextPath/resource/images/chat/panel6.png" width="8rem" height="8rem" class="user_icon">
+		<img src="$contextPath/resource/images/chat/upload/$user.icon" width="8rem" height="8rem" class="user_icon">
 	</div>
 	<div class="list-group">
 		<a href="#" class="list-group-item active">
@@ -51,58 +51,13 @@
 		  <div class="background">&nbsp;</div>
 		  <div class="sidebar-content">
 		  	<div class='contact_list'>
-		  		
-		  	
-				<div class="contact">
-				  <img src="$contextPath/resource/images/chat/1.png" alt="" class="contact__photo" />
-				  <span class="contact__name">Ethan Hawke</span>
-				  <span class="contact__status online"></span>
-				</div>
-				<div class="contact">
-				  <img src="$contextPath/resource/images/chat/2.png" alt="" class="contact__photo" />
-				  <span class="contact__name">Natalie Portman</span>
-				  <span class="contact__status online"></span>
-				</div>
-				<div class="contact">
-				  <img src="$contextPath/resource/images/chat/3.png" alt="" class="contact__photo" />
-				  <span class="contact__name">Kevin Spacey</span>
-				  <span class="contact__status online"></span>
-				</div>
-				<div class="contact">
-				  <img src="$contextPath/resource/images/chat/4.png" alt="" class="contact__photo" />
-				  <span class="contact__name">Rosamund Pike</span>
-				  <span class="contact__status online"></span>
-				</div>
-				<div class="contact">
-				  <img src="$contextPath/resource/images/chat/5.png" alt="" class="contact__photo" />
-				  <span class="contact__name">Robert Redford</span>
-				  <span class="contact__status online"></span>
-				</div>
-				<div class="contact">
-				  <img src="$contextPath/resource/images/chat/6.png" alt="" class="contact__photo" />
-				  <span class="contact__name">Scarlett Johansson</span>
-				  <span class="contact__status online"></span>
-				</div>
-				<div class="contact">
-				  <img src="$contextPath/resource/images/chat/7.png" alt="" class="contact__photo" />
-				  <span class="contact__name">Tom Cruise</span>
-				  <span class="contact__status"></span>
-				</div>
-				<div class="contact">
-				  <img src="$contextPath/resource/images/chat/8.png" alt="" class="contact__photo" />
-				  <span class="contact__name">Eva Green</span>
-				  <span class="contact__status"></span>
-				</div>
-				<div class="contact">
-				  <img src="$contextPath/resource/images/chat/9.png" alt="" class="contact__photo" />
-				  <span class="contact__name">Paul Newman</span>
-				  <span class="contact__status"></span>
-				</div>
-				<div class="contact">
-				  <img src="$contextPath/resource/images/chat/1.png" alt="" class="contact__photo" />
-				  <span class="contact__name">Thomas Break</span>
-				  <span class="contact__status"></span>
-				</div>
+		  		#foreach( $user in $lastChatUser)
+					<div class="contact" onclick="friendClick($user.id)" userid="$user.id">
+					  	<img src="$contextPath/resource/images/chat/upload/$user.icon" alt="" class="contact__photo" />
+					  	<span class="contact__name">$user.name</span>
+				  		<span class="contact__status online"></span>
+				  	</div>
+		  		#end
 
 			</div>
 			<div class="search">
@@ -118,45 +73,12 @@
 			  <span class="chat__name">Huehue Huehue</span>
 			</div>
 			<div class="chat__messages">
-			  <div class="chat__msgRow">
-				<div class="chat__message mine">Such SVG, much Javascript, very CSS!</div>
-			  </div>
-			  <div class="chat__msgRow">
-				<div class="chat__message notMine">Wow!</div>
-			  </div>
-			  <div class="chat__msgRow">
-				<div class="chat__message notMine">Very elastic! Such easings!</div>
-			  </div>
-			   <div class="chat__msgRow">
-				<div class="chat__message notMine">Wow!</div>
-			  </div>
-			  <div class="chat__msgRow">
-				<div class="chat__message notMine">Very elastic! Such easings!</div>
-			  </div>
-			    <div class="chat__msgRow">
-				<div class="chat__message notMine">Wow!</div>
-			  </div>
-			  <div class="chat__msgRow">
-				<div class="chat__message notMine">Very elastic! Such easings!</div>
-			  </div>
-			    <div class="chat__msgRow">
-				<div class="chat__message notMine">Wow!</div>
-			  </div>
-			  <div class="chat__msgRow">
-				<div class="chat__message notMine">Very elastic! Such easings!</div>
-			  </div>
-			    <div class="chat__msgRow">
-				<div class="chat__message notMine">Wow!</div>
-			  </div>
-			  <div class="chat__msgRow">
-				<div class="chat__message notMine">Very elastic! Such easings!</div>
-			  </div>
-			</div>
-			<input type="text" class="chat__input" placeholder="Your message" />
+			<!-- <div class="chat__content"></div> -->
 			
-			<button type="button" class="btn btn-info send_btn" onclick="sendMessage()">发送</button>
 		  </div>
-
+			<input type="text" class="chat__input" placeholder="输入文字..." />
+			<button type="button" class="btn btn-info send_btn" onclick="sendMessage(this)">发送</button>
+		</div>
 		  <ul class='option_panel'>
 		  	<li class='option_panel_item friendList' onclick="friendListClick()"><img src="$contextPath/resource/images/chat/panel1.png" width="46px" height="46px"></li>
 		  	<li class='option_panel_item messageBox' onclick="messageBoxClick()"><img src="$contextPath/resource/images/chat/panel2.png" width="46px" height="46px"></li>
@@ -173,10 +95,11 @@
 			  <div class="panel-body">
 			    	<!-- Contenedor -->
 				<ul id="accordion" class="accordion">
+					<!-- <li class="default open"> -->
 					<li class="default open">
-						<div class="link"><i class="fa fa-paint-brush"></i>Design web<i class="fa fa-chevron-down"></i></div>
+						<div class="link"><i class="fa fa-friend"></i>我的好友<i class="fa fa-chevron-down"></i></div>
 						<ul class="submenu">
-							<li>
+							<!-- <li>
 								<img src="$contextPath/resource/images/chat/panel1.png" class="usericon">
 						  		<div class="username">name</div>
 						  		<div>
@@ -184,51 +107,12 @@
 						  			<img class='icon' src="$contextPath/resource/images/chat/icon/male.png">
 						  			<img class='icon' src="$contextPath/resource/images/chat/icon/female.png">
 						  		</div>
-							</li>
-							<li>
-								<img src="$contextPath/resource/images/chat/panel1.png" class="usericon">
-						  		<div class="username">name</div>
-						  		<div>
-						  			<span class="mysign">I like aaa</span>
-						  			<img class='icon' src="$contextPath/resource/images/chat/icon/male.png">
-						  			<img class='icon' src="$contextPath/resource/images/chat/icon/female.png">
-						  		</div>
-							</li>
-							<li>
-									<img src="$contextPath/resource/images/chat/panel1.png" class="usericon">
-							  		<div class="username">name</div>
-							  		<div>
-							  			<span class="mysign">I like aaa</span>
-							  			<img class='icon' src="$contextPath/resource/images/chat/icon/male.png">
-							  			<img class='icon' src="$contextPath/resource/images/chat/icon/female.png">
-							  		</div>
-								</li>
-								<li>
-									<img src="$contextPath/resource/images/chat/panel1.png" class="usericon">
-							  		<div class="username">name</div>
-							  		<div>
-							  			<span class="mysign">I like aaa</span>
-							  			<img class='icon' src="$contextPath/resource/images/chat/icon/male.png">
-							  			<img class='icon' src="$contextPath/resource/images/chat/icon/female.png">
-							  		</div>
-								</li>
-							</ul>
-						</li>
-					<li >
-						<div class="link"><i class="fa fa-code"></i>Desarrollo front-end<i class="fa fa-chevron-down"></i></div>
-						<ul class="submenu">
-							
+							</li> -->
 						</ul>
 					</li>
-					<li>
-						<div class="link"><i class="fa fa-mobile"></i>Design responsive<i class="fa fa-chevron-down"></i></div>
+					<li><div class="link"><i class="fa fa-black"></i>黑名单<i class="fa fa-chevron-down"></i></div>
 						<ul class="submenu">
-							
-						</ul>
-					</li>
-					<li><div class="link"><i class="fa fa-globe"></i>Posicionamiento web<i class="fa fa-chevron-down"></i></div>
-						<ul class="submenu">
-							<li>
+							<!-- <li>
 								<img src="$contextPath/resource/images/chat/panel1.png" class="usericon">
 						  		<div class="username">name</div>
 						  		<div>
@@ -236,70 +120,7 @@
 						  			<img class='icon' src="$contextPath/resource/images/chat/icon/male.png">
 						  			<img class='icon' src="$contextPath/resource/images/chat/icon/female.png">
 						  		</div>
-							</li>
-							<li>
-								<img src="$contextPath/resource/images/chat/panel1.png" class="usericon">
-						  		<div class="username">name</div>
-						  		<div>
-						  			<span class="mysign">I like aaa</span>
-						  			<img class='icon' src="$contextPath/resource/images/chat/icon/male.png">
-						  			<img class='icon' src="$contextPath/resource/images/chat/icon/female.png">
-						  		</div>
-							</li>
-							<li>
-								<img src="$contextPath/resource/images/chat/panel1.png" class="usericon">
-						  		<div class="username">name</div>
-						  		<div>
-						  			<span class="mysign">I like aaa</span>
-						  			<img class='icon' src="$contextPath/resource/images/chat/icon/male.png">
-						  			<img class='icon' src="$contextPath/resource/images/chat/icon/female.png">
-						  		</div>
-							</li>
-							<li>
-								<img src="$contextPath/resource/images/chat/panel1.png" class="usericon">
-						  		<div class="username">name</div>
-						  		<div>
-						  			<span class="mysign">I like aaa</span>
-						  			<img class='icon' src="$contextPath/resource/images/chat/icon/male.png">
-						  			<img class='icon' src="$contextPath/resource/images/chat/icon/female.png">
-						  		</div>
-							</li>
-							<li>
-								<img src="$contextPath/resource/images/chat/panel1.png" class="usericon">
-						  		<div class="username">name</div>
-						  		<div>
-						  			<span class="mysign">I like aaa</span>
-						  			<img class='icon' src="$contextPath/resource/images/chat/icon/male.png">
-						  			<img class='icon' src="$contextPath/resource/images/chat/icon/female.png">
-						  		</div>
-							</li>
-							<li>
-								<img src="$contextPath/resource/images/chat/panel1.png" class="usericon">
-						  		<div class="username">name</div>
-						  		<div>
-						  			<span class="mysign">I like aaa</span>
-						  			<img class='icon' src="$contextPath/resource/images/chat/icon/male.png">
-						  			<img class='icon' src="$contextPath/resource/images/chat/icon/female.png">
-						  		</div>
-							</li>
-							<li>
-								<img src="$contextPath/resource/images/chat/panel1.png" class="usericon">
-						  		<div class="username">name</div>
-						  		<div>
-						  			<span class="mysign">I like aaa</span>
-						  			<img class='icon' src="$contextPath/resource/images/chat/icon/male.png">
-						  			<img class='icon' src="$contextPath/resource/images/chat/icon/female.png">
-						  		</div>
-							</li>
-							<li>
-								<img src="$contextPath/resource/images/chat/panel1.png" class="usericon">
-						  		<div class="username">name</div>
-						  		<div>
-						  			<span class="mysign">I like aaa</span>
-						  			<img class='icon' src="$contextPath/resource/images/chat/icon/male.png">
-						  			<img class='icon' src="$contextPath/resource/images/chat/icon/female.png">
-						  		</div>
-							</li>
+							</li> -->
 						</ul>
 					</li>
 				</ul>
@@ -436,7 +257,7 @@
 		  <!--otherItem_content-->
 
 		  <div class="option_content otherItem_content "><h2>dddddd</h2></div>
-		</div>
+		
 	
 <script type="text/javascript" src="$contextPath/resource/js/chat/main.js"></script>
 <script type="text/javascript" src="$contextPath/resource/js/chat/chat.js"></script>

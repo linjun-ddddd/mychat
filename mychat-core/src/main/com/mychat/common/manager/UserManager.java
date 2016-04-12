@@ -30,11 +30,6 @@ public class UserManager {
 		return user;
 	}
 
-	public List<UserBean> getLastChatUser(String userid) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 	/*
 	 * page从1开始
 	 * */
@@ -62,5 +57,10 @@ public class UserManager {
 	public void updateUserLastLogin(String id) {
 		// TODO Auto-generated method stub
 		userMapper.updateUserLastLogin(id,new Timestamp(System.currentTimeMillis()).toString());
+	}
+
+	public List<UserBean> getFriendList(String userid) {
+		// TODO Auto-generated method stub
+		return userMapper.getFriendList(userid);
 	}
 }

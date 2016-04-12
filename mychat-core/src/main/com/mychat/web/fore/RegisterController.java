@@ -1,5 +1,7 @@
 package com.mychat.web.fore;
 
+import java.sql.Timestamp;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -34,6 +36,10 @@ public class RegisterController extends BaseController{
 		user.setName(username);
 		user.setPassword(CommonHelper.md5(password));
 		user.setIcon("default.png");
+		user.setLastLogin(new Timestamp(System.currentTimeMillis()).toString());
+		user.setRegisterTime(new Timestamp(System.currentTimeMillis()).toString());
+		user.setAge("0");
+		
 		userManager.saveUser(user);
 		request.setAttribute("errorMsg", "注册成功！");
 		return "/fore/register/index.html";

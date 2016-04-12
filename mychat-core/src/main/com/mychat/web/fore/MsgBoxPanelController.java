@@ -18,6 +18,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.mychat.bean.MessageBean;
 import com.mychat.bean.UserBean;
 import com.mychat.common.manager.MessageManager;
+import com.mychat.common.manager.RelationManager;
 import com.mychat.common.manager.UserManager;
 import com.mychat.common.mq.MsgQueueHelper;
 import com.mychat.common.util.Constants;
@@ -29,6 +30,7 @@ public class MsgBoxPanelController extends BaseController{
 
 	private UserManager userManager = (UserManager) AppContextHelper.getInstance().getBean(UserManager.class);
 	private MessageManager msgManager = (MessageManager) AppContextHelper.getInstance().getBean(MessageManager.class);
+	private RelationManager relationManager = (RelationManager) AppContextHelper.getInstance().getBean(RelationManager.class);
 	
 	@RequestMapping(value="msgBox/getMessage.do",method=RequestMethod.POST)
 	public void getMessage(HttpServletRequest request,HttpServletResponse response){
@@ -55,6 +57,9 @@ public class MsgBoxPanelController extends BaseController{
 		String userId = HttpHelper.getSessionUserid(request) ;
 		String fromUserId = request.getParameter("fromUserId");
 		String messageId = request.getParameter("messageId");
+		//更新好友关系
+		relationManager.saveRelation(userId,fromUserId);
+		
 		//更新消息状态
 		msgManager.updateMessageStatus(messageId,Constants.MESSAGE_DEAL_AGREE_STATUS);
 		

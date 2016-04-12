@@ -45,7 +45,10 @@ public class LongPollController extends BaseController{
 				String value=message.getString(key);
 				data.put(key, value);
 			}
+			String fromUserid=data.getString("fromuserid");
+			UserBean fromuser=userManager.getUserById(fromUserid);
 			returnJson.put("data", data);
+			returnJson.put("fromuser", JSONObject.toJSON(fromuser));
 		}else{
 			returnJson.put("status", Constants.STATUS_FAIL);
 		}

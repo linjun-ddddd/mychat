@@ -31,5 +31,9 @@ public interface UserMapper {
 	void updateUserLastLogin(@Param("id")String id, @Param("lastLogin")String lastLogin);
 
 	@Select("SELECT * FROM t1_user WHERE id = #{id}") 
-	UserBean getUserById(@Param("id")String userid); 
+	UserBean getUserById(@Param("id")String userid);
+
+	@Select("select * from t1_user where id in"
+			+ " (select friendId from t1_relation where myid=#{userid} )")
+	List<UserBean> getFriendList(@Param("userid")String userid); 
 }

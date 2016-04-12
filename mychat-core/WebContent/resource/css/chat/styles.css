@@ -421,11 +421,11 @@ by linjun
   display: block;
   float: right;
   text-align: center;
-  margin-top: -50rem;
   list-style: none;
   z-index: 100;
   background: rgb(255, 186, 60);
   padding-top: 2rem;
+  margin-top: -50rem;
   height: 100%;
 }
 .option_panel_item{
@@ -477,12 +477,13 @@ ul {
 	cursor: pointer;
 	width: 16.2rem;
 	float: left;
-}
-.top_bar .profile:hover{
 	background: rgb(137, 127, 127);
 }
+.top_bar .profile:hover{
+	background: #337ab7;
+}
 .top_bar .profile span{
-	color: #b8b7ad;
+	color: #FFFEF5;
 }
 .top_bar .tool_list{
 	list-style: none;
@@ -767,4 +768,14 @@ messageBox_content
 	margin: 1.25rem;
 	height: 3rem;
 	width: 7rem;
+}
+
+.contactNewMessage{
+	background: #33B7B7;
+}
+.contactActive{
+	background: #BFB3C0;
+}
+.chat__content{
+	
 }
