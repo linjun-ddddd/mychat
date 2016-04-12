@@ -46,3 +46,20 @@ function moveUserHead(userid){
 		friendList.html(html+friendList.html());
 	}
 }
+//常用联系人搜索
+var preKeyWord = "";
+function filterFriendList(obj){
+	var keyWord = $(obj).val().toLowerCase();
+	if (preKeyWord==keyWord) return;
+	preKeyWord=keyWord;
+	var contactList =$(".sidebar-content .contact_list");
+	contactList.children(".contact").each(function(index,element){
+		var name=$(element).find(".contact__name").text().toLowerCase();
+		//console.log(name);
+		if (name.indexOf(keyWord)==-1){
+			$(element).css({"display":"none"});
+		}else{
+			$(element).css({"display":"flex"});
+		}
+	});
+}
