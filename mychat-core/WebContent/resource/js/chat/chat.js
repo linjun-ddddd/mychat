@@ -52,6 +52,11 @@ function longPoll(){
         			//如果当前选中该用户，更新聊天信息
         			if (msg.fromuserid!=curChatUserId){
         				flashFriendList(json.fromuser);
+        			}else{
+        				//滚动到底部
+        				var messageContent = $(".chat .chat__messages");
+        				var scrollHeight = messageContent[0].scrollHeight;
+        				messageContent.scrollTop(scrollHeight);
         			}
         			break;
         		
@@ -214,7 +219,7 @@ function friendClick(friendId){
 	});
 	closePanel(true);
 	//切换聊天信息
-	console.log(chatMap[friendId]);
+	//console.log(chatMap[friendId]);
 	if (chatMap[friendId]==null){
 		chatMap[friendId]="";
 	}
@@ -380,6 +385,10 @@ function updateChat(json){
 	var chatMsg = $(".chat .chat__input").val();
 	 $(".chat .chat__input").val('');
 	 packetRightChat(json);
+	//滚动到底部
+	var messageContent = $(".chat .chat__messages");
+	var scrollHeight = messageContent[0].scrollHeight;
+	messageContent.scrollTop(scrollHeight);
 }
 function packetRightChat(chatMsg){
 	var html = '<div class="chat__msgRow">';
@@ -565,6 +574,13 @@ function loginOut(obj){
         	errorAlert('error:'+textStatus+" | "+errorThrown);
         }
     }); 
+}
+//回车发送消息
+function sendMessageKeyDown(event){
+	console.log(event.keyCode);
+	  if (event.keyCode==13) {  //回车键的键值为13
+		  sendMessage($(".chat .send_btn"));
+	  }
 }
 //////
 initAccordian();

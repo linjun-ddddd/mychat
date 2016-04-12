@@ -76,8 +76,8 @@
 			<!-- <div class="chat__content"></div> -->
 			
 		  </div>
-			<input type="text" class="chat__input" placeholder="输入文字..." />
-			<button type="button" class="btn btn-info send_btn" onclick="sendMessage(this)">发送</button>
+			<input type="text" class="chat__input" placeholder="输入文字..." onkeydown="sendMessageKeyDown(event)"/>
+			<button type="button" class="btn btn-info send_btn" onclick="sendMessage(this)" >发送</button>
 		</div>
 		  <ul class='option_panel'>
 		  	<li class='option_panel_item friendList' onclick="friendListClick()"><img src="$contextPath/resource/images/chat/panel1.png" width="46px" height="46px"></li>
