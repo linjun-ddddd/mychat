@@ -1,4 +1,4 @@
-package com.mychat.common.mq;
+package com.mychat.common.mq.base;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -23,11 +23,10 @@ public class MessageQueue {
 	private Connection connection = null;
 	private QueueConnection queueConnection = null;
 	private TopicConnection topicConnection = null;
-	
-	private long receiveTimeOut = 1000 * 60 *5 ;
+
 	
 
-	private void start() {
+	public void start() {
 		// 创建链接工厂
 		ActiveMQConnectionFactory factory = new ActiveMQConnectionFactory(ActiveMQConnection.DEFAULT_USER, ActiveMQConnection.DEFAULT_PASSWORD, brokerUrl);
 		// 通过工厂创建一个连接
@@ -84,15 +83,6 @@ public class MessageQueue {
 	public TopicConnection getTopicConnection() {
 		// TODO Auto-generated method stub
 		return topicConnection;
-	}
-
-	public void setTimeOut(long receiveTimeOut) {
-		// TODO Auto-generated method stub
-		this.receiveTimeOut=receiveTimeOut;
-	}
-	public long getTimeOut() {
-		// TODO Auto-generated method stub
-		return receiveTimeOut;
 	}
 
 	public String getBrokerUrl() {

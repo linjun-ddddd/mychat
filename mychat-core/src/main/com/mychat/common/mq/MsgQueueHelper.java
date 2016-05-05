@@ -15,6 +15,7 @@ import org.apache.activemq.ActiveMQMessageConsumer;
 import com.mychat.bean.MessageBean;
 import com.mychat.common.manager.MessageManager;
 import com.mychat.common.manager.UserManager;
+import com.mychat.common.mq.base.MessageQueue;
 import com.mychat.common.util.Constants;
 
 public class MsgQueueHelper {
@@ -31,7 +32,7 @@ public class MsgQueueHelper {
         try {
            
             // 创建一个session会话
-        	session = messageQueue.getConnection().createQueueSession(Boolean.TRUE, Session.AUTO_ACKNOWLEDGE);
+        	session = messageQueue.getQueueConnection().createQueueSession(Boolean.TRUE, Session.AUTO_ACKNOWLEDGE);
         	
             // 创建一个消息队列
             Queue queue =session.createQueue(touserid);
@@ -66,17 +67,17 @@ public class MsgQueueHelper {
 			}
 		}
 	}
-
+	
 	public static MapMessage receiveMsg(String userid) throws JMSException {
 		// TODO Auto-generated method stub
 		MapMessage message = null;
-		long receiveTimeOut = messageQueue.getTimeOut();
+		long receiveTimeOut = 10 * 3600 * 1000L;
 		QueueSession session =null;
 		ActiveMQMessageConsumer receiver =null;
 		//保证每个用户每次有且仅有一个receiver
 		try {
 			// 创建一个session会话
-			session = messageQueue.getConnection().createQueueSession(Boolean.TRUE, Session.AUTO_ACKNOWLEDGE);
+			session = messageQueue.getQueueConnection().createQueueSession(Boolean.TRUE, Session.AUTO_ACKNOWLEDGE);
 			// 创建一个消息队列
 			Queue queue = session.createQueue(userid);
 			// 创建消息接收者
@@ -115,5 +116,6 @@ public class MsgQueueHelper {
 			sessionMap.remove(userid);
 		}
 	}
-
+	
+	//http://www.cnblogs.com/hoojo/p/active_mq_jms_apache_activeMQ.html
 }

@@ -16,7 +16,7 @@ import javax.jms.TextMessage;
 import org.apache.activemq.ActiveMQConnection;
 import org.apache.activemq.ActiveMQConnectionFactory;
 
-import com.mychat.common.mq.MessageQueue;
+import com.mychat.common.mq.base.MessageQueue;
 
 public class MqSenderTest {
 	private final static MessageQueue messageQueue = MessageQueue.getInstance();
@@ -25,7 +25,7 @@ public class MqSenderTest {
 	 	QueueSession session = null;
 	 	javax.jms.QueueSender sender =null;
 	    try {
-	    	session = messageQueue.getConnection().createQueueSession(Boolean.TRUE, Session.AUTO_ACKNOWLEDGE);
+	    	session = messageQueue.getQueueConnection().createQueueSession(Boolean.TRUE, Session.AUTO_ACKNOWLEDGE);
 	       for (int i=0;i<5;i++){
 	    	// 创建一个session会话
 		    	
