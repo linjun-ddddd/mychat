@@ -29,18 +29,19 @@ import com.mychat.common.mq.base.AbstractMultiTypeResponse;
 import com.mychat.common.mq.base.AbstractQueueResponse;
 import com.mychat.common.mq.base.MultiTypeRequest;
 import com.mychat.common.mq.base.MultiTypeResponse;
-import com.mychat.common.mq.base.RequestConfig;
-import com.mychat.common.mq.base.ResponseConfig;
+import com.mychat.common.mq.config.RequestConfig;
+import com.mychat.common.mq.config.ResponseConfig;
 
 public class MultiFileQueueResponse extends AbstractQueueResponse<File> {
 
-	public MultiFileQueueResponse() {
+	public MultiFileQueueResponse(ResponseConfig responseConfig) {
 		// TODO Auto-generated constructor stub
 		System.setProperty("org.apache.activemq.SERIALIZABLE_PACKAGES", "com.alibaba.fastjson,java.util,java.io");
+		this.responseConfig=responseConfig;
 	}
 
 	@Override
-	public File receive(QueueReceiver receiver) throws JMSException {
+	protected File receive(QueueReceiver receiver) throws JMSException {
 		// TODO Auto-generated method stub
 		ObjectMessage message = (ObjectMessage) receiver.receive(responseConfig.getTimeOut());
 		if (message!=null){

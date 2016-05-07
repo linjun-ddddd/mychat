@@ -13,7 +13,7 @@ import com.alibaba.fastjson.JSONObject;
 
 public abstract class AbstractNormalResponse<T> extends AbstractMultiTypeResponse<T> {
 
-	public MultiTypeResponse<T> receive() {
+	public AbstractMultiTypeResponse<T> receive() {
 		// TODO Auto-generated method stub
 		Connection connection = messageQueue.getConnection();
 		Session session = null;
@@ -38,5 +38,5 @@ public abstract class AbstractNormalResponse<T> extends AbstractMultiTypeRespons
 		return this;
 	}
 
-	public abstract T receive(MessageConsumer consumer) throws JMSException;
+	protected abstract T receive(MessageConsumer consumer) throws JMSException;
 }

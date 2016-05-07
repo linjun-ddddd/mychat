@@ -54,7 +54,11 @@ function longPoll(){
         		case CHAT_MESSAGE_TYPE:
         			packetLeftChat(msg);
         			//如果当前选中该用户，更新聊天信息
-        			if (msg.fromuserid!=curChatUserId){
+        			console.log(msg);
+        			//console.log("fromuserid "+msg.fromUserId);
+        			//console.log("curChatUserId "+curChatUserId);
+        			var fromUserId = msg.fromuserid||msg.fromUserId;
+        			if (fromUserId!=curChatUserId){
         				flashFriendList(json.fromuser);
         			}else{
         				messagesScrollBottom();
@@ -231,7 +235,7 @@ function loginOut(obj){
 }
 //回车发送消息
 function sendMessageKeyDown(event){
-	console.log(event.keyCode);
+	//console.log(event.keyCode);
 	  if (event.keyCode==13) {  //回车键的键值为13
 		  sendMessage($(".chat .send_btn"));
 	  }

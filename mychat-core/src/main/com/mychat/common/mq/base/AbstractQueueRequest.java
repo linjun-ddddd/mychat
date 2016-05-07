@@ -42,5 +42,5 @@ public abstract class AbstractQueueRequest<T> extends AbstractMultiTypeRequest<T
 
 	}
 
-	public abstract void send(QueueSession session, QueueSender sender, T data) throws JMSException;
+	protected abstract void send(QueueSession session, QueueSender sender, T data) throws JMSException;
 }

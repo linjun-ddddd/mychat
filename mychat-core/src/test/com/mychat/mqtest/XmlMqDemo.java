@@ -1,6 +1,7 @@
 package com.mychat.mqtest;
 
 import java.io.ByteArrayInputStream;
+import java.io.File;
 import java.io.IOException;
 
 import javax.jms.BytesMessage;
@@ -32,10 +33,17 @@ import com.mychat.common.mq.imp.json.MultiJsonResponse;
 import com.mychat.common.mq.imp.json.MultiJsonTopicRequest;
 import com.mychat.common.mq.imp.json.MultiJsonTopicResponse;
 import com.mychat.common.mq.imp.string.MultiStringQueueRequest;
+import com.mychat.common.mq.imp.string.MultiStringQueueResponse;
 import com.mychat.common.mq.imp.string.MultiStringRequest;
-import static org.junit.Assert.assertEquals;
+import com.mychat.common.mq.imp.string.MultiStringResponse;
+import com.mychat.common.mq.imp.string.MultiStringTopicRequest;
+import com.mychat.common.mq.imp.string.MultiStringTopicResponse;
+import com.mychat.common.mq.imp.xml.*;
 
-public class JsonMqDemo extends BaseMqDemo {
+import static org.junit.Assert.*;
+import static org.junit.Assume.*;
+
+public class XmlMqDemo extends BaseMqDemo {
 
 	@Test
 	public void testStart() throws JMSException {
@@ -55,23 +63,20 @@ public class JsonMqDemo extends BaseMqDemo {
 	@Override
 	protected void testNormalRequest() throws JMSException {
 		// TODO Auto-generated method stub
-		json.put("flag", "normal");
-		MultiJsonRequest request = new MultiJsonRequest(requestConfig);
-		request.setData(json);
+		MultiXmlRequest request = new MultiXmlRequest(requestConfig);
+		request.setData(document);
 		request.send();
 	}
 
 	@Override
 	protected void testQueueRequest() throws JMSException {
-		json.put("flag", "queue");
-		MultiJsonQueueRequest request = new MultiJsonQueueRequest(requestConfig);
-		request.setData(json);
+		MultiXmlQueueRequest request = new MultiXmlQueueRequest(requestConfig);
+		request.setData(document);
 		request.send();
 	}
 
 	@Override
 	protected void testTopicRequest() throws JMSException {
-		
 		new Thread(new Runnable() {
 
 			@Override
@@ -83,9 +88,8 @@ public class JsonMqDemo extends BaseMqDemo {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				json.put("flag", "topic");
-				MultiJsonTopicRequest request = new MultiJsonTopicRequest(requestConfig);
-				request.setData(json);
+				MultiXmlTopicRequest request = new MultiXmlTopicRequest(requestConfig);
+				request.setData(document);
 				request.send();
 			}
 		}).start();
@@ -94,28 +98,23 @@ public class JsonMqDemo extends BaseMqDemo {
 	@Override
 	protected void testNormalResponse() throws JMSException {
 		// TODO Auto-generated method stub
-		MultiJsonResponse response = new MultiJsonResponse(responseConfig);
-		JSONObject data = response.receive().getData();
-		System.out.println(data);
-		assertEquals("{\"key2\":\"key321\",\"key1\":\"key123\",\"flag\":\"normal\"}", data.toString());
+		MultiXmlResponse response = new MultiXmlResponse(responseConfig);
+		Document data = response.receive().getData();
+		System.out.println(XmlHelper.xml2String(data));
 	}
 
 	@Override
 	protected void testQueueResponse() throws JMSException {
-
-		MultiJsonQueueResponse response = new MultiJsonQueueResponse(responseConfig);
-		JSONObject data = response.receive().getData();
-		System.out.println(data);
-		assertEquals("{\"key2\":\"key321\",\"key1\":\"key123\",\"flag\":\"queue\"}", data.toString());
+		MultiXmlQueueResponse response = new MultiXmlQueueResponse(responseConfig);
+		Document data = response.receive().getData();
+		System.out.println(XmlHelper.xml2String(data));
 	}
 
 	@Override
 	protected void testTopicResponse() throws JMSException {
-		MultiJsonTopicResponse response = new MultiJsonTopicResponse(responseConfig);
-		responseConfig.setTimeOut(1000 * 10);
-		JSONObject data = response.receive().getData();
-		System.out.println(data);
-		assertEquals("{\"key2\":\"key321\",\"key1\":\"key123\",\"flag\":\"topic\"}", data.toString());
+		MultiXmlTopicResponse response = new MultiXmlTopicResponse(responseConfig);
+		Document data = response.receive().getData();
+		System.out.println(XmlHelper.xml2String(data));
 	}
 
 }

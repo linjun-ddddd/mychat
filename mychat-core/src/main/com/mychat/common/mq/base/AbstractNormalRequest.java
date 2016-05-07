@@ -38,6 +38,6 @@ public abstract class AbstractNormalRequest<T> extends AbstractMultiTypeRequest<
 
 	}
 
-	public abstract void send(Session session, MessageProducer producer, T data) throws JMSException;
+	protected abstract void send(Session session, MessageProducer producer, T data) throws JMSException;
 
 }

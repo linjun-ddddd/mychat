@@ -1,4 +1,4 @@
-package com.mychat.common.mq.base;
+package com.mychat.common.mq.config;
 
 public class RequestConfig {
 	

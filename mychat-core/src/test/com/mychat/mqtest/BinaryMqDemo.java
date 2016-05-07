@@ -1,6 +1,7 @@
 package com.mychat.mqtest;
 
 import java.io.ByteArrayInputStream;
+import java.io.File;
 import java.io.IOException;
 
 import javax.jms.BytesMessage;
@@ -25,6 +26,12 @@ import org.xml.sax.SAXException;
 
 import com.alibaba.fastjson.JSONObject;
 import com.mychat.common.mq.config.RequestConfig;
+import com.mychat.common.mq.imp.binary.MultiBinQueueRequest;
+import com.mychat.common.mq.imp.binary.MultiBinQueueResponse;
+import com.mychat.common.mq.imp.binary.MultiBinRequest;
+import com.mychat.common.mq.imp.binary.MultiBinResponse;
+import com.mychat.common.mq.imp.binary.MultiBinTopicRequest;
+import com.mychat.common.mq.imp.binary.MultiBinTopicResponse;
 import com.mychat.common.mq.imp.json.MultiJsonQueueRequest;
 import com.mychat.common.mq.imp.json.MultiJsonQueueResponse;
 import com.mychat.common.mq.imp.json.MultiJsonRequest;
@@ -32,10 +39,16 @@ import com.mychat.common.mq.imp.json.MultiJsonResponse;
 import com.mychat.common.mq.imp.json.MultiJsonTopicRequest;
 import com.mychat.common.mq.imp.json.MultiJsonTopicResponse;
 import com.mychat.common.mq.imp.string.MultiStringQueueRequest;
+import com.mychat.common.mq.imp.string.MultiStringQueueResponse;
 import com.mychat.common.mq.imp.string.MultiStringRequest;
-import static org.junit.Assert.assertEquals;
+import com.mychat.common.mq.imp.string.MultiStringResponse;
+import com.mychat.common.mq.imp.string.MultiStringTopicRequest;
+import com.mychat.common.mq.imp.string.MultiStringTopicResponse;
 
-public class JsonMqDemo extends BaseMqDemo {
+import static org.junit.Assert.*;
+import static org.junit.Assume.*;
+
+public class BinaryMqDemo extends BaseMqDemo {
 
 	@Test
 	public void testStart() throws JMSException {
@@ -51,27 +64,27 @@ public class JsonMqDemo extends BaseMqDemo {
 		testTopicRequest();
 		testTopicResponse();
 	}
+	
 
 	@Override
 	protected void testNormalRequest() throws JMSException {
 		// TODO Auto-generated method stub
-		json.put("flag", "normal");
-		MultiJsonRequest request = new MultiJsonRequest(requestConfig);
-		request.setData(json);
+		MultiBinRequest request = new MultiBinRequest(requestConfig);
+		String istr="[normal] "+str;
+		request.setData(istr.getBytes());
 		request.send();
 	}
 
 	@Override
 	protected void testQueueRequest() throws JMSException {
-		json.put("flag", "queue");
-		MultiJsonQueueRequest request = new MultiJsonQueueRequest(requestConfig);
-		request.setData(json);
+		MultiBinQueueRequest request = new MultiBinQueueRequest(requestConfig);
+		String istr="[queue] "+str;
+		request.setData(istr.getBytes());
 		request.send();
 	}
 
 	@Override
 	protected void testTopicRequest() throws JMSException {
-		
 		new Thread(new Runnable() {
 
 			@Override
@@ -83,9 +96,9 @@ public class JsonMqDemo extends BaseMqDemo {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				json.put("flag", "topic");
-				MultiJsonTopicRequest request = new MultiJsonTopicRequest(requestConfig);
-				request.setData(json);
+				MultiBinTopicRequest request = new MultiBinTopicRequest(requestConfig);
+				String istr="[topic] "+str;
+				request.setData(istr.getBytes());
 				request.send();
 			}
 		}).start();
@@ -94,28 +107,26 @@ public class JsonMqDemo extends BaseMqDemo {
 	@Override
 	protected void testNormalResponse() throws JMSException {
 		// TODO Auto-generated method stub
-		MultiJsonResponse response = new MultiJsonResponse(responseConfig);
-		JSONObject data = response.receive().getData();
-		System.out.println(data);
-		assertEquals("{\"key2\":\"key321\",\"key1\":\"key123\",\"flag\":\"normal\"}", data.toString());
+		MultiBinResponse response = new MultiBinResponse(responseConfig);
+		byte[] data = response.receive().getData();
+		System.out.println(new String(data));
+		assertEquals("[normal] Hello World!!~", new String(data));
 	}
 
 	@Override
 	protected void testQueueResponse() throws JMSException {
-
-		MultiJsonQueueResponse response = new MultiJsonQueueResponse(responseConfig);
-		JSONObject data = response.receive().getData();
-		System.out.println(data);
-		assertEquals("{\"key2\":\"key321\",\"key1\":\"key123\",\"flag\":\"queue\"}", data.toString());
+		MultiBinQueueResponse response = new MultiBinQueueResponse(responseConfig);
+		byte[] data = response.receive().getData();
+		System.out.println(new String(data));
+		assertEquals("[queue] Hello World!!~", new String(data));
 	}
 
 	@Override
 	protected void testTopicResponse() throws JMSException {
-		MultiJsonTopicResponse response = new MultiJsonTopicResponse(responseConfig);
-		responseConfig.setTimeOut(1000 * 10);
-		JSONObject data = response.receive().getData();
-		System.out.println(data);
-		assertEquals("{\"key2\":\"key321\",\"key1\":\"key123\",\"flag\":\"topic\"}", data.toString());
+		MultiBinTopicResponse response = new MultiBinTopicResponse(responseConfig);
+		byte[] data = response.receive().getData();
+		System.out.println(new String(data));
+		assertEquals("[topic] Hello World!!~", new String(data));
 	}
 
 }

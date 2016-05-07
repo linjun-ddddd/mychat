@@ -7,6 +7,8 @@ import javax.jms.QueueConnection;
 import javax.jms.Session;
 import javax.jms.TopicConnection;
 
+import com.mychat.common.mq.config.ResponseConfig;
+
 public abstract class AbstractMultiTypeResponse<T> implements MultiTypeResponse<T> {
 
 	protected ResponseConfig responseConfig;

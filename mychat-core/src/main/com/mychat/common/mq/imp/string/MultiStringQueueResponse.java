@@ -27,18 +27,23 @@ import com.mychat.common.mq.base.AbstractMultiTypeResponse;
 import com.mychat.common.mq.base.AbstractQueueResponse;
 import com.mychat.common.mq.base.MultiTypeRequest;
 import com.mychat.common.mq.base.MultiTypeResponse;
-import com.mychat.common.mq.base.RequestConfig;
-import com.mychat.common.mq.base.ResponseConfig;
+import com.mychat.common.mq.config.RequestConfig;
+import com.mychat.common.mq.config.ResponseConfig;
 
 public class MultiStringQueueResponse extends AbstractQueueResponse<String> {
 
 	public MultiStringQueueResponse() {
 		// TODO Auto-generated constructor stub
+	}
+
+	public MultiStringQueueResponse(ResponseConfig responseConfig) {
+		// TODO Auto-generated constructor stub
 		System.setProperty("org.apache.activemq.SERIALIZABLE_PACKAGES", "com.alibaba.fastjson,java.util");
+		this.responseConfig=responseConfig;
 	}
 
 	@Override
-	public String receive(QueueReceiver receiver) throws JMSException {
+	protected String receive(QueueReceiver receiver) throws JMSException {
 		// TODO Auto-generated method stub
 		TextMessage text = (TextMessage) receiver.receive(responseConfig.getTimeOut());
 		if (text!=null){

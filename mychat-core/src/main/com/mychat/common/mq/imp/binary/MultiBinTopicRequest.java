@@ -1,7 +1,8 @@
-package com.mychat.common.mq.imp.file;
+package com.mychat.common.mq.imp.binary;
 
 import java.io.File;
 
+import javax.jms.BytesMessage;
 import javax.jms.Connection;
 import javax.jms.ConnectionFactory;
 import javax.jms.DeliveryMode;
@@ -16,31 +17,39 @@ import javax.jms.QueueSender;
 import javax.jms.QueueSession;
 import javax.jms.Session;
 import javax.jms.TextMessage;
+import javax.jms.Topic;
+import javax.jms.TopicConnection;
+import javax.jms.TopicConnectionFactory;
+import javax.jms.TopicPublisher;
+import javax.jms.TopicSession;
 
 import org.apache.activemq.ActiveMQConnection;
 import org.apache.activemq.ActiveMQConnectionFactory;
 
 import com.alibaba.fastjson.JSONObject;
 import com.mychat.common.mq.base.AbstractMultiTypeRequest;
-import com.mychat.common.mq.base.AbstractQueueRequest;
+import com.mychat.common.mq.base.AbstractTopicRequest;
 import com.mychat.common.mq.base.MultiTypeRequest;
 import com.mychat.common.mq.config.RequestConfig;
 
-public class MultiFileQueueRequest extends AbstractQueueRequest<File>{
+public class MultiBinTopicRequest extends AbstractTopicRequest<byte[]> {
 
-	public MultiFileQueueRequest(String channel,File data) {
-		requestConfig=new RequestConfig();
+	public MultiBinTopicRequest(String channel, byte[] data) {
+		requestConfig = new RequestConfig();
 		requestConfig.setChannel(channel);
-		this.data=data;
+		this.data = data;
 	}
-	public MultiFileQueueRequest(RequestConfig requestConfig) {
-		this.requestConfig=requestConfig;
+
+	public MultiBinTopicRequest(RequestConfig requestConfig) {
+		this.requestConfig = requestConfig;
 	}
 
 	@Override
-	protected void send(QueueSession session, QueueSender sender, File data) throws JMSException {
+	protected void send(Session session, TopicPublisher publisher, byte[] data) throws JMSException {
 		// TODO Auto-generated method stub
-		ObjectMessage message = session.createObjectMessage(data);
-        sender.send(message);
+		BytesMessage message = session.createBytesMessage();
+		message.writeBytes(data);
+		publisher.publish(message);
 	}
+
 }

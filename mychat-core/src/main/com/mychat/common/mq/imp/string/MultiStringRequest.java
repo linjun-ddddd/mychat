@@ -19,7 +19,7 @@ import com.mychat.common.mq.base.AbstractMultiTypeRequest;
 import com.mychat.common.mq.base.AbstractNormalRequest;
 import com.mychat.common.mq.base.MessageQueue;
 import com.mychat.common.mq.base.MultiTypeRequest;
-import com.mychat.common.mq.base.RequestConfig;
+import com.mychat.common.mq.config.RequestConfig;
 
 public class MultiStringRequest extends AbstractNormalRequest<String>{
 	
@@ -33,7 +33,7 @@ public class MultiStringRequest extends AbstractNormalRequest<String>{
 	}
 
 	@Override
-	public void send(Session session, MessageProducer producer, String data) throws JMSException {
+	protected void send(Session session, MessageProducer producer, String data) throws JMSException {
 		// TODO Auto-generated method stub
         TextMessage text = session.createTextMessage(data);
         producer.send(text);

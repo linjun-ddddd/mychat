@@ -30,17 +30,18 @@ import com.mychat.common.mq.base.AbstractMultiTypeResponse;
 import com.mychat.common.mq.base.AbstractNormalResponse;
 import com.mychat.common.mq.base.MultiTypeRequest;
 import com.mychat.common.mq.base.MultiTypeResponse;
-import com.mychat.common.mq.base.RequestConfig;
-import com.mychat.common.mq.base.ResponseConfig;
+import com.mychat.common.mq.config.RequestConfig;
+import com.mychat.common.mq.config.ResponseConfig;
 
 public class MultiStringResponse extends AbstractNormalResponse<String> {
 
-	public MultiStringResponse() {
+	public MultiStringResponse(ResponseConfig responseConfig) {
 		// TODO Auto-generated constructor stub
 		System.setProperty("org.apache.activemq.SERIALIZABLE_PACKAGES", "com.alibaba.fastjson,java.util");
+		this.responseConfig=responseConfig;
 	}
 	@Override
-	public String receive(MessageConsumer consumer) throws JMSException {
+	protected String receive(MessageConsumer consumer) throws JMSException {
 		// TODO Auto-generated method stub
 		TextMessage text = (TextMessage) consumer.receive(responseConfig.getTimeOut());
 		if (text!=null){

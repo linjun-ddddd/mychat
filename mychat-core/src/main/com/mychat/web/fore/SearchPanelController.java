@@ -19,7 +19,7 @@ import com.mychat.bean.MessageBean;
 import com.mychat.bean.UserBean;
 import com.mychat.common.manager.MessageManager;
 import com.mychat.common.manager.UserManager;
-import com.mychat.common.mq.MsgQueueHelper;
+import com.mychat.common.mq.izchat.MsgQueueHelper;
 import com.mychat.common.util.Constants;
 import com.mychat.common.util.HttpHelper;
 import com.mychat.common.util.AppContextHelper;

@@ -2,6 +2,7 @@ package com.mychat.common.mq.imp.xml;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.io.StringReader;
 
@@ -55,5 +56,24 @@ public class XmlHelper {
 		} 
 		return document;
         
+	}
+	public static Document file2Xml(File file) {
+		// TODO Auto-generated method stub
+		Document document =null;
+		try {
+			DocumentBuilderFactory builderFactory = DocumentBuilderFactory.newInstance();  
+			DocumentBuilder builder = builderFactory.newDocumentBuilder();
+			document =builder.parse(file);
+		} catch (ParserConfigurationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SAXException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
+		return document;
 	}
 }

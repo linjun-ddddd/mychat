@@ -27,7 +27,7 @@ import org.w3c.dom.Document;
 import com.mychat.common.mq.base.AbstractMultiTypeRequest;
 import com.mychat.common.mq.base.AbstractTopicRequest;
 import com.mychat.common.mq.base.MultiTypeRequest;
-import com.mychat.common.mq.base.RequestConfig;
+import com.mychat.common.mq.config.RequestConfig;
 
 public class MultiXmlTopicRequest extends AbstractTopicRequest<Document> {
 
@@ -42,7 +42,7 @@ public class MultiXmlTopicRequest extends AbstractTopicRequest<Document> {
 	}
 
 	@Override
-	public void send(Session session, TopicPublisher publisher, Document data) throws JMSException {
+	protected void send(Session session, TopicPublisher publisher, Document data) throws JMSException {
 		// TODO Auto-generated method stub
 		TextMessage message = session.createTextMessage(XmlHelper.xml2String(data));
 		publisher.publish(message);

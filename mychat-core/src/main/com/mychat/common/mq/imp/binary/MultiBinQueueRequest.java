@@ -1,7 +1,8 @@
-package com.mychat.common.mq.imp.file;
+package com.mychat.common.mq.imp.binary;
 
 import java.io.File;
 
+import javax.jms.BytesMessage;
 import javax.jms.Connection;
 import javax.jms.ConnectionFactory;
 import javax.jms.DeliveryMode;
@@ -26,21 +27,22 @@ import com.mychat.common.mq.base.AbstractQueueRequest;
 import com.mychat.common.mq.base.MultiTypeRequest;
 import com.mychat.common.mq.config.RequestConfig;
 
-public class MultiFileQueueRequest extends AbstractQueueRequest<File>{
+public class MultiBinQueueRequest extends AbstractQueueRequest<byte[]>{
 
-	public MultiFileQueueRequest(String channel,File data) {
+	public MultiBinQueueRequest(String channel,byte[] data) {
 		requestConfig=new RequestConfig();
 		requestConfig.setChannel(channel);
 		this.data=data;
 	}
-	public MultiFileQueueRequest(RequestConfig requestConfig) {
+	public MultiBinQueueRequest(RequestConfig requestConfig) {
 		this.requestConfig=requestConfig;
 	}
 
 	@Override
-	protected void send(QueueSession session, QueueSender sender, File data) throws JMSException {
+	protected void send(QueueSession session, QueueSender sender, byte[] data) throws JMSException {
 		// TODO Auto-generated method stub
-		ObjectMessage message = session.createObjectMessage(data);
+		BytesMessage message = session.createBytesMessage();
+		message.writeBytes(data);
         sender.send(message);
 	}
 }

@@ -32,15 +32,18 @@ import com.mychat.common.mq.base.AbstractQueueResponse;
 import com.mychat.common.mq.base.MessageQueue;
 import com.mychat.common.mq.base.MultiTypeRequest;
 import com.mychat.common.mq.base.MultiTypeResponse;
-import com.mychat.common.mq.base.RequestConfig;
+import com.mychat.common.mq.config.RequestConfig;
+import com.mychat.common.mq.config.ResponseConfig;
 
 public class MultiXmlQueueResponse extends AbstractQueueResponse<Document> {
 
-	public MultiXmlQueueResponse() {
+	public MultiXmlQueueResponse(ResponseConfig responseConfig) {
+		// TODO Auto-generated constructor stub
+		this.responseConfig=responseConfig;
 	}
 
 	@Override
-	public Document receive(QueueReceiver receiver) throws JMSException {
+	protected Document receive(QueueReceiver receiver) throws JMSException {
 		// TODO Auto-generated method stub
 		TextMessage message = (TextMessage) receiver.receive(responseConfig.getTimeOut());
 		String xmlStr = message.getText();

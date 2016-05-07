@@ -21,7 +21,7 @@ import com.mychat.common.mq.base.AbstractMultiTypeRequest;
 import com.mychat.common.mq.base.AbstractNormalRequest;
 import com.mychat.common.mq.base.MessageQueue;
 import com.mychat.common.mq.base.MultiTypeRequest;
-import com.mychat.common.mq.base.RequestConfig;
+import com.mychat.common.mq.config.RequestConfig;
 
 public class MultiXmlRequest extends AbstractNormalRequest<Document> {
 
@@ -36,7 +36,7 @@ public class MultiXmlRequest extends AbstractNormalRequest<Document> {
 	}
 
 	@Override
-	public void send(Session session, MessageProducer producer, Document data) throws JMSException {
+	protected void send(Session session, MessageProducer producer, Document data) throws JMSException {
 		// TODO Auto-generated method stub
 		TextMessage message = session.createTextMessage(XmlHelper.xml2String(data));
 		producer.send(message);

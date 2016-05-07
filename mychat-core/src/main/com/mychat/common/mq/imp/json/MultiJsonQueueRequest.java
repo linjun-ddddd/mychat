@@ -24,7 +24,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.mychat.common.mq.base.AbstractMultiTypeRequest;
 import com.mychat.common.mq.base.AbstractQueueRequest;
 import com.mychat.common.mq.base.MultiTypeRequest;
-import com.mychat.common.mq.base.RequestConfig;
+import com.mychat.common.mq.config.RequestConfig;
 
 public class MultiJsonQueueRequest extends AbstractQueueRequest<JSONObject>{
 
@@ -38,7 +38,7 @@ public class MultiJsonQueueRequest extends AbstractQueueRequest<JSONObject>{
 	}
 
 	@Override
-	public void send(QueueSession session, QueueSender sender, JSONObject data) throws JMSException {
+	protected void send(QueueSession session, QueueSender sender, JSONObject data) throws JMSException {
 		// TODO Auto-generated method stub
 		ObjectMessage message = session.createObjectMessage(data);
         sender.send(message);

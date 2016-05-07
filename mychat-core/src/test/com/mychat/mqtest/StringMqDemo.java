@@ -1,6 +1,7 @@
 package com.mychat.mqtest;
 
 import java.io.ByteArrayInputStream;
+import java.io.File;
 import java.io.IOException;
 
 import javax.jms.BytesMessage;
@@ -24,8 +25,8 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 import com.alibaba.fastjson.JSONObject;
-import com.mychat.common.mq.base.MutilTypeMQService;
-import com.mychat.common.mq.base.RequestConfig;
+import com.mychat.common.mq.config.RequestConfig;
+import com.mychat.common.mq.imp.file.MultiFileTopicRequest;
 import com.mychat.common.mq.imp.json.MultiJsonQueueRequest;
 import com.mychat.common.mq.imp.json.MultiJsonQueueResponse;
 import com.mychat.common.mq.imp.json.MultiJsonRequest;
@@ -39,7 +40,8 @@ import com.mychat.common.mq.imp.string.MultiStringResponse;
 import com.mychat.common.mq.imp.string.MultiStringTopicRequest;
 import com.mychat.common.mq.imp.string.MultiStringTopicResponse;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
+import static org.junit.Assume.*;
 
 public class StringMqDemo extends BaseMqDemo {
 
@@ -57,54 +59,63 @@ public class StringMqDemo extends BaseMqDemo {
 		testTopicRequest();
 		testTopicResponse();
 	}
-	
 
 	@Override
 	protected void testNormalRequest() throws JMSException {
 		// TODO Auto-generated method stub
 		MultiStringRequest request = new MultiStringRequest(requestConfig);
-		request.setData("[normal] "+str);
-		MutilTypeMQService.send(request);
+		request.setData("[normal] " + str);
+		request.send();
 	}
 
 	@Override
 	protected void testQueueRequest() throws JMSException {
 		MultiStringQueueRequest request = new MultiStringQueueRequest(requestConfig);
-		request.setData("[queue] "+str);
-		MutilTypeMQService.send(request);
+		request.setData("[queue] " + str);
+		request.send();
 	}
 
 	@Override
 	protected void testTopicRequest() throws JMSException {
-		MultiStringTopicRequest request = new MultiStringTopicRequest(requestConfig);
-		request.setData("[topic] "+str);
-		MutilTypeMQService.send(request);
+		new Thread(new Runnable() {
+
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				try {
+					Thread.sleep(2222);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				MultiStringTopicRequest request = new MultiStringTopicRequest(requestConfig);
+				request.setData("[topic] " + str);
+				request.send();
+			}
+		}).start();
 	}
 
 	@Override
 	protected void testNormalResponse() throws JMSException {
 		// TODO Auto-generated method stub
-		responseConfig.setResponseClazz(MultiStringResponse.class);
-		MultiStringResponse response = (MultiStringResponse) MutilTypeMQService.receive(responseConfig);
-		String data = response.getData();
+		MultiStringResponse response = new MultiStringResponse(responseConfig);
+		String data = response.receive().getData();
 		System.out.println(data);
 		assertEquals("[normal] Hello World!!~", data.toString());
 	}
 
 	@Override
 	protected void testQueueResponse() throws JMSException {
-		responseConfig.setResponseClazz(MultiStringQueueResponse.class);
-		MultiStringQueueResponse response = (MultiStringQueueResponse) MutilTypeMQService.receive(responseConfig);
-		String data = response.getData();
+		MultiStringQueueResponse response = new MultiStringQueueResponse(responseConfig);
+		String data = response.receive().getData();
 		System.out.println(data);
 		assertEquals("[queue] Hello World!!~", data.toString());
 	}
 
 	@Override
 	protected void testTopicResponse() throws JMSException {
-		responseConfig.setResponseClazz(MultiStringTopicResponse.class);
-		MultiStringTopicResponse response = (MultiStringTopicResponse) MutilTypeMQService.receive(responseConfig);
-		String data = response.getData();
+		MultiStringTopicResponse response = new MultiStringTopicResponse(responseConfig);
+		String data = response.receive().getData();
 		System.out.println(data);
 		assertEquals("[topic] Hello World!!~", data.toString());
 	}

@@ -19,7 +19,7 @@ import com.mychat.bean.MessageBean;
 import com.mychat.bean.UserBean;
 import com.mychat.common.manager.MessageManager;
 import com.mychat.common.manager.UserManager;
-import com.mychat.common.mq.MsgQueueHelper;
+import com.mychat.common.mq.izchat.MsgQueueHelper;
 import com.mychat.common.util.Constants;
 import com.mychat.common.util.HttpHelper;
 import com.mychat.common.util.AppContextHelper;
@@ -34,18 +34,11 @@ public class LongPollController extends BaseController{
 	@RequestMapping(value="longPoll.do",method=RequestMethod.POST)
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws JMSException {
 		String userid=HttpHelper.getSessionUserid(request);
-		MapMessage message=MsgQueueHelper.receiveMsg(userid);
+		JSONObject data=MsgQueueHelper.receiveMsg(userid);
 		JSONObject returnJson = new JSONObject();
-		if (message!=null){
+		if (data!=null){
 			returnJson.put("status", Constants.STATUS_SUCCESS);
-			JSONObject data = new JSONObject();
-			Enumeration<String> eu=message.getMapNames();
-			while (eu.hasMoreElements()) {
-				String key=eu.nextElement();
-				String value=message.getString(key);
-				data.put(key, value);
-			}
-			String fromUserid=data.getString("fromuserid");
+			String fromUserid=data.getString("fromUserId");
 			UserBean fromuser=userManager.getUserById(fromUserid);
 			returnJson.put("data", data);
 			returnJson.put("fromuser", JSONObject.toJSON(fromuser));

@@ -22,7 +22,7 @@ import com.mychat.common.mq.base.AbstractMultiTypeRequest;
 import com.mychat.common.mq.base.AbstractNormalRequest;
 import com.mychat.common.mq.base.AbstractQueueRequest;
 import com.mychat.common.mq.base.MultiTypeRequest;
-import com.mychat.common.mq.base.RequestConfig;
+import com.mychat.common.mq.config.RequestConfig;
 
 public class MultiStringQueueRequest extends AbstractQueueRequest<String> {
 
@@ -37,7 +37,7 @@ public class MultiStringQueueRequest extends AbstractQueueRequest<String> {
 	}
 
 	@Override
-	public void send(QueueSession session, QueueSender sender, String data) throws JMSException {
+	protected void send(QueueSession session, QueueSender sender, String data) throws JMSException {
 		// TODO Auto-generated method stub
 		TextMessage text = session.createTextMessage(data);
 		sender.send(text);

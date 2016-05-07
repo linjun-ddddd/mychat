@@ -25,7 +25,7 @@ import org.apache.activemq.ActiveMQConnectionFactory;
 import com.mychat.common.mq.base.AbstractMultiTypeRequest;
 import com.mychat.common.mq.base.AbstractTopicRequest;
 import com.mychat.common.mq.base.MultiTypeRequest;
-import com.mychat.common.mq.base.RequestConfig;
+import com.mychat.common.mq.config.RequestConfig;
 
 public class MultiStringTopicRequest extends AbstractTopicRequest<String> {
 
@@ -40,7 +40,7 @@ public class MultiStringTopicRequest extends AbstractTopicRequest<String> {
 	}
 
 	@Override
-	public void send(Session session, TopicPublisher publisher, String data) throws JMSException {
+	protected void send(Session session, TopicPublisher publisher, String data) throws JMSException {
 		// TODO Auto-generated method stub
 		TextMessage text = session.createTextMessage(data);
 		publisher.publish(text);

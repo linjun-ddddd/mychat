@@ -7,6 +7,8 @@ import javax.jms.QueueConnection;
 import javax.jms.Session;
 import javax.jms.TopicConnection;
 
+import com.mychat.common.mq.config.RequestConfig;
+
 public abstract class AbstractMultiTypeRequest<T> implements MultiTypeRequest<T> {
 
 	protected RequestConfig requestConfig;

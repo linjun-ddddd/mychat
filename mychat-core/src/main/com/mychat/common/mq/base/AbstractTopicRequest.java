@@ -41,5 +41,5 @@ public abstract class AbstractTopicRequest<T> extends AbstractMultiTypeRequest<T
 
 	}
 
-	public abstract void send(Session session, TopicPublisher publisher, T data) throws JMSException;
+	protected abstract void send(Session session, TopicPublisher publisher, T data) throws JMSException;
 }

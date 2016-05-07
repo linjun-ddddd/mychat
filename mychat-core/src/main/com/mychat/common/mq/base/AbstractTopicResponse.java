@@ -13,7 +13,7 @@ import javax.jms.TopicSubscriber;
 
 public abstract class AbstractTopicResponse<T>  extends AbstractMultiTypeResponse<T>{
 	
-	public MultiTypeResponse<T> receive() {
+	public AbstractMultiTypeResponse<T> receive() {
 		// TODO Auto-generated method stub
 		TopicConnection topicConnection=messageQueue.getTopicConnection();
 		TopicSession session = null;
@@ -38,7 +38,7 @@ public abstract class AbstractTopicResponse<T>  extends AbstractMultiTypeRespons
 		return this;
 	}
 
-	public abstract T receive(TopicSubscriber subscriber) throws JMSException;
+	protected abstract T receive(TopicSubscriber subscriber) throws JMSException;
 	
 	
 }

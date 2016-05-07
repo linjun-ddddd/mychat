@@ -1,7 +1,8 @@
-package com.mychat.common.mq.imp.file;
+package com.mychat.common.mq.imp.binary;
 
 import java.io.File;
 
+import javax.jms.BytesMessage;
 import javax.jms.Connection;
 import javax.jms.ConnectionFactory;
 import javax.jms.DeliveryMode;
@@ -10,8 +11,6 @@ import javax.jms.JMSException;
 import javax.jms.MessageProducer;
 import javax.jms.ObjectMessage;
 import javax.jms.Queue;
-import javax.jms.QueueConnection;
-import javax.jms.QueueConnectionFactory;
 import javax.jms.QueueSender;
 import javax.jms.QueueSession;
 import javax.jms.Session;
@@ -22,25 +21,28 @@ import org.apache.activemq.ActiveMQConnectionFactory;
 
 import com.alibaba.fastjson.JSONObject;
 import com.mychat.common.mq.base.AbstractMultiTypeRequest;
-import com.mychat.common.mq.base.AbstractQueueRequest;
+import com.mychat.common.mq.base.AbstractNormalRequest;
+import com.mychat.common.mq.base.MessageQueue;
 import com.mychat.common.mq.base.MultiTypeRequest;
 import com.mychat.common.mq.config.RequestConfig;
 
-public class MultiFileQueueRequest extends AbstractQueueRequest<File>{
+public class MultiBinRequest extends AbstractNormalRequest<byte[]> {
 
-	public MultiFileQueueRequest(String channel,File data) {
-		requestConfig=new RequestConfig();
+	public MultiBinRequest(String channel, byte[] data) {
+		requestConfig = new RequestConfig();
 		requestConfig.setChannel(channel);
-		this.data=data;
+		this.data = data;
 	}
-	public MultiFileQueueRequest(RequestConfig requestConfig) {
-		this.requestConfig=requestConfig;
+
+	public MultiBinRequest(RequestConfig requestConfig) {
+		this.requestConfig = requestConfig;
 	}
 
 	@Override
-	protected void send(QueueSession session, QueueSender sender, File data) throws JMSException {
+	protected void send(Session session, MessageProducer producer, byte[] data) throws JMSException {
 		// TODO Auto-generated method stub
-		ObjectMessage message = session.createObjectMessage(data);
-        sender.send(message);
+		BytesMessage message = session.createBytesMessage();
+		message.writeBytes(data);
+		producer.send(message);
 	}
 }

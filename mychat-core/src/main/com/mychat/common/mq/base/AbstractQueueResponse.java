@@ -12,7 +12,7 @@ import javax.jms.Session;
 import javax.jms.TopicConnection;
 
 public abstract class AbstractQueueResponse<T> extends AbstractMultiTypeResponse<T>{
-	public MultiTypeResponse<T> receive() {
+	public AbstractMultiTypeResponse<T> receive() {
 		// TODO Auto-generated method stub
 		QueueConnection queueConnection=messageQueue.getQueueConnection();
 		QueueSession session = null;
@@ -37,5 +37,5 @@ public abstract class AbstractQueueResponse<T> extends AbstractMultiTypeResponse
 		return this;
 	}
 
-	public abstract T receive(QueueReceiver receiver) throws JMSException;	
+	protected abstract T receive(QueueReceiver receiver) throws JMSException;	
 }

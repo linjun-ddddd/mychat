@@ -21,7 +21,7 @@ import com.mychat.common.mq.base.AbstractMultiTypeRequest;
 import com.mychat.common.mq.base.AbstractNormalRequest;
 import com.mychat.common.mq.base.MessageQueue;
 import com.mychat.common.mq.base.MultiTypeRequest;
-import com.mychat.common.mq.base.RequestConfig;
+import com.mychat.common.mq.config.RequestConfig;
 
 public class MultiJsonRequest extends AbstractNormalRequest<JSONObject> {
 
@@ -36,7 +36,7 @@ public class MultiJsonRequest extends AbstractNormalRequest<JSONObject> {
 	}
 
 	@Override
-	public void send(Session session,MessageProducer producer, JSONObject data) throws JMSException {
+	protected void send(Session session,MessageProducer producer, JSONObject data) throws JMSException {
 		// TODO Auto-generated method stub
 		ObjectMessage message = session.createObjectMessage(data);
 		producer.send(message);
