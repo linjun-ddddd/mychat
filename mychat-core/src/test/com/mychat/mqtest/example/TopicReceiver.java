@@ -1,4 +1,4 @@
-package com.mychat.mqtest;
+package com.mychat.mqtest.example;
 import javax.jms.JMSException;
 import javax.jms.MapMessage;
 import javax.jms.Message;
@@ -14,6 +14,7 @@ import org.apache.activemq.ActiveMQConnection;
 import org.apache.activemq.ActiveMQConnectionFactory;
 
 import com.alibaba.fastjson.JSONObject;
+import com.mychat.mqtest.TestConstant;
  
 /**
  * <b>function:</b> 消息接收者； 依赖hawtbuf-1.9.jar
@@ -26,12 +27,13 @@ import com.alibaba.fastjson.JSONObject;
  * @email hoojo_@126.com
  * @version 1.0
  */
+@Deprecated
 public class TopicReceiver {
  
     // tcp 地址
     public static final String BROKER_URL = "tcp://localhost:61616";
     // 目标，在ActiveMQ管理员控制台创建 http://localhost:8161/admin/queues.jsp
-    public static final String TARGET = "hoo.mq.topic";
+    public static final String TARGET = TestConstant.TOPIC;
     
     
     public static void run() throws Exception {

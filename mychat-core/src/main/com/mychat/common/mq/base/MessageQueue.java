@@ -13,23 +13,25 @@ import javax.jms.Connection;
 import org.apache.activemq.ActiveMQConnection;
 import org.apache.activemq.ActiveMQConnectionFactory;
 
+import com.mychat.common.mq.config.MessageQueueConfig;
+
 public class MessageQueue {
 
-	//单例
+	// 单例
 	private static MessageQueue messageQueue = null;
 	// tcp 地址
 	private String brokerUrl = "tcp://localhost:61616";
+	private String mqUserName = ActiveMQConnection.DEFAULT_USER;
+	private String mqPassword = ActiveMQConnection.DEFAULT_PASSWORD;
 	// 目标，在ActiveMQ管理员控制台创建 http://localhost:8161/admin/queues.jsp
 	private Connection connection = null;
 	private QueueConnection queueConnection = null;
 	private TopicConnection topicConnection = null;
 
-	
-
 	public void start() {
 		// 创建链接工厂
-		ActiveMQConnectionFactory factory = new ActiveMQConnectionFactory(ActiveMQConnection.DEFAULT_USER, ActiveMQConnection.DEFAULT_PASSWORD, brokerUrl);
-		// 通过工厂创建一个连接
+		ActiveMQConnectionFactory factory = new ActiveMQConnectionFactory(mqUserName, mqPassword, brokerUrl);
+		// 通过工厂创建连接
 		try {
 			connection = factory.createConnection();
 			queueConnection = factory.createQueueConnection();
@@ -63,8 +65,20 @@ public class MessageQueue {
 
 	public static synchronized MessageQueue getInstance() {
 		// TODO Auto-generated method stub
-		if (messageQueue==null){
+		if (messageQueue == null) {
 			messageQueue = new MessageQueue();
+			messageQueue.start();
+		}
+		return messageQueue;
+	}
+
+	public static synchronized MessageQueue getInstance(MessageQueueConfig config) {
+		// TODO Auto-generated method stub
+		if (messageQueue == null) {
+			messageQueue = new MessageQueue();
+			messageQueue.brokerUrl = config.getBrokerUrl();
+			messageQueue.mqUserName = config.getMqUserName();
+			messageQueue.mqPassword = config.getMqPassword();
 			messageQueue.start();
 		}
 		return messageQueue;
@@ -74,12 +88,12 @@ public class MessageQueue {
 		// TODO Auto-generated method stub
 		return connection;
 	}
-	
+
 	public QueueConnection getQueueConnection() {
 		// TODO Auto-generated method stub
 		return queueConnection;
 	}
-	
+
 	public TopicConnection getTopicConnection() {
 		// TODO Auto-generated method stub
 		return topicConnection;
@@ -92,5 +106,5 @@ public class MessageQueue {
 	public void setBrokerUrl(String brokerUrl) {
 		this.brokerUrl = brokerUrl;
 	}
-	
+
 }

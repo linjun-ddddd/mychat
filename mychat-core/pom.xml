@@ -2,7 +2,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0  
                       http://maven.apache.org/maven-v4_0_0.xsd">
-	<!-- mvn dependency:copy-dependencies -DoutputDirectory=WebContent/WEB-INF/lib -->
+	<!-- mvn dependency:copy-dependencies -DoutputDirectory=lib -->
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>linjun</groupId>
 	<artifactId>mychat</artifactId>
@@ -11,7 +11,7 @@
 		<java-version>1.7</java-version>
 		<org.slf4j-version>1.7.20</org.slf4j-version>
 	</properties>
-	<packaging>war</packaging>
+	<packaging>pom</packaging>
 	<repositories>
 		<repository>
 			<id>central</id>

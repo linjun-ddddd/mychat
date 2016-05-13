@@ -16,6 +16,7 @@ public abstract class AbstractNormalRequest<T> extends AbstractMultiTypeRequest<
 		Session session = null;
 		MessageProducer sender = null;
 		try {
+			// 创建一个会话
 			session = connection.createSession(Boolean.TRUE, Session.AUTO_ACKNOWLEDGE);
 			// 创建一个消息队列
 			Destination destination = session.createQueue(requestConfig.getChannel());
@@ -23,7 +24,9 @@ public abstract class AbstractNormalRequest<T> extends AbstractMultiTypeRequest<
 			sender = session.createProducer(destination);
 			// 设置持久化模式
 			sender.setDeliveryMode(DeliveryMode.NON_PERSISTENT);
+			// 子类的发送方法
 			send(session, sender,this.data);
+			// 提交会话
 			session.commit();
 		} catch (JMSException e) {
 			// TODO Auto-generated catch block
@@ -33,9 +36,7 @@ public abstract class AbstractNormalRequest<T> extends AbstractMultiTypeRequest<
 		finally {
 			closeSender(sender);
 			closeSession(session);
-
 		}
-
 	}
 
 	protected abstract void send(Session session, MessageProducer producer, T data) throws JMSException;

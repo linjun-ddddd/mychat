@@ -13,17 +13,20 @@ import com.alibaba.fastjson.JSONObject;
 
 public abstract class AbstractNormalResponse<T> extends AbstractMultiTypeResponse<T> {
 
+	@Override
 	public AbstractMultiTypeResponse<T> receive() {
 		// TODO Auto-generated method stub
 		Connection connection = messageQueue.getConnection();
 		Session session = null;
 		MessageConsumer consumer = null;
 		try {
+			// 创建一个会话
 			session = connection.createSession(Boolean.TRUE, Session.AUTO_ACKNOWLEDGE);
 			// 创建一个消息队列
 			Destination dest = session.createQueue(responseConfig.getChannel());
 			// 创建消息接收者
 			consumer = session.createConsumer(dest);
+			// 子类的接收方法
 			this.data=receive(consumer);
 			// 提交会话
 			session.commit();

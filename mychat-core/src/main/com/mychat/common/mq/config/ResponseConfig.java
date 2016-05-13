@@ -4,7 +4,6 @@ public class ResponseConfig {
 	
 	private String channel = "";
 	private String topic = "";
-	private Class responseClazz;
 
 	private long timeOut = 1000L;
 	
@@ -21,12 +20,6 @@ public class ResponseConfig {
 		this.topic = topic;
 	}
 	
-	public Class getResponseClazz() {
-		return responseClazz;
-	}
-	public void setResponseClazz(Class responseClazz) {
-		this.responseClazz = responseClazz;
-	}
 	public long getTimeOut() {
 		return timeOut;
 	}

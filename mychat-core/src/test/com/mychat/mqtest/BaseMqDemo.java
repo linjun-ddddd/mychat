@@ -25,6 +25,7 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 import com.alibaba.fastjson.JSONObject;
+import com.mychat.common.mq.base.MessageQueue;
 import com.mychat.common.mq.config.RequestConfig;
 import com.mychat.common.mq.config.ResponseConfig;
 import com.mychat.common.mq.imp.json.MultiJsonQueueRequest;
@@ -64,6 +65,7 @@ public abstract class BaseMqDemo {
 	@After
 	public void tearDown() throws Exception {
 		// 关闭资源
+		MessageQueue.getInstance().stop();
 	}
 	
 	protected abstract void testNormalRequest() throws JMSException ;
