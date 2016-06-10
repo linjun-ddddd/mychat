@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<title>mychat</title>
+#parse("/common/header.html")
+<link rel="stylesheet" type="text/css" href="$contextPath/resource/css/chat/default.css">
+<link rel="stylesheet" type="text/css" href="$contextPath/resource/css/chat/styles.css">
+</head>
+<body>
+<div class='top_bar'>
+	
+	<div class="profile" onclick="profileClick()">
+		<img src="$contextPath/resource/images/chat/upload/$user.icon" alt="$user.name">
+		<span class='textEllipsis'>$user.name</span>
+	</div>
+	<ul class='tool_list'>
+		<li>
+			<img src="$contextPath/resource/images/chat/icon/1.png">
+		</li>
+		<li>
+			<img src="$contextPath/resource/images/chat/icon/2.png">
+		</li>
+		<li>
+			<img src="$contextPath/resource/images/chat/icon/3.png">
+		</li>
+	</ul>
+</div>
+<div class='left_sider'>
+	<div>
+		<img src="$contextPath/resource/images/chat/upload/$user.icon" width="8rem" height="8rem" class="user_icon">
+	</div>
+	<div class="list-group">
+		<a href="#" class="list-group-item active">
+		    个人信息
+		</a>
+		<a  href="#" class="list-group-item textEllipsis">账号 &nbsp;|&nbsp; $user.name </a>
+		<a  href="#" class="list-group-item textEllipsis"> 昵称 &nbsp;|&nbsp;  $user.nickname </a>
+		<a  href="#" class="list-group-item textEllipsis">性别 &nbsp;|&nbsp;$user.sex</a>
+		<a  href="#" class="list-group-item textEllipsis">签名 &nbsp;|&nbsp; $user.mysign</a>
+		<button type="button" class="btn btn-danger loginOut" onclick='loginOut(this)'>退出登录</button>
+	</div>
+	
+</div>
+<div class="demo">
+		  <svg class="sidebar" viewBox="0 0 330 500">
+			<path class="s-path" fill="#f0f0f0" d="M0,0 50,0 a0,250 0 1,1 0,500 L0,500" />
+		  </svg>
+		  <div class="static">
+			<div class="static__text">Hello!</div>
+		  </div>
+		  <div class="background" onclick="closePanel(true)">&nbsp;</div>
+		 #parse("/fore/chat/sidebarContent.html")
+		  <div class="chat">
+			<span class="chat__back"></span>
+			<span class="chat__status">status</span>
+			<div class="chat__person">
+			  <span class="chat__online active"></span>
+			  <span class="chat__name">Huehue Huehue</span>
+			</div>
+			<div class="chat__messages">
+			<!-- <div class="chat__content"></div> -->
+			
+		  </div>
+			<input type="text" class="chat__input" placeholder="输入文字..." onkeydown="sendMessageKeyDown(event)"/>
+			<button type="button" class="btn btn-info send_btn" onclick="sendMessage(this)" >发送</button>
+		</div>
+		  <ul class='option_panel'>
+		  	<li class='option_panel_item friendList' onclick="friendListClick()"><img src="$contextPath/resource/images/chat/panel1.png" width="46px" height="46px"></li>
+		  	<li class='option_panel_item messageBox' onclick="messageBoxClick()"><img src="$contextPath/resource/images/chat/panel2.png" width="46px" height="46px"></li>
+		  	<li class='option_panel_item searchUser' onclick="searchUserClick()"><img src="$contextPath/resource/images/chat/panel3.png" width="46px" height="46px"></li>
+		  	<!-- <li class='option_panel_item otherItem' onclick="otherItemClick()"><img src="$contextPath/resource/images/chat/panel4.png" width="46px" height="46px"></li> -->
+		  </ul>
+		  <!--friendList_content-->
+		  #include("/fore/chat/friendListPanel.html")
+		  <!--messageBox_content-->
+		  #include("/fore/chat/messageBoxPanel.html")
+		  <!--searchUser_content-->
+		  #include("/fore/chat/searchUserPanel.html")
+		  <!--otherItem_content-->
+		  #include("/fore/chat/otherItemPanel.html")
+		
+	
+<script type="text/javascript" src="$contextPath/resource/js/chat/main.js"></script>
+<script type="text/javascript" src="$contextPath/resource/js/chat/chat.js"></script>
+</body>
+</html>

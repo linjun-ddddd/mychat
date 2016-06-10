@@ -1,0 +1,19 @@
+
+<div class="sidebar-content">
+	<div class='contact_list'>
+		#foreach( $user in $lastChatUser)
+		<div class="contact" onclick="friendClick($user.id)" userid="$user.id">
+			<img src="$contextPath/resource/images/chat/upload/$user.icon" alt=""
+				class="contact__photo" /> 
+			<span class="contact__name textEllipsis">$user.name</span>
+			<span class="contact__status online"></span>
+		</div>
+		#end
+
+	</div>
+	<div class="search">
+		<img src="$contextPath/resource/images/chat/t8TeL1S.png" alt=""
+			class="search__img" /> <input type="text" class="search__input" onkeyup="filterFriendList(this)"
+			placeholder="搜索.." />
+	</div>
+</div>
