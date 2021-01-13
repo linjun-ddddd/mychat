@@ -1,1 +1,122 @@
-<mxfile host="app.diagrams.net" modified="2021-01-13T07:55:35.110Z" agent="5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.66 Safari/537.36" version="14.1.9" etag="1XWRF4s-F838j_XCGMEB" type="github"><diagram id="LUdow41rr4unk91qkQlg">UzV2zq1wL0osyPDNT0nNUTV2VTV2LsrPL4GwciucU3NyVI0MMlNUjV1UjYwMgFjVyA2HrCFY1qAgsSg1rwSLBiADYTaQg2Y1AA==</diagram></mxfile>
+<mxfile host="app.diagrams.net" modified="2021-01-13T08:33:39.184Z" agent="5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.66 Safari/537.36" etag="VSw6EcXKY9ZYM6JStzVp" version="14.1.9" type="github">
+  <diagram id="LUdow41rr4unk91qkQlg" name="Page-1">
+    <mxGraphModel dx="1393" dy="866" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="EYbbgb6AHi4v5-scqT2N-6" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="EYbbgb6AHi4v5-scqT2N-2">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="275" y="260" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="EYbbgb6AHi4v5-scqT2N-2" value="规则集升级" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="235" y="120" width="80" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="EYbbgb6AHi4v5-scqT2N-10" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="EYbbgb6AHi4v5-scqT2N-8" target="EYbbgb6AHi4v5-scqT2N-9">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="EYbbgb6AHi4v5-scqT2N-12" value="yes" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="EYbbgb6AHi4v5-scqT2N-8" target="EYbbgb6AHi4v5-scqT2N-11">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="EYbbgb6AHi4v5-scqT2N-8" value="toStatus=T？" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="215" y="210" width="120" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="EYbbgb6AHi4v5-scqT2N-14" value="yes" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="EYbbgb6AHi4v5-scqT2N-9" target="EYbbgb6AHi4v5-scqT2N-13">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="EYbbgb6AHi4v5-scqT2N-16" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="EYbbgb6AHi4v5-scqT2N-9" target="EYbbgb6AHi4v5-scqT2N-15">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="EYbbgb6AHi4v5-scqT2N-9" value="changeCheckerIds为空？" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="180" y="290" width="190" height="55" as="geometry" />
+        </mxCell>
+        <mxCell id="EYbbgb6AHi4v5-scqT2N-11" value="结束" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="445" y="202.5" width="68" height="65" as="geometry" />
+        </mxCell>
+        <mxCell id="EYbbgb6AHi4v5-scqT2N-13" value="结束" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="453" y="293.75" width="52" height="47.5" as="geometry" />
+        </mxCell>
+        <mxCell id="EYbbgb6AHi4v5-scqT2N-20" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="EYbbgb6AHi4v5-scqT2N-15" target="EYbbgb6AHi4v5-scqT2N-19">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="EYbbgb6AHi4v5-scqT2N-15" value="获取包含changeCheckerIds的源规则" style="whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="215" y="390" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="EYbbgb6AHi4v5-scqT2N-22" value="yes" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="EYbbgb6AHi4v5-scqT2N-19" target="EYbbgb6AHi4v5-scqT2N-21">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="EYbbgb6AHi4v5-scqT2N-24" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="EYbbgb6AHi4v5-scqT2N-19" target="EYbbgb6AHi4v5-scqT2N-23">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="EYbbgb6AHi4v5-scqT2N-19" value="源规则集为空？" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="205" y="480" width="140" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="EYbbgb6AHi4v5-scqT2N-21" value="结束" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="443" y="477.5" width="70" height="55" as="geometry" />
+        </mxCell>
+        <mxCell id="EYbbgb6AHi4v5-scqT2N-26" value="yes" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="EYbbgb6AHi4v5-scqT2N-23" target="EYbbgb6AHi4v5-scqT2N-25">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="EYbbgb6AHi4v5-scqT2N-38" value="no" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="EYbbgb6AHi4v5-scqT2N-23" target="EYbbgb6AHi4v5-scqT2N-37">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="EYbbgb6AHi4v5-scqT2N-23" value="流转到灰度" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="205" y="610" width="140" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="EYbbgb6AHi4v5-scqT2N-28" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="EYbbgb6AHi4v5-scqT2N-25" target="EYbbgb6AHi4v5-scqT2N-27">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="EYbbgb6AHi4v5-scqT2N-25" value="根据源规则集id&lt;br&gt;查出对应目标规则集" style="whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="-5" y="605" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="EYbbgb6AHi4v5-scqT2N-32" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="EYbbgb6AHi4v5-scqT2N-27" target="EYbbgb6AHi4v5-scqT2N-31">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="EYbbgb6AHi4v5-scqT2N-27" value="删除旧的备份规则集&lt;br&gt;备份目标规则集" style="whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="-5" y="710" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="EYbbgb6AHi4v5-scqT2N-34" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="EYbbgb6AHi4v5-scqT2N-31" target="EYbbgb6AHi4v5-scqT2N-33">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="EYbbgb6AHi4v5-scqT2N-31" value="把源规则集Version改成G" style="whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="-5" y="810" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="EYbbgb6AHi4v5-scqT2N-36" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="EYbbgb6AHi4v5-scqT2N-33" target="EYbbgb6AHi4v5-scqT2N-35">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="EYbbgb6AHi4v5-scqT2N-33" value="删除上述目标规则集" style="whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="-5" y="900" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="EYbbgb6AHi4v5-scqT2N-44" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="EYbbgb6AHi4v5-scqT2N-35" target="EYbbgb6AHi4v5-scqT2N-43">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="EYbbgb6AHi4v5-scqT2N-35" value="保存源规则集" style="whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="-5" y="990" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="EYbbgb6AHi4v5-scqT2N-40" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="EYbbgb6AHi4v5-scqT2N-37" target="EYbbgb6AHi4v5-scqT2N-39">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="EYbbgb6AHi4v5-scqT2N-37" value="根据源规则集key，&lt;br&gt;找出version最大的现网目标规则集" style="whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="435" y="605" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="EYbbgb6AHi4v5-scqT2N-42" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="EYbbgb6AHi4v5-scqT2N-39" target="EYbbgb6AHi4v5-scqT2N-41">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="EYbbgb6AHi4v5-scqT2N-39" value="删除备份规则集&lt;br&gt;备份目标规则集" style="whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="435" y="710" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="EYbbgb6AHi4v5-scqT2N-46" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="EYbbgb6AHi4v5-scqT2N-41" target="EYbbgb6AHi4v5-scqT2N-43">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="495" y="950" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="EYbbgb6AHi4v5-scqT2N-41" value="目标规则集version+1" style="whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="435" y="810" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="EYbbgb6AHi4v5-scqT2N-43" value="设置全量&lt;br&gt;更新规则状态" style="whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="225" y="1100" width="120" height="60" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
