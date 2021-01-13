@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2021-01-13T08:33:39.184Z" agent="5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.66 Safari/537.36" etag="VSw6EcXKY9ZYM6JStzVp" version="14.1.9" type="github">
+<mxfile host="app.diagrams.net" modified="2021-01-13T09:06:59.730Z" agent="5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.66 Safari/537.36" etag="RTnL8VVRXIkEru4jxLyl" version="14.1.9" type="github">
   <diagram id="LUdow41rr4unk91qkQlg" name="Page-1">
     <mxGraphModel dx="1393" dy="866" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -115,6 +115,77 @@
         </mxCell>
         <mxCell id="EYbbgb6AHi4v5-scqT2N-43" value="设置全量&lt;br&gt;更新规则状态" style="whiteSpace=wrap;html=1;" vertex="1" parent="1">
           <mxGeometry x="225" y="1100" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="EYbbgb6AHi4v5-scqT2N-53" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="EYbbgb6AHi4v5-scqT2N-54">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1000" y="260" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="EYbbgb6AHi4v5-scqT2N-54" value="规则集回滚" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="960" y="120" width="80" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="EYbbgb6AHi4v5-scqT2N-55" value="yes" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="EYbbgb6AHi4v5-scqT2N-56" target="EYbbgb6AHi4v5-scqT2N-57">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="EYbbgb6AHi4v5-scqT2N-59" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="EYbbgb6AHi4v5-scqT2N-56" target="EYbbgb6AHi4v5-scqT2N-58">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="EYbbgb6AHi4v5-scqT2N-56" value="toStatus=T？" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="940" y="210" width="120" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="EYbbgb6AHi4v5-scqT2N-57" value="结束" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="1170" y="202.5" width="68" height="65" as="geometry" />
+        </mxCell>
+        <mxCell id="EYbbgb6AHi4v5-scqT2N-61" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="EYbbgb6AHi4v5-scqT2N-58" target="EYbbgb6AHi4v5-scqT2N-60">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="EYbbgb6AHi4v5-scqT2N-58" value="找出为status的&lt;br&gt;备份规则集" style="whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="940" y="335" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="EYbbgb6AHi4v5-scqT2N-63" value="no" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="EYbbgb6AHi4v5-scqT2N-60" target="EYbbgb6AHi4v5-scqT2N-62">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="EYbbgb6AHi4v5-scqT2N-65" value="yes" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="EYbbgb6AHi4v5-scqT2N-60" target="EYbbgb6AHi4v5-scqT2N-64">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="EYbbgb6AHi4v5-scqT2N-60" value="&#xa;&#xa;&lt;span style=&quot;color: rgb(0, 0, 0); font-family: helvetica; font-size: 12px; font-style: normal; font-weight: 400; letter-spacing: normal; text-align: center; text-indent: 0px; text-transform: none; word-spacing: 0px; background-color: rgb(248, 249, 250); display: inline; float: none;&quot;&gt;流转到灰度&lt;/span&gt;&#xa;&#xa;" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="940" y="465" width="120" height="55" as="geometry" />
+        </mxCell>
+        <mxCell id="EYbbgb6AHi4v5-scqT2N-69" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="EYbbgb6AHi4v5-scqT2N-62" target="EYbbgb6AHi4v5-scqT2N-68">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="EYbbgb6AHi4v5-scqT2N-62" value="根据备份的规则集，&lt;br&gt;找出对应现网规则集" style="whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="1140" y="462.5" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="EYbbgb6AHi4v5-scqT2N-67" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="EYbbgb6AHi4v5-scqT2N-64" target="EYbbgb6AHi4v5-scqT2N-66">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="800" y="690" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="EYbbgb6AHi4v5-scqT2N-64" value="删除status=G的规则集" style="whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="740" y="462.5" width="120" height="57.5" as="geometry" />
+        </mxCell>
+        <mxCell id="EYbbgb6AHi4v5-scqT2N-73" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="EYbbgb6AHi4v5-scqT2N-66" target="EYbbgb6AHi4v5-scqT2N-72">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="EYbbgb6AHi4v5-scqT2N-66" value="&lt;br&gt;&lt;br&gt;&lt;span style=&quot;color: rgb(0 , 0 , 0) ; font-family: &amp;#34;helvetica&amp;#34; ; font-size: 12px ; font-style: normal ; font-weight: 400 ; letter-spacing: normal ; text-align: center ; text-indent: 0px ; text-transform: none ; word-spacing: 0px ; background-color: rgb(248 , 249 , 250) ; display: inline ; float: none&quot;&gt;用备份规则集覆盖&lt;/span&gt;&lt;br style=&quot;color: rgb(0 , 0 , 0) ; font-family: &amp;#34;helvetica&amp;#34; ; font-size: 12px ; font-style: normal ; font-weight: 400 ; letter-spacing: normal ; text-align: center ; text-indent: 0px ; text-transform: none ; word-spacing: 0px ; background-color: rgb(248 , 249 , 250)&quot;&gt;&lt;span style=&quot;color: rgb(0 , 0 , 0) ; font-family: &amp;#34;helvetica&amp;#34; ; font-size: 12px ; font-style: normal ; font-weight: 400 ; letter-spacing: normal ; text-align: center ; text-indent: 0px ; text-transform: none ; word-spacing: 0px ; background-color: rgb(248 , 249 , 250) ; display: inline ; float: none&quot;&gt;目标规则集&lt;/span&gt;&lt;br&gt;" style="whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="940" y="660" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="EYbbgb6AHi4v5-scqT2N-71" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="EYbbgb6AHi4v5-scqT2N-68" target="EYbbgb6AHi4v5-scqT2N-66">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1200" y="700" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="1200" y="690" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="EYbbgb6AHi4v5-scqT2N-68" value="取出版本号最大的&lt;br&gt;现网规则集" style="whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="1140" y="560" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="EYbbgb6AHi4v5-scqT2N-72" value="&lt;span&gt;设置全量&lt;/span&gt;&lt;br&gt;&lt;span&gt;更新规则状态&lt;/span&gt;" style="whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="940" y="800" width="120" height="60" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
